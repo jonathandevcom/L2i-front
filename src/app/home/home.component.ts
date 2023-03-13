@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private _httpClient: HttpClient) {}
 
   article: Article[]|undefined;
+
   
   ngOnInit(): void {
 /*
@@ -23,17 +24,12 @@ export class HomeComponent implements OnInit {
     });
 */
 
-this._httpClient.get('http://localhost/rest/User').subscribe((res) => {
-  console.log(res);
+
+this._httpClient.get('http://localhost/rest/Book').subscribe((res:any) => {
+  this.article = res['__ENTITIES'] as Article[];
+  console.log(this.article);
+
 });
-
-    this._httpClient.get('https://fakestoreapi.com/products').subscribe((res) => {
-    console.log(res); 
-
-    this.article=res as Article[];
-
-    });
-
   }
 
 }
