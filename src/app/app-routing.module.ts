@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-import { LegalMentionComponent } from './legal-mention/legal-mention.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { LegalMentionComponent } from './components/legal-mention/legal-mention.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [

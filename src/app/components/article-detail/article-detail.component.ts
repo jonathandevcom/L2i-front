@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Article } from '../interfaces/article';
+import { Article } from '../../interfaces/article';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

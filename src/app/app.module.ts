@@ -4,16 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-import { LegalMentionComponent } from './legal-mention/legal-mention.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { UserAdministrationComponent } from './user-administration/user-administration.component';
+import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
+import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { LegalMentionComponent } from './components/legal-mention/legal-mention.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 
 @NgModule({
   declarations: [
