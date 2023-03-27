@@ -1,14 +1,21 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { HomeComponent } from './home/home.component';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { LegalMentionComponent } from './legal-mention/legal-mention.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signup', component: SignupComponent },
+  { path: 'article-detail', component: ArticleDetailComponent },
+  { path: 'shopping-cart', component: ShoppingCartComponent },
+  { path: 'legal-mention', component: LegalMentionComponent }
 ];
 
 @NgModule({

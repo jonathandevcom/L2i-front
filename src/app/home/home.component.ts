@@ -15,21 +15,23 @@ export class HomeComponent implements OnInit {
 
   
   ngOnInit(): void {
-/*
-    const headers = new HttpHeaders({'username-4D':'toto', 'password-4D':'toto'});
-    console.log(headers);
-    
-    this._httpClient.post('http://localhost/rest/$directory/login',{headers: headers}).subscribe((res) => {
-      console.log(res );
+
+    const url = 'http://localhost/rest/$directory/login';
+    const headers = new HttpHeaders({
+      'username-4D': 'toto',
+      'password-4D': 'toto',
+      'Content-Type': 'application/json'
     });
-*/
+    
+    this._httpClient.post(url, null, { headers, withCredentials: true }).subscribe(res => {
+      console.log(res);
+    });
 
+    this._httpClient.post('http://localhost/rest/Article/getAllArticle', null).subscribe((res:any) => {
+      this.article = res.result as Article[];
+    });
+}
 
-this._httpClient.get('http://localhost/rest/Book').subscribe((res:any) => {
-  this.article = res['__ENTITIES'] as Article[];
-  console.log(this.article);
-
-});
-  }
+  
 
 }
