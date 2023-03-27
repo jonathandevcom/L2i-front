@@ -50,7 +50,8 @@
         <div *ngFor="let item of article">
         <div class="col mb-7 mb-md-10">
           <!-- Card -->      
-          <a class="card card-ghost h-100" href="../blog-article.html">
+        
+        
             <div class="row">
               <div class="col-lg-5 mb-3 mb-lg-0">
                 <img class="card-img" src="../assets/img/580x480/img14.jpg" alt="Image Description">
@@ -60,12 +61,12 @@
                 <h4>{{ item.title }}</h4>
                 <p class="card-text">Produce professional, reliable streams easily leveraging Htmlstream's innovative broadcast studio</p>
                 <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
-                <span class="card-link">Read more</span>
+                  <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
               </div>
               <!-- End Col -->
             </div>
             <!-- End Row -->
-          </a>
+
         </div>
           <!-- End Card -->
         </div>

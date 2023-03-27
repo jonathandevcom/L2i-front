@@ -1,5 +1,5 @@
 export interface Article {
-    id?: string;
+    ID?: string;
     title?: string;
     summary?: string;
     unitPriceExcludingTaxes?: number;

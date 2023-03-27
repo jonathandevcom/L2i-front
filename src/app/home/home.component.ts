@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Article } from '../interfaces/article';
 
 @Component({
@@ -9,7 +10,10 @@ import { Article } from '../interfaces/article';
 })
 export class HomeComponent implements OnInit {
   
-  constructor(private _httpClient: HttpClient) {}
+  constructor(
+    private router: Router,
+    private _httpClient: HttpClient
+    ) {}
 
   article: Article[]|undefined;
 
@@ -29,9 +33,13 @@ export class HomeComponent implements OnInit {
 
     this._httpClient.post('http://localhost/rest/Article/getAllArticle', null).subscribe((res:any) => {
       this.article = res.result as Article[];
+      console.log(res);
     });
 }
 
+goToArticleDetail(item: Article) {
+  this.router.navigate(['/article-detail', item.ID])
+}
   
 
 }
