@@ -13,15 +13,15 @@
           </div>
           <!-- End Heading -->
 
-          <form>
+          <form (submit)="searchArticle()">
             <div class="position-relative">
               <!-- Input Card -->
               <div class="input-card input-card-sm">
                 <div class="input-card-form">
                   <label for="searchForm" class="form-label visually-hidden">Quel livre cherchez-vous ?</label>
-                  <input type="text" class="form-control form-control-lg" id="searchForm" placeholder="Quel livre cherchez-vous ?" aria-label="Quel livre cherchez-vous ?">
+                  <input type="text" class="form-control form-control-lg" placeholder="Quel livre cherchez-vous ?" aria-label="Quel livre cherchez-vous ?">
                 </div>
-                <button type="button" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
+                <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
               </div>
               <!-- End Input Card -->
 
@@ -47,19 +47,17 @@
     <div class="container content-space-t-1">
       <span class="divider-start mb-4">Meilleurs ventes</span>
       <div class="row row-cols-1 row-cols-sm-2 gx-7">
-        <div *ngFor="let item of article">
+        <div *ngFor="let item of articleBySold">
         <div class="col mb-7 mb-md-10">
           <!-- Card -->      
-        
-        
             <div class="row">
               <div class="col-lg-5 mb-3 mb-lg-0">
-                <img class="card-img" src="../assets/img/580x480/img14.jpg" alt="Image Description">
+                <img class="card-img" [src]="" alt="Image Description">
               </div>
               <!-- End Col -->
               <div class="col-lg-7">
                 <h4>{{ item.title }}</h4>
-                <p class="card-text">Produce professional, reliable streams easily leveraging Htmlstream's innovative broadcast studio</p>
+               <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>
                 <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
                   <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
               </div>

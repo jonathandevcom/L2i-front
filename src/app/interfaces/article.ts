@@ -4,4 +4,6 @@ export interface Article {
     summary?: string;
     unitPriceExcludingTaxes?: number;
     unitPriceIncludingTaxes?: number;
+    sold: number;
+    image?: Blob;
 }
