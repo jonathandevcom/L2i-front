@@ -54,7 +54,7 @@ goToArticleDetail(item: Article) {
 }
 
 searchArticle() {
-
+  
   alert("toto")
   if (!this.searchText) {
     this.filteredArticle = this.article;

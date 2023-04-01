@@ -57,7 +57,12 @@
               <!-- End Col -->
               <div class="col-lg-7">
                 <h4>{{ item.title }}</h4>
-               <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>
+               <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
+               <p>Auteur : 
+                <ng-container *ngFor="let author of item.bookAuthor">
+                  {{ author.lastname }} {{ author.firstname }} <br/>
+                </ng-container>
+              </p>
                 <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
                   <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
               </div>
