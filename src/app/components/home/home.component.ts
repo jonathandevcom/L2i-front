@@ -25,12 +25,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     const url = 'http://localhost/rest/$directory/login';
-    console.log(url);
-    
     const headers = new HttpHeaders({
       'username-4D': 'toto',
       'password-4D': 'toto',
-      'Content-Type': 'application/json'
+      'Content-Type': 'multipart/form-data'
     });
     
     this._httpClient.post(url, null, { headers, withCredentials: true }).subscribe(res => {
@@ -39,34 +37,22 @@ export class HomeComponent implements OnInit {
 
     this.as.getAllArticle().subscribe((res:any) => {
       this.article = res.result as Article[];
-      console.log(this.article);
       this.articleBySold = this.article.sort((a, b) => (a.sold < b.sold) ? 1 : -1).slice(0, 4);
       this.filteredArticle = this.article;
-    }
-
-
-    );
-    
+    });
 }
 
 goToArticleDetail(item: Article) {
- // this.router.navigate(['/article-detail', item.ID])
+  this.router.navigate(['/article-detail', item.ID], { state: { data: item } });
 }
 
-searchArticle() {
-  
-  alert("toto")
-  if (!this.searchText) {
-    this.filteredArticle = this.article;
-    return;
+searchArticle(event: Event) {
+  event.preventDefault();
+  const searchValue = (document.getElementById('searchForm') as HTMLInputElement).value; 
+    this.filteredArticle = this.article.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()));
   }
-
-  this.filteredArticle = this.article.filter((a: Article) => {
-    console.log(a.title?.toLowerCase().includes(this.searchText.toLowerCase()));
-    
-    return a.title?.toLowerCase().includes(this.searchText.toLowerCase());
-  });
+ 
 }
 
   
-}
+

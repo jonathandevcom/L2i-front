@@ -9,6 +9,6 @@ export interface Article {
         firstname?: string;
         lastname?: string;
         language?: string;
-    }]
-    image?: Blob;
+    }];
+    image?: String;
 }
