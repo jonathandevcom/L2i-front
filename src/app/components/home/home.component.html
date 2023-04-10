@@ -123,17 +123,15 @@
     <div class="overflow-hidden">
       <div class="container content-space-1">
         <div class="w-lg-50 text-center mx-lg-auto">    
-          <form (submit)="searchArticle($event)">
+          <form (submit)="searchAuthor($event)">
             <div class="position-relative">
               <!-- Input Card -->
               <div class="input-card input-card-sm">
                 <div class="input-card-form">
-                  <label for="searchForm" class="form-label visually-hidden">Vous chercher un autheur ?</label>
-                  <input type="text" class="form-control form-control-lg" list="datalistOptions" id="searchForm" placeholder="Vous chercher un autheur ?" aria-label="Vous chercher un autheur ?">
-                  <datalist id="datalistOptions">
-                    <div *ngFor="let item of article">
-                      <option value="{{ item.title }}">{{ item.title }}</option>
-                    </div>
+                  <label for="searchAuthorValue" class="form-label visually-hidden">Vous chercher un autheur ?</label>
+                  <input type="text" class="form-control form-control-lg" list="datalistOptions1" id="searchAuthorValue" placeholder="Vous chercher un autheur ?" aria-label="Vous chercher un autheur ?">
+                  <datalist id="datalistOptions1">
+                    <option *ngFor="let author of authorList" [value]="author.firstname + ' ' + author.lastname"></option>
                   </datalist>
                 </div>
                 <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
@@ -157,6 +155,43 @@
       </div>
     </div>
     <!-- End Search by author -->
+
+        <!-- Articles by search -->
+        <div *ngIf="filteredArticleByAuthor.length !== article.length">
+          <div class="container content-space-t-1">
+            <span class="divider-start mb-4">Votre recherche</span>
+            <div class="row row-cols-1 row-cols-sm-2 gx-7">
+              <div *ngFor="let item of filteredArticleByAuthor">
+              <div class="col mb-7 mb-md-10">
+                <!-- Card -->      
+                  <div class="row">
+                    <div class="col-lg-5 mb-3 mb-lg-0">
+                      <img class="card-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                    </div>
+                    <!-- End Col -->
+                    <div class="col-lg-7">
+                      <h4>{{ item.title }}</h4>
+                    <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
+                    <p>Auteur : 
+                      <ng-container *ngFor="let author of item.bookAuthor">
+                        {{ author.lastname }} {{ author.firstname }} <br/>
+                      </ng-container>
+                    </p>
+                      <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
+                        <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+              </div>
+                <!-- End Card -->
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+          </div>
+        </div>
+        <!-- End Articles by search -->
 
   </main>
   <!-- ========== END MAIN CONTENT ========== -->
