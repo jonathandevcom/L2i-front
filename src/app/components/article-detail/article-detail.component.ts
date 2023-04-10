@@ -11,22 +11,21 @@ import { ArticleService } from 'src/app/services/article.service';
 })
 
 export class ArticleDetailComponent implements OnInit {
- // @Input() article: Article  = {}
   constructor(
     private _httpClient: HttpClient,
     private as:ArticleService,
     private route: ActivatedRoute
     ) { }
 
-    article: any;
+    article!: Article;
 
   ngOnInit(): void {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
-    this.as.getArticleById(id).subscribe((res:any) => {
-      this.article = res.result;
-      console.log(this.article);
-    });
     
+    this.as.getArticleById(id).subscribe((res:any) => {
+      console.log(res);
+      this.article = res.result;
+    });
   }
 
 }

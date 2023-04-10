@@ -26,7 +26,6 @@ export class ArticleService {
         'Content-Type': 'application/json'
       });
 
-      return this.http.post(`${this.url}/getArticleById(${id})`,{ headers, withCredentials: true });
-
+      return this.http.post(`${this.url}/getArticleById(${id})`,null,{ headers, withCredentials: true });
     }
 }

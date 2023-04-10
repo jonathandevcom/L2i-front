@@ -5,6 +5,8 @@ export interface Article {
   unitPriceExcludingTaxes?: number;
   unitPriceIncludingTaxes?: number;
   sold: number;
+  bookEditor?: string;
+  bookTypes?: string[];
   bookAuthor?: {
     firstname?: string;
     lastname?: string;
