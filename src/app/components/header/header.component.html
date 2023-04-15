@@ -11,66 +11,20 @@
         </a>
         <!-- End Logo -->
       
-        <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-default">
-            <i class="bi-list"></i>
-          </span>
-          <span class="navbar-toggler-toggled">
-            <i class="bi-x"></i>
-          </span>
-        </button>
-        <!-- End Toggler -->
-
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <div class="navbar-absolute-top-scroller">
             <ul class="navbar-nav nav-pills">
-              <!-- Landings -->
-              <li class="hs-has-mega-menu nav-item"
-                  data-hs-mega-menu-item-options='{
-                    "desktop": {
-                      "maxWidth": "40rem"
-                    }
-                  }'>
-                <a id="landingsMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle " aria-current="page" href="#" role="button" aria-expanded="false">Panier</a>
-
-                <!-- Mega Menu -->
-                <div class="hs-mega-menu dropdown-menu" aria-labelledby="landingsMegaMenu" style="min-width: 25rem;">
-                  <!-- Main Content -->
-                  <div class="row">
-                    <div class="col-lg d-none d-lg-block">
-                      <div class="d-flex align-items-start flex-column bg-light rounded-3 h-100 p-4">
-                        <span class="fs-3 fw-bold d-block">Landings</span>
-                        <p class="text-body">Accelerate the way your business builds modern sites at scale.</p>
-                        <div class="mt-auto">
-                          <p class="mb-1"><a class="link link-dark link-pointer" href="#">Learn more</a></p>
-                          <p class="mb-1"><a class="link link-dark link-pointer" href="#">Why Unify Template</a></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-sm">
-                      <div class="navbar-dropdown-menu-inner">
-                        <span class="dropdown-header">Classic</span>
-                        <a class="dropdown-item active" href="./index.html"><i class="bi-building me-2"></i> Corporate</a>
-                        <a class="dropdown-item " href="./landing-business.html"><i class="bi-briefcase me-2"></i> Business <span class="badge text-primary">New</span></a>
-                        <a class="dropdown-item " href="./landing-consulting.html"><i class="bi-chat-right-dots me-2"></i> Consulting <span class="badge text-primary">New</span></a>
-                        <a class="dropdown-item " href="./landing-saas.html"><i class="bi-tropical-storm me-2"></i> SaaS</a>
-                        <a class="dropdown-item " href="./landing-services.html"><i class="bi-gear me-2"></i> Services</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Main Content -->
-                </div>
-                <!-- End Mega Menu -->
+              
+              <!-- Shopping cart -->
+              <li class="nav-item ms-auto me-2 position-relative">
+                <a class="btn btn-primary" routerLink="shopping-cart">Panier <span id="articleCard" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"></span></a>
               </li>
-              <!-- End Landings -->
-
+              <!-- End Shopping cart -->
+              
               <!-- Log in -->
-              <li class="nav-item ms-lg-auto">
+              <li class="nav-item">
                 <a class="btn btn-ghost-dark me-2 me-lg-0" routerLink="login">Connexion</a>
-                <a class="btn btn-dark d-lg-none" routerLink="signup">S'enregistrer</a>
               </li>
               <!-- End Log in -->
 
@@ -86,8 +40,6 @@
       </nav>
     </div>
   </header>
-
-
 
     <!-- JS Plugins Init. template -->
     <script>

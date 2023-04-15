@@ -1,6 +1,9 @@
 <!-- Features -->
 <div class="container content-space-4" *ngIf="article">
-    <div class="row justify-content-lg-between align-items-lg-center content-space-1">
+    <div class="row justify-content-lg-between align-items-lg-center">
+    
+      <div id="cart-alert" class="alert alert-primary" role="alert" style="display:none;"></div>
+
       <div class="col-lg-4 mb-5 mb-lg-0">
         <img class="img-fluid rounded-3" [src]="'data:image/png;base64,' + article.image" alt="Image Description">
       </div>
@@ -29,8 +32,14 @@
             </li> 
         </ul>
         <!-- End List Checked -->
-  
-        <a class="btn btn-primary" >Ajouter au panier</a>
+        
+        <div class="wrapper">
+          <span id="minus" (click)="deducQuantity()">-</span>
+          <span id="num">3</span>
+          <span id="plus" (click)="addQuantity(article)">+</span>
+        </div>
+     
+        <a (click)="addToCart(article)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
       </div>
       <!-- End Col -->
     </div>

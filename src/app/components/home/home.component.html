@@ -88,35 +88,44 @@
       <span class="divider-start mb-4">Meilleurs ventes</span>
       <div class="row row-cols-1 row-cols-sm-2 gx-7">
         <div *ngFor="let item of articleBySold">
-        <div class="col mb-7 mb-md-10">
-          <!-- Card -->      
+          <div class="col mb-7 mb-md-10">
+            <!-- Card -->      
             <div class="row">
               <div class="col-lg-5 mb-3 mb-lg-0">
-                <img class="card-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
-
+                <a class="cursor" (click)="goToArticleDetail(item)">
+                  <img class="card-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                </a>
               </div>
               <!-- End Col -->
               <div class="col-lg-7">
-                <h4>{{ item.title }}</h4>
-               <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
-               <p>Auteur : 
-                <ng-container *ngFor="let author of item.bookAuthor">
-                  {{ author.lastname }} {{ author.firstname }} <br/>
-                </ng-container>
-              </p>
-                <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
-                  <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
+                <a class="cursor" (click)="goToArticleDetail(item)">
+                  <h4>{{ item.title }}</h4>
+                  <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
+                  <p>Auteur : 
+                    <ng-container *ngFor="let author of item.bookAuthor">
+                      {{ author.lastname }} {{ author.firstname }} <br/>
+                    </ng-container>
+                  </p>
+                  <p class="card-text mb-2 fs-2">{{ item.unitPriceIncludingTaxes }} €</p>
+                </a>
+                <div class="wrapper product-{{item.ID}}">
+                  <span class="minus" (click)="deducQuantity(item)">-</span>
+                  <span class="num">1</span>
+                  <span class="plus" (click)="addQuantity(item)">+</span>
+                </div>
+                <a (click)="addToCart(item)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
               </div>
               <!-- End Col -->
             </div>
             <!-- End Row -->
-        </div>
+          </div>
           <!-- End Card -->
         </div>
         <!-- End Col -->
       </div>
       <!-- End Row -->
     </div>
+    
     <!-- End Articles by sold -->
 
     <!-- Search by author -->

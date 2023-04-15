@@ -1,38 +1,62 @@
-<!-- Table -->
-<div class="overflow-hidden content-space-t-2 ">
+<main id="content" role="main">
+  <!-- Search by title -->
+  <div class="overflow-hidden content-space-t-2 ">
     <div class="container content-space-1">
-      <div class="w-lg-50 text-center mx-lg-auto">
-<table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-  <!-- End Table -->
-</div>
-</div>
-</div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-header-title">Votre panier</h4>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table table-nowrap table-align-middle ">
+            <thead class="thead-light">
+              <tr>
+                <th>Article</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td>
+                  <a class="d-flex" href="#">
+                    <div class="flex-shrink-0">
+                      <div class="avatar">
+                        <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                      </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
+                        <span class="d-block font-size-sm text-body">
+                        <ng-container *ngFor="let author of item.bookAuthor">
+                          {{ author.lastname }} {{ author.firstname }} <br/>
+                        </ng-container>
+                      </span>
+                    </div>
+                  </a>
+                </td>
+                <td>
+                  <div class="wrapper product-{{item.ID}}">
+                    <span class="minus" (click)="deducQuantity(item)">-</span>
+                    <span class="num">{{ item.quantity }}</span>
+                    <span class="plus" (click)="addQuantity(item)">+</span>
+                  </div>
+                </td>
+                <td>32,22 $</td>
+                <td>
+                  <i class="bi bi-trash-fill"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- End Table -->
+      </div>
+      <!-- End Card -->
+    </div>
+  </div>
+</main>
