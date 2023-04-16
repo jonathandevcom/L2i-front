@@ -1,208 +1,132 @@
-  <!-- ========== MAIN CONTENT ========== -->
-  <main id="content" role="main">
-    <!-- Search by title -->
-    <div class="overflow-hidden content-space-t-2 ">
-      <div class="container content-space-1">
-        <div class="w-lg-50 text-center mx-lg-auto">
-          <!-- Heading -->
-          <div class="mb-5">
-            <h1 class="display-4">Livre de formation</h1>
-            <p>Le numérique vous interesse ? Ici vous trouverez tous nos livres.</p>
-          </div>
-          <!-- End Heading -->
-
-          <form (submit)="searchArticle($event)">
-            <div class="position-relative">
-              <!-- Input Card -->
-              <div class="input-card input-card-sm">
-                <div class="input-card-form">
-                  <label for="searchForm" class="form-label visually-hidden">Quel livre cherchez-vous ?</label>
-                  <input type="text" class="form-control form-control-lg" list="datalistOptions" id="searchForm" placeholder="Quel livre cherchez-vous ?" aria-label="Quel livre cherchez-vous ?">
-                  <datalist id="datalistOptions">
-                    <div *ngFor="let item of article">
-                      <option value="{{ item.title }}">{{ item.title }}</option>
-                    </div>
-                  </datalist>
-                </div>
-                <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
+<main id="content" role="main">
+  <!-- Search by title -->
+  <div class="overflow-hidden content-space-t-2 ">
+    <div class="container content-space-1">
+      <div class="w-lg-50 text-center mx-lg-auto">
+        <!-- Heading -->
+        <div class="mb-5">
+          <h1 class="display-4">Livre de formation</h1>
+          <p>Le numérique vous interesse ? Ici vous trouverez tous nos livres.</p>
+        </div>
+        <!-- End Heading -->
+        <form (submit)="searchArticle($event)">
+          <div class="position-relative">
+            <!-- Input Card -->
+            <div class="input-card input-card-sm">
+              <div class="input-card-form">
+                <label for="searchForm" class="form-label visually-hidden">Quel livre cherchez-vous ?</label>
+                <input type="text" class="form-control form-control-lg" list="datalistOptions" id="searchForm" placeholder="Quel livre cherchez-vous ?" aria-label="Quel livre cherchez-vous ?">
+                <datalist id="datalistOptions">
+                  <div *ngFor="let item of article">
+                    <option value="{{ item.title }}">{{ item.title }}</option>
+                  </div>
+                </datalist>
               </div>
-              <!-- End Input Card -->
-              
-              <!-- SVG Shape -->
-              <figure class="position-absolute top-0 end-0 d-none d-sm-block zi-n1 mt-n7 me-n10" style="width: 4rem;">
-                <img class="img-fluid" src="../assets/svg/components/pointer-up.svg" alt="Image Description">
-              </figure>
-              <!-- End SVG Shape -->
-
-              <!-- SVG Shape -->
-              <figure class="position-absolute bottom-0 start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
-                <img class="img-fluid" src="../assets/svg/components/curved-shape.svg" alt="Image Description">
-              </figure>
-              <!-- End SVG Shape -->
+              <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
             </div>
-          </form>
+            <!-- End Input Card -->
+            
+            <!-- SVG Shape -->
+            <figure class="position-absolute top-0 end-0 d-none d-sm-block zi-n1 mt-n7 me-n10" style="width: 4rem;">
+              <img class="img-fluid" src="../assets/svg/components/pointer-up.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+
+            <!-- SVG Shape -->
+            <figure class="position-absolute bottom-0 start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
+              <img class="img-fluid" src="../assets/svg/components/curved-shape.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End Search by title -->
+
+  <!-- Articles by search -->
+  <div *ngIf="filteredArticle.length !== article.length">
+    <div class="container content-space-t-1">
+      <span class="divider-start mb-4">Votre recherche</span>
+      <div class="row row-cols-1 row-cols-sm-2 gx-7">
+        <div *ngFor="let article of filteredArticle">
+          <div class="col mb-7 mb-md-10">
+          <!-- Card -->      
+          <app-card-article [article]="article"></app-card-article>
+          <!-- End Card -->
+          </div>
         </div>
       </div>
     </div>
-    <!-- End Search by title -->
+  </div>
+  <!-- End Articles by search -->
 
-    <!-- Articles by search -->
-    <div *ngIf="filteredArticle.length !== article.length">
-      <div class="container content-space-t-1">
-        <span class="divider-start mb-4">Votre recherche</span>
-        <div class="row row-cols-1 row-cols-sm-2 gx-7">
-          <div *ngFor="let item of filteredArticle">
+  <!-- Articles by sold -->
+  <div class="container content-space-t-1">
+    <span class="divider-start mb-4">Meilleurs ventes</span>
+    <div class="row row-cols-1 row-cols-sm-2 gx-7">
+      <div *ngFor="let article of articleBySold">
+        <!-- Card -->      
+        <app-card-article [article]="article"></app-card-article>
+        <!-- End Card -->
+      </div>
+    </div>
+  </div>
+  <!-- End Articles by sold -->
+
+  <!-- Search by author -->
+  <div class="overflow-hidden">
+    <div class="container content-space-1">
+      <div class="w-lg-50 text-center mx-lg-auto">    
+        <form (submit)="searchAuthor($event)">
+          <div class="position-relative">
+            <!-- Input Card -->
+            <div class="input-card input-card-sm">
+              <div class="input-card-form">
+                <label for="searchAuthorValue" class="form-label visually-hidden">Vous chercher un autheur ?</label>
+                <input type="text" class="form-control form-control-lg" list="datalistOptions1" id="searchAuthorValue" placeholder="Vous chercher un autheur ?" aria-label="Vous chercher un autheur ?">
+                <datalist id="datalistOptions1">
+                  <option *ngFor="let author of authorList" [value]="author.firstname + ' ' + author.lastname"></option>
+                </datalist>
+              </div>
+              <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
+            </div>
+            <!-- End Input Card -->
+            
+            <!-- SVG Shape -->
+            <figure class="position-absolute top-0 end-0 d-none d-sm-block zi-n1 mt-n7 me-n10" style="width: 4rem;">
+              <img class="img-fluid" src="../assets/svg/components/pointer-up.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+
+            <!-- SVG Shape -->
+            <figure class="position-absolute bottom-0 start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
+              <img class="img-fluid" src="../assets/svg/components/curved-shape.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End Search by author -->
+
+  <!-- Articles by search -->
+  <div *ngIf="filteredArticleByAuthor.length !== article.length">
+    <div class="container content-space-t-1">
+      <span class="divider-start mb-4">Votre recherche</span>
+      <div class="row row-cols-1 row-cols-sm-2 gx-7">
+        <div *ngFor="let article of filteredArticleByAuthor">
           <div class="col mb-7 mb-md-10">
             <!-- Card -->      
-              <div class="row">
-                <div class="col-lg-5 mb-3 mb-lg-0">
-                  <img class="card-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
-                </div>
-                <!-- End Col -->
-                <div class="col-lg-7">
-                  <h4>{{ item.title }}</h4>
-                <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
-                <p>Auteur : 
-                  <ng-container *ngFor="let author of item.bookAuthor">
-                    {{ author.lastname }} {{ author.firstname }} <br/>
-                  </ng-container>
-                </p>
-                  <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
-                    <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
-                </div>
-                <!-- End Col -->
-              </div>
-              <!-- End Row -->
-          </div>
+            <app-card-article [article]="article"></app-card-article>
             <!-- End Card -->
           </div>
-          <!-- End Col -->
-        </div>
-        <!-- End Row -->
-      </div>
-    </div>
-    <!-- End Articles by search -->
-
-    <!-- Articles by sold -->
-    <div class="container content-space-t-1">
-      <span class="divider-start mb-4">Meilleurs ventes</span>
-      <div class="row row-cols-1 row-cols-sm-2 gx-7">
-        <div *ngFor="let item of articleBySold">
-          <div class="col mb-7 mb-md-10">
-            <!-- Card -->      
-            <div class="row">
-              <div class="col-lg-5 mb-3 mb-lg-0">
-                <a class="cursor" (click)="goToArticleDetail(item)">
-                  <img class="card-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
-                </a>
-              </div>
-              <!-- End Col -->
-              <div class="col-lg-7">
-                <a class="cursor" (click)="goToArticleDetail(item)">
-                  <h4>{{ item.title }}</h4>
-                  <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
-                  <p>Auteur : 
-                    <ng-container *ngFor="let author of item.bookAuthor">
-                      {{ author.lastname }} {{ author.firstname }} <br/>
-                    </ng-container>
-                  </p>
-                  <p class="card-text mb-2 fs-2">{{ item.unitPriceIncludingTaxes }} €</p>
-                </a>
-                <div class="wrapper product-{{item.ID}}">
-                  <span class="minus" (click)="deducQuantity(item)">-</span>
-                  <span class="num">1</span>
-                  <span class="plus" (click)="addQuantity(item)">+</span>
-                </div>
-                <a (click)="addToCart(item)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
-              </div>
-              <!-- End Col -->
-            </div>
-            <!-- End Row -->
-          </div>
-          <!-- End Card -->
-        </div>
-        <!-- End Col -->
-      </div>
-      <!-- End Row -->
-    </div>
-    
-    <!-- End Articles by sold -->
-
-    <!-- Search by author -->
-    <div class="overflow-hidden">
-      <div class="container content-space-1">
-        <div class="w-lg-50 text-center mx-lg-auto">    
-          <form (submit)="searchAuthor($event)">
-            <div class="position-relative">
-              <!-- Input Card -->
-              <div class="input-card input-card-sm">
-                <div class="input-card-form">
-                  <label for="searchAuthorValue" class="form-label visually-hidden">Vous chercher un autheur ?</label>
-                  <input type="text" class="form-control form-control-lg" list="datalistOptions1" id="searchAuthorValue" placeholder="Vous chercher un autheur ?" aria-label="Vous chercher un autheur ?">
-                  <datalist id="datalistOptions1">
-                    <option *ngFor="let author of authorList" [value]="author.firstname + ' ' + author.lastname"></option>
-                  </datalist>
-                </div>
-                <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
-              </div>
-              <!-- End Input Card -->
-              
-              <!-- SVG Shape -->
-              <figure class="position-absolute top-0 end-0 d-none d-sm-block zi-n1 mt-n7 me-n10" style="width: 4rem;">
-                <img class="img-fluid" src="../assets/svg/components/pointer-up.svg" alt="Image Description">
-              </figure>
-              <!-- End SVG Shape -->
-
-              <!-- SVG Shape -->
-              <figure class="position-absolute bottom-0 start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
-                <img class="img-fluid" src="../assets/svg/components/curved-shape.svg" alt="Image Description">
-              </figure>
-              <!-- End SVG Shape -->
-            </div>
-          </form>
         </div>
       </div>
     </div>
-    <!-- End Search by author -->
-
-        <!-- Articles by search -->
-        <div *ngIf="filteredArticleByAuthor.length !== article.length">
-          <div class="container content-space-t-1">
-            <span class="divider-start mb-4">Votre recherche</span>
-            <div class="row row-cols-1 row-cols-sm-2 gx-7">
-              <div *ngFor="let item of filteredArticleByAuthor">
-              <div class="col mb-7 mb-md-10">
-                <!-- Card -->      
-                  <div class="row">
-                    <div class="col-lg-5 mb-3 mb-lg-0">
-                      <img class="card-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
-                    </div>
-                    <!-- End Col -->
-                    <div class="col-lg-7">
-                      <h4>{{ item.title }}</h4>
-                    <p class="card-text">{{ item.summary ? item.summary.substring(0, 50) + '...'  : "" }}</p>    
-                    <p>Auteur : 
-                      <ng-container *ngFor="let author of item.bookAuthor">
-                        {{ author.lastname }} {{ author.firstname }} <br/>
-                      </ng-container>
-                    </p>
-                      <p class="card-text">{{ item.unitPriceIncludingTaxes }} €</p>
-                        <a (click)="goToArticleDetail(item)"><span class="card-link">Détail article</span></a>
-                    </div>
-                    <!-- End Col -->
-                  </div>
-                  <!-- End Row -->
-              </div>
-                <!-- End Card -->
-              </div>
-              <!-- End Col -->
-            </div>
-            <!-- End Row -->
-          </div>
-        </div>
-        <!-- End Articles by search -->
-
-  </main>
-  <!-- ========== END MAIN CONTENT ========== -->
+  </div>
+  <!-- End Articles by search -->
+</main>
 
 

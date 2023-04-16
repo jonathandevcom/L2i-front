@@ -1,0 +1,29 @@
+<!-- Card -->      
+<div class="col mb-7 mb-md-10">
+    <div class="row">
+        <div class="col-lg-5 mb-3 mb-lg-0">
+            <a class="cursor" (click)="goToArticleDetail(article)">
+                <img class="card-img" [src]="'data:image/png;base64,' + article.image" alt="Image Description">
+            </a>
+        </div>
+        <div class="col-lg-7">
+            <a class="cursor" (click)="goToArticleDetail(article)">
+                <h4>{{ article.title }}</h4>
+                <p class="card-text">{{ article.summary ? article.summary.substring(0, 50) + '...'  : "" }}</p>    
+                <p>Auteur : 
+                    <ng-container *ngFor="let author of article.bookAuthor">
+                        {{ author.lastname }} {{ author.firstname }} <br/>
+                    </ng-container>
+                </p>
+                <p class="card-text mb-2 fs-2">{{ article.unitPriceIncludingTaxes }} €</p>
+            </a>
+        <div class="wrapper product-{{article.ID}}">
+            <span class="minus" (click)="deducQuantity(article)">-</span>
+            <span class="num">1</span>
+            <span class="plus" (click)="addQuantity(article)">+</span>
+        </div>
+        <a (click)="addToCart(article)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
+        </div>
+    </div>
+</div>
+<!-- End Card -->
