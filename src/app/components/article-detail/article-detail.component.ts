@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Article } from '../../interfaces/article';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
@@ -11,7 +10,6 @@ import { ArticleService } from 'src/app/services/article.service';
 })
 export class ArticleDetailComponent implements OnInit {
   constructor(
-    private _httpClient: HttpClient,
     private as:ArticleService,
     private route: ActivatedRoute
   ) { }
@@ -22,7 +20,6 @@ export class ArticleDetailComponent implements OnInit {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
     
     this.as.getArticleById(id).subscribe((res:any) => {
-      console.log(res);
       this.article = res.result;
     });
   }
@@ -35,7 +32,6 @@ export class ArticleDetailComponent implements OnInit {
         return;
       }
       num.innerHTML = (parseInt(num.innerHTML) - 1).toString();
-      console.log(num.innerHTML);
     }
   }
 
@@ -74,13 +70,17 @@ export class ArticleDetailComponent implements OnInit {
     } else {
       // Ajout de l'article dans le local storage
       const cartItem = {
-        title: articleTitle,
+        id: article.ID,
+        title: article.title,
         image: article.image,
         summary: article.summary,
         bookEditor: article.bookEditor,
         bookTypes: article.bookTypes,
         bookAuthor: article.bookAuthor,
-        quantity: num?.innerHTML
+        priceExcludingTaxes: article.unitPriceExcludingTaxes,
+        priceIncludingTaxes: article.     unitPriceIncludingTaxes,
+        quantity: num?.innerHTML,
+        stock: article.stock
       };
       
       cartItems.push(cartItem);

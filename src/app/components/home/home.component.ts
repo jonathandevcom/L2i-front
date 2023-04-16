@@ -61,20 +61,20 @@ export class HomeComponent implements OnInit {
     });
 }
 
-searchArticle(event: Event) {
-  event.preventDefault();
-  const searchValue = (document.getElementById('searchForm') as HTMLInputElement).value; 
-    this.filteredArticle = this.article.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()));
-}
- 
-searchAuthor(event: Event): void {
-  event.preventDefault();
-  const searchValue = (document.getElementById('searchAuthorValue') as HTMLInputElement).value.toLowerCase();
-  this.filteredArticleByAuthor = this.article.filter(article => {
-    const authors = article.bookAuthor?.map(author => `${author.firstname?.toLowerCase()} ${author.lastname?.toLowerCase()}`) || [];
-    return authors.some(author => author.includes(searchValue));
-  });
-}
+  searchArticle(event: Event) {
+    event.preventDefault();
+    const searchValue = (document.getElementById('searchForm') as HTMLInputElement).value; 
+      this.filteredArticle = this.article.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()));
+  }
+  
+  searchAuthor(event: Event): void {
+    event.preventDefault();
+    const searchValue = (document.getElementById('searchAuthorValue') as HTMLInputElement).value.toLowerCase();
+    this.filteredArticleByAuthor = this.article.filter(article => {
+      const authors = article.bookAuthor?.map(author => `${author.firstname?.toLowerCase()} ${author.lastname?.toLowerCase()}`) || [];
+      return authors.some(author => author.includes(searchValue));
+    });
+  }
 }
   
   

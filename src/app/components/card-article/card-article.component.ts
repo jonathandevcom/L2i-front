@@ -27,7 +27,6 @@ deducQuantity(article: any){
       return;
     }
     num.innerHTML = (parseInt(num.innerHTML) - 1).toString();
-    console.log(num.innerHTML);
   }
 }
 
@@ -66,13 +65,17 @@ addToCart(article: any) {
   } else {
     // Ajout de l'article dans le local storage
     const cartItem = {
-      title: articleTitle,
+      id: article.ID,
+      title: article.title,
       image: article.image,
       summary: article.summary,
       bookEditor: article.bookEditor,
       bookTypes: article.bookTypes,
       bookAuthor: article.bookAuthor,
-      quantity: num?.innerHTML
+      priceExcludingTaxes: article.unitPriceExcludingTaxes,
+      priceIncludingTaxes: article.unitPriceIncludingTaxes,
+      quantity: num?.innerHTML,
+      stock: article.stock
     };
     
     cartItems.push(cartItem);
@@ -81,24 +84,24 @@ addToCart(article: any) {
   }
 
   // Mise à jour du nombre d'articles dans le panier
-const articleCardElement = document.getElementById('articleCard');
+  const articleCardElement = document.getElementById('articleCard');
 
-if (articleCardElement) {
-  const cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
-  const cartItemCount = cartItems.reduce((count: number, item: any) => count + item.quantity, 0);
-  articleCardElement.innerText = cartItemCount.toString();
-}
+  if (articleCardElement) {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    const totalItems = cartItems.reduce((total : number, item : any) => total + parseInt(item.quantity || '0', 10), 0);
+    articleCardElement.innerText = totalItems.toString();
+    }
 
   // Affichage du message d'alerte Bootstrap
   const alertElement = document.getElementById('cart-alert');
   
   if (alertElement) {
-    //afficher le message d'alerte pendant 5 secondes
+    //afficher le message d'alerte pendant 3 secondes
 
     alertElement.innerHTML = message;
     alertElement.style.display = 'block';
 
-      // masquer le message après 5 secondes
+      // masquer le message après 3 secondes
     setTimeout(function() {
       alertElement.style.display = 'none';
     }, 3000);

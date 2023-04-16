@@ -2,61 +2,111 @@
   <!-- Search by title -->
   <div class="overflow-hidden content-space-t-2 ">
     <div class="container content-space-1">
-      <!-- Card -->
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-header-title">Votre panier</h4>
+      <ng-container *ngIf="this.cartItems && this.cartItems.length > 0; then cartDisplay; else noCart"></ng-container>
+      <ng-template #noCart>
+        <div class="container text-center content-space-1 mt-5">
+          <div class="mb-4 content-space-2">
+            <h1 class="display-3">Votre panier est vide !</h1>
+            <br>
+            <p class="display-5">Ne vous inquiétez pas, nous avons le livre qu'il vous faut...</p>
+          </div>
+          <a class="btn btn-primary" routerLink="../home">Page d'accueil</a>
         </div>
+      </ng-template>
+      <ng-template #cartDisplay>
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-header-title">Votre panier</h4>
+            </div>
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="table table-nowrap table-align-middle">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Article</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Supprimer</th>
+                  </tr>
+                </thead>
 
-        <!-- Table -->
-        <div class="table-responsive">
-          <table class="table table-nowrap table-align-middle ">
-            <thead class="thead-light">
-              <tr>
-                <th>Article</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                <th>Supprimer</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let item of cartItems">
-                <td>
-                  <a class="d-flex" href="#">
-                    <div class="flex-shrink-0">
-                      <div class="avatar">
-                        <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                <tbody>
+                  <tr *ngFor="let item of cartItems">
+                    <td>
+                      <a class="d-flex cursor" (click)="goToArticleDetail(item)">
+                        <div class="flex-shrink-0">
+                          <div class="avatar">
+                            <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                          </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                          <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
+                            <span class="d-block font-size-sm text-body">
+                            <ng-container *ngFor="let author of item.bookAuthor">
+                              {{ author.lastname }} {{ author.firstname }} <br/>
+                            </ng-container>
+                          </span>
+                          <span class="d-block h5 text-inherit mb-0"> {{ item.priceIncludingTaxes }} €</span>
+                        </div>
+                      </a>
+                    </td>
+                    <td>
+                      <div class="wrapper product-{{item.ID}} mt-2">
+                        <span class="minus" (click)="deducQuantity(item)">-</span>
+                        <span class="num">{{ item.quantity }}</span>
+                        <span class="plus" (click)="addQuantity(item)">+</span>
                       </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
-                        <span class="d-block font-size-sm text-body">
-                        <ng-container *ngFor="let author of item.bookAuthor">
-                          {{ author.lastname }} {{ author.firstname }} <br/>
-                        </ng-container>
-                      </span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-                  <div class="wrapper product-{{item.ID}}">
-                    <span class="minus" (click)="deducQuantity(item)">-</span>
-                    <span class="num">{{ item.quantity }}</span>
-                    <span class="plus" (click)="addQuantity(item)">+</span>
-                  </div>
-                </td>
-                <td>32,22 $</td>
-                <td>
-                  <i class="bi bi-trash-fill"></i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- End Table -->
-      </div>
-      <!-- End Card -->
+                    </td>
+                    <td>{{ (item.priceIncludingTaxes * item.quantity) | number:'.2' }} €</td>
+                    <td>
+                      <i class="bi bi-trash-fill cursor" (click)="deleteArticleCart(item)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- End Table -->
+          </div>
+          <div class="row">
+            <div class="col-8"></div>
+            <div class="col-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-header-title">Récapitulatif</h4>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-nowrap table-align-middle">
+                    <tbody>
+                      <tr>
+                        <td>Frais de livraison</td>
+                        <td class="text-end">offert</td>
+                      </tr>
+                      <tr>
+                        <td>Montant HT</td>
+                        <td class="text-end">{{ totalExcludingTaxes | number:'.2' }} €</td>
+                      </tr>
+                    <tr>
+                      <td>TVA</td>
+                      <td class="text-end">{{ taxes | number:'.2' }} €</td>
+                    </tr>
+                    <tr>
+                       <td>Montant TTC</td>
+                       <td class="text-end">{{ totalIncludingTaxes | number:'.2' }} €</td>
+                     </tr>
+                    
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <a (click)="validateOrder()" class="btn btn-primary mt-3">Valider la commande</a>
+            </div>
+          </div>
+      </ng-template>
+
+
+
+      
+
     </div>
   </div>
 </main>
