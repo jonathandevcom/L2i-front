@@ -14,7 +14,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { LegalMentionComponent } from './components/legal-mention/legal-mention.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
-import { CardArticleComponent } from './card-article/card-article.component';
+import { CardArticleComponent } from './components/card-article/card-article.component';
 
 @NgModule({
   declarations: [
