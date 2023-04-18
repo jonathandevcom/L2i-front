@@ -22,17 +22,23 @@
               </li>
               <!-- End Shopping cart -->
               
-              <!-- Log in -->
-              <li class="nav-item">
-                <a class="btn btn-ghost-dark me-2 me-lg-0" routerLink="login">Connexion</a>
-              </li>
-              <!-- End Log in -->
+             <!-- Log in -->
+            <li class="nav-item" *ngIf="!authService.isLogged">
+              <a class="btn btn-ghost-dark me-2 me-lg-0" routerLink="login">Connexion</a>
+            </li>
+            <!-- End Log in -->
 
               <!-- Sign up -->
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="!authService.isLogged">
                 <a class="btn btn-dark d-none d-lg-inline-block" routerLink="signup">S'enregistrer</a>
               </li>
               <!-- End Sign up -->
+
+            <!-- Log in -->
+            <li class="nav-item" *ngIf="authService.isLogged">
+              <a class="btn  btn-dark d-none d-lg-inline-block" (click)="logout()">Se déconnecter</a>
+            </li>
+            <!-- End Log in -->
             </ul>
           </div>
         </div>

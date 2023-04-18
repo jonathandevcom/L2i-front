@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ArticleService {
 
-  private url: string = 'http://localhost/rest/Article'
+  private url: string = 'http://localhost/rest'
 
   constructor(private http: HttpClient) {  }
 
@@ -16,7 +16,7 @@ export class ArticleService {
       'Content-Type': 'application/json'
     });
 
-      return this.http.post(`${this.url}/getAllArticle`, null,{ headers, withCredentials: true });
+      return this.http.post(`${this.url}/Article/getAllArticle`, null,{ headers, withCredentials: true });
    }
 
     getArticleById(id: string| null) {
@@ -26,6 +26,6 @@ export class ArticleService {
         'Content-Type': 'application/json'
       });
 
-      return this.http.post(`${this.url}/getArticleById(${id})`,null,{ headers, withCredentials: true });
+      return this.http.post(`${this.url}/Article/getArticleById(${id})`,null,{ headers, withCredentials: true });
     }
 }

@@ -30,7 +30,7 @@
                         <span class="divider-center text-muted mb-4">OU</span>
                       </div>
                       
-                      <!-- Nom complet -->
+                      <!-- full name -->
                       <div class="row">
                         <div class="col-sm-2">
                           <!-- Form -->
@@ -80,7 +80,82 @@
                           <!-- End Form -->
                         </div>
                       </div>
+                      <!-- end full name -->
+
+                      <!-- Address -->
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <!-- Form -->
+                          <div class="mb-4 form-group">
+                            <label class="form-label" for="street">Numéro et nom de la rue</label>
+                            <input formControlName="street" [ngClass]="{'is-invalid':submitted && registerForm.controls['street'].errors}" type="text" class="form-control form-control-lg" name="street" id="street" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
+                            <div *ngIf="submitted && registerForm.controls['street'].errors" class="text-danger">
+                              <div *ngIf="submitted && registerForm.controls['street'].errors['required']">
+                                Merci le numéro et le nom de votre rue.
+                              </div>
+                            </div>
+                          </div>
+                          <!-- End Form -->
+                        </div>
+
+                        <div class="col-sm-6">
+                          <!-- Form -->
+                          <div class="mb-4 form-group">
+                            <label class="form-label" for="addressComplement">Complément d'adresse</label>
+                            <input formControlName="addressComplement" type="text" class="form-control form-control-lg" placeholder="Entrée B1" aria-label="Entrée B1" name="addressComplement" id="addressComplement">
+                          </div>
+                          <!-- End Form -->
+                        </div>
+                      </div>
                       <!-- end nom complet -->
+
+                      <!-- full name -->
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <div class="mb-4 form-group">
+                            <label class="form-label" for="zipCode">Code Postal</label>
+                            <input formControlName="zipCode" [ngClass]="{'is-invalid':submitted && registerForm.controls['zipCode'].errors}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="zipCode" id="zipCode" required>
+                            <div *ngIf="submitted && registerForm.controls['zipCode'].errors" class="text-danger">
+                              <div *ngIf="submitted && registerForm.controls['zipCode'].errors['required']">
+                                Merci de saisir votre code postal.
+                              </div>
+                              <div *ngIf="submitted && registerForm.controls['zipCode'].errors['minlength']">
+                                Votre code postal doit comporter au moins 5 chiffres.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-5">
+                          <div class="mb-4 form-group">
+                            <label class="form-label" for="city">Ville</label>
+                            <input formControlName="city" [ngClass]="{'is-invalid':submitted && registerForm.controls['city'].errors}" type="text" class="form-control form-control-lg" name="city" id="city" placeholder="Marseille" aria-label="Marseille" required>
+                            <div *ngIf="submitted && registerForm.controls['city'].errors" class="text-danger">
+                              <div *ngIf="submitted && registerForm.controls['city'].errors['required']">
+                                Merci de saisir votre ville.
+                              </div>
+                              <div *ngIf="submitted && registerForm.controls['city'].errors['minlength']">
+                                Votre ville doit comporter au moins 3 lettres.
+                              </div>
+                            </div>
+                          </div>
+                          <!-- End Form -->
+                        </div>
+
+                        <div class="col-sm-5">
+                          <div class="mb-4 form-group">
+                            <label class="form-label" for="country">Pays</label>
+                            <input formControlName="country" [ngClass]="{'is-invalid':submitted && registerForm.controls['country'].errors}" type="text" class="form-control form-control-lg" name="country" id="country" placeholder="France" aria-label="France" required>
+                            <div *ngIf="submitted && registerForm.controls['country'].errors" class="text-danger">
+                              <div *ngIf="submitted && registerForm.controls['country'].errors['required']">
+                                Merci de saisir votre pays.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <!-- end full name -->
 
                       <!-- email -->
                       <div class="mb-4 form-group">
@@ -108,13 +183,13 @@
                                    "showClass": "bi-eye",
                                    "classChangeTarget": ".js-toggle-password-show-icon-1"
                                  }'>
-                          <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;">
+                          <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;" (click)="diplayPassword()">
                             <i class="js-toggle-password-show-icon-1 bi-eye"></i>
                           </a>
                           <div *ngIf="submitted && registerForm.controls['password'].errors" class="text-danger">
                             <ng-container *ngIf="submitted && registerForm.controls['password'].errors['required']; then errorsRequired; else errorsPassword"></ng-container>
                               <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                              <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et une longueur minimale de 8 caractères.</ng-template>
+                              <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
                             </div>
                           </div>
                         </div>
@@ -125,14 +200,14 @@
                         <label class="form-label" for="signupSrConfirmPassword">Confirmer le mot de passe</label>
 
                         <div class="input-group-merge">
-                          <input formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls['confirmPassword'].errors}" type="password" class="js-toggle-password form-control form-control-lg" name="confirmPassword" id="signupSrConfirmPassword" placeholder="Mot de passe fort" aria-label="Mot de passe fort" required minlength="8"
+                          <input formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls['confirmPassword'].errors}" type="password" class="js-toggle-password form-control form-control-lg" name="confirmPassword" id="confirmPassword" placeholder="Mot de passe fort" aria-label="Mot de passe fort" required minlength="8"
                                  data-hs-toggle-password-options='{
                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
                                    "defaultClass": "bi-eye-slash",
                                    "showClass": "bi-eye",
                                    "classChangeTarget": ".js-toggle-password-show-icon-2"
                                  }'>
-                          <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:;">
+                          <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:;" (click)="diplayConfirmPassword()">
                             <i class="js-toggle-password-show-icon-2 bi-eye"></i>
                           </a>
                           <div *ngIf="submitted && registerForm.controls['confirmPassword'].errors" class="text-danger">

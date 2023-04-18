@@ -21,6 +21,8 @@ export class ArticleDetailComponent implements OnInit {
     
     this.as.getArticleById(id).subscribe((res:any) => {
       this.article = res.result;
+      console.log(this.article);
+      
     });
   }
 
@@ -88,14 +90,14 @@ export class ArticleDetailComponent implements OnInit {
       message = 'L\'article a été ajouté au panier.';
     }
 
-    // Mise à jour du nombre d'articles dans le panier
-  const articleCardElement = document.getElementById('articleCard');
-  
-  if (articleCardElement) {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
-    const cartItemCount = cartItems.reduce((count: number, item: any) => count + item.quantity, 0);
-    articleCardElement.innerText = cartItemCount.toString();
-  }
+   // Mise à jour du nombre d'articles dans le panier
+   const articleCardElement = document.getElementById('articleCard');
+
+   if (articleCardElement) {
+     const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+     const totalItems = cartItems.reduce((total : number, item : any) => total + parseInt(item.quantity || '0', 10), 0);
+     articleCardElement.innerText = totalItems.toString();
+     }
 
     // Affichage du message d'alerte Bootstrap
     const alertElement = document.getElementById('cart-alert');

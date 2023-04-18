@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  @ViewChild('localStorage', { static: true }) localStorage: any;
+  
+    
+  isLogged: boolean = false;
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     const articleCardElement = document.getElementById('articleCard');
@@ -18,6 +26,13 @@ export class HeaderComponent implements OnInit {
       articleCardElement.innerText = totalItems.toString();
       }
   }
+
+  logout() {
+    localStorage.setItem('login', 'false');
+    this.authService.setIsLogged(false);
+    this.router.navigate(['/login']);
+  }
+    
 
 
 }
