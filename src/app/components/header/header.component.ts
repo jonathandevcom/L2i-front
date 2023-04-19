@@ -10,14 +10,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('localStorage', { static: true }) localStorage: any;
   
-    
-  isLogged: boolean = false;
   constructor(
     public authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+     if (localStorage.getItem('login')) {
+      if (localStorage.getItem('login') === 'true') {
+        this.authService.setIsLogged(true);
+      }
+
     const articleCardElement = document.getElementById('articleCard');
 
     if (articleCardElement) {
@@ -26,13 +29,17 @@ export class HeaderComponent implements OnInit {
       articleCardElement.innerText = totalItems.toString();
       }
   }
+}
+
+  goToUserAdministration() {
+    const userID = localStorage.getItem('userID');
+    this.router.navigate(['/user-administration', userID]);
+  }
 
   logout() {
     localStorage.setItem('login', 'false');
+    localStorage.removeItem('userID');
     this.authService.setIsLogged(false);
     this.router.navigate(['/login']);
   }
-    
-
-
 }

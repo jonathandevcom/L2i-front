@@ -48,7 +48,6 @@ export class SignupComponent implements OnInit {
       //console.log(res);
     });
     
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
   }
 
   passwordValidator(): ValidatorFn {

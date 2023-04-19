@@ -34,11 +34,17 @@
               </li>
               <!-- End Sign up -->
 
-            <!-- Log in -->
+              <!-- my account -->
+            <li class="nav-item" *ngIf="authService.isLogged">
+              <a class="btn btn-ghost-dark me-2 me-lg-0" (click)="goToUserAdministration()">Mon compte</a>
+            </li>
+            <!-- End my account -->
+
+            <!-- Logout -->
             <li class="nav-item" *ngIf="authService.isLogged">
               <a class="btn  btn-dark d-none d-lg-inline-block" (click)="logout()">Se déconnecter</a>
             </li>
-            <!-- End Log in -->
+            <!-- End Logout -->
             </ul>
           </div>
         </div>
