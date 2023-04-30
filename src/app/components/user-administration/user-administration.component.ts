@@ -20,13 +20,14 @@ export class UserAdministrationComponent implements OnInit {
   submittedUpdateUserForm = false;
   submittedUpdateDeliveryForm = false;
   user!: any;
+  success = false;
+  message: string = '';
 
   ngOnInit(): void {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
 
     this.us.getUserById(id).subscribe((res:any) => {
       this.user = res.result;
-      console.log(this.user);
     });
 
     this.updateUserForm = this.formBuilder.group({
@@ -59,14 +60,18 @@ export class UserAdministrationComponent implements OnInit {
     const formValue = this.updateUserForm.value;
     formValue.id = id;
     const item = JSON.stringify(formValue).replace(/,/g, ';');
-   
+
     this.us.updateUser(item).subscribe((res:any) => {
-      //console.log(res);
-    });    
+      this.success=true;
+      this.message='Votre profil a été mis à jour avec succès.'
+      setTimeout(() => {
+        this.success=false;
+        this.message='';
+      }, 2000);
+    });
   }
 
   onUpdateDeliveryUserForm() {
-    alert('ok');
     const id = this.route.snapshot.paramMap.get('id');
     this.submittedUpdateDeliveryForm = true;
     if (this.updateDeliveryForm.invalid) {
@@ -76,10 +81,15 @@ export class UserAdministrationComponent implements OnInit {
     const formValue = this.updateDeliveryForm.value;
     formValue.id = id;
     const item = JSON.stringify(formValue).replace(/,/g, ';');
-    
+
     this.us.updateAddressDelivery(item).subscribe((res:any) => {
-      console.log(res);
-    });    
+      this.success=true;
+      this.message='Votre adresse a été mise à jour avec succès.'
+      setTimeout(() => {
+        this.success=false;
+        this.message='';
+      }, 2000);
+    });
   }
 
 }

@@ -16,7 +16,8 @@ import { LegalMentionComponent } from './components/legal-mention/legal-mention.
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 import { CardArticleComponent } from './components/card-article/card-article.component';
-
+import { AlertComponent } from './shared/alert/alert.component';
+import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { CardArticleComponent } from './components/card-article/card-article.com
     LegalMentionComponent,
     PageNotFoundComponent,
     UserAdministrationComponent,
-    CardArticleComponent
+    CardArticleComponent,
+    AlertComponent,
+    PaymentPageComponent
   ],
   imports: [
     BrowserModule,

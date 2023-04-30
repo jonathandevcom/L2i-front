@@ -93,19 +93,52 @@
                        <td>Montant TTC</td>
                        <td class="text-end">{{ totalIncludingTaxes | number:'.2' }} €</td>
                      </tr>
-                    
                     </tbody>
                   </table>
                 </div>
               </div>
-              <a (click)="validateOrder()" class="btn btn-primary mt-3">Valider la commande</a>
+              <!-- Button trigger modal -->
+              <button type="button" (click)="validateOrder()" class="btn btn-primary mt-3"  [attr.data-bs-toggle]="authService.isLogged ? 'modal' : null"
+                      [attr.data-bs-target]="authService.isLogged ? '#modalPayment' : null">
+                Valider la commande
+              </button>
+
+              <!-- Modal -->
+              <div id="modalPayment" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">Confirmer l'adresse de livraison</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>{{ user?.civility }} {{ user?.firstname }} {{ user?.lastname }}</p>
+                      <div *ngIf="user?.deliveryStreet">
+                        <p *ngIf="user?.deliveryAddressComplement">{{ user?.deliveryAddressComplement }}</p>
+                        <p>{{ user?.deliveryStreet }}</p>
+                        <p>{{ user?.deliveryZipCode }} {{ user?.deliveryCity }}</p>
+                      </div>
+                      <div *ngIf="!user?.deliveryStreet">
+                        <p *ngIf="user?.invoiceAddressComplement">{{ user?.invoiceAddressComplement }}</p>
+                        <p>{{ user?.invoiceStreet }}</p>
+                        <p>{{ user?.invoiceZipCode }} {{ user?.invoiceCity }}</p>s
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-white" data-bs-dismiss="modal" (click)="goToUserAdministration()">Modifier l'adresse</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" routerLink="../payment-page">Valider</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Modal -->
             </div>
           </div>
       </ng-template>
 
 
 
-      
+
 
     </div>
   </div>

@@ -1,0 +1,40 @@
+<main id="content" role="main">
+  <div class="container text-center content-space-4 mt-lg-8">
+
+      <div class="col-lg-4 mx-auto">
+        <app-alert *ngIf="success" message={{message}} color="alert-primary"></app-alert>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-header-title">Récapitulatif</h4>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-nowrap table-align-middle">
+            <tbody>
+            <tr>
+              <td>Frais de livraison</td>
+              <td class="text-end">offert</td>
+            </tr>
+            <tr>
+              <td>Montant HT</td>
+              <td class="text-end">{{ totalExcludingTaxes | number:'.2' }} €</td>
+            </tr>
+            <tr>
+              <td>TVA</td>
+              <td class="text-end">{{ taxes | number:'.2' }} €</td>
+            </tr>
+            <tr>
+              <td>Montant TTC</td>
+              <td class="text-end">{{ totalIncludingTaxes | number:'.2' }} €</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary mt-3" (click)="payement()">
+        Payer *
+      </button>
+      <p class="mt-3">* Cette fonctionnalité sera ajouté par l'équipe M2i</p>
+      </div>
+    </div>
+</main>
