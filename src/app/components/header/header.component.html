@@ -1,99 +1,103 @@
-  <header id="header" class="navbar navbar-expand-lg navbar-end navbar-light navbar-absolute-top navbar-show-hide"
-          data-hs-header-options='{
-            "fixMoment": 0,
-            "fixEffect": "slide"
-          }'>
-    <div class="container">
-      <nav class="js-mega-menu navbar-nav-wrap">
-        <!-- Logo -->
-        <a class="navbar-brand" routerLink="home" aria-label="Unify">
-          <img class="navbar-brand-logo" src="./assets/svg/logos/LogoV2.svg" alt="Logo L2i">
-        </a>
-        <!-- End Logo -->
-      
-        <!-- Collapse -->
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <div class="navbar-absolute-top-scroller">
-            <ul class="navbar-nav nav-pills">
-              
-              <!-- Shopping cart -->
-              <li class="nav-item ms-auto me-2 position-relative">
-                <a class="btn btn-primary" routerLink="shopping-cart">Panier <span id="articleCard" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"></span></a>
-              </li>
-              <!-- End Shopping cart -->
-              
+<header id="header" class="navbar navbar-expand-lg navbar-end navbar-light navbar-absolute-top navbar-show-hide"
+        data-hs-header-options='{
+    "fixMoment": 100,
+    "fixEffect": "slide"
+  }'>
+  <div class="container">
+    <nav class="js-mega-menu navbar-nav-wrap">
+      <a class="navbar-brand" routerLink="home" aria-label="Unify">
+        <img class="navbar-brand-logo" src="./assets/svg/logos/LogoV2.svg" alt="Logo L2i">
+      </a>
+
+      <!-- Toggle -->
+      <button type="button" class="navbar-toggler ms-auto" data-bs-toggle="collapse" data-bs-target="#megaMenuColumnsToggler" aria-label="Toggle navigation" aria-expanded="false" aria-controls="megaMenuColumnsToggler">
+        <span class="navbar-toggler-default">
+          <i class="bi-list"></i>
+        </span>
+        <span class="navbar-toggler-toggled">
+          <i class="bi-x"></i>
+        </span>
+      </button>
+      <!-- End Toggle -->
+
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="navbar-absolute-top-scroller">
+          <nav class="navbar-nav-wrap-col collapse navbar-collapse" id="navbarNavMenu">
+          <ul class="navbar-nav nav-pills">
+            <!-- Shopping cart -->
+            <li class="nav-item ms-auto me-2 position-relative">
+              <a class="btn btn-primary" routerLink="shopping-cart">Panier <span id="articleCard" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"></span></a>
+            </li>
              <!-- Log in -->
             <li class="nav-item" *ngIf="!authService.isLogged">
               <a class="btn btn-ghost-dark me-2 me-lg-0" routerLink="login">Connexion</a>
             </li>
-            <!-- End Log in -->
-
-              <!-- Sign up -->
-              <li class="nav-item" *ngIf="!authService.isLogged">
-                <a class="btn btn-dark d-none d-lg-inline-block" routerLink="signup">S'enregistrer</a>
-              </li>
-              <!-- End Sign up -->
-
-              <!-- my account -->
+            <!-- Sign up -->
+            <li class="nav-item" *ngIf="!authService.isLogged">
+              <a class="btn btn-dark d-none d-lg-inline-block" routerLink="signup">S'enregistrer</a>
+            </li>
+            <!-- my account -->
             <li class="nav-item" *ngIf="authService.isLogged">
               <a class="btn btn-ghost-dark me-2 me-lg-0" (click)="goToUserAdministration()">Mon compte</a>
             </li>
-            <!-- End my account -->
-
             <!-- Logout -->
             <li class="nav-item" *ngIf="authService.isLogged">
               <a class="btn  btn-dark d-none d-lg-inline-block" (click)="logout()">Se déconnecter</a>
             </li>
-            <!-- End Logout -->
-            </ul>
-          </div>
+          </ul>
+          </nav>
         </div>
-        <!-- End Collapse -->
-      </nav>
-    </div>
-  </header>
+      </div>
+      <!-- End Collapse -->
+    </nav>
+  </div>
+</header>
 
-    <!-- JS Plugins Init. template -->
-    <script>
-      (function() {
-        // INITIALIZATION OF NAVBAR
-        // =======================================================
-        new HSHeader('#header').init()
-  
-  
-        // INITIALIZATION OF MEGA MENU
-        // =======================================================
-        const megaMenu = new HSMegaMenu('.js-mega-menu', {
-          desktop: {
-            position: 'left'
-          }
-        })
-  
-  
-        // INITIALIZATION OF GO TO
-        // =======================================================
-        new HSGoTo('.js-go-to')
-  
-  
-        // INITIALIZATION OF SWIPER
-        // =======================================================
-        var swiper = new Swiper('.js-swiper-clients',{
-          slidesPerView: 2,
-          breakpoints: {
-            380: {
-              slidesPerView: 3,
-              spaceBetween: 15,
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 15,
-            },
-            1024: {
-              slidesPerView: 5,
-              spaceBetween: 15,
-            },
-          },
-        });
-      })()
-    </script>
-  
+
+
+
+<!-- JS Plugins Init. template -->
+<script>
+  (function() {
+    // INITIALIZATION OF NAVBAR
+    // =======================================================
+    new HSHeader('#header').init()
+
+
+    // INITIALIZATION OF MEGA MENU
+    // =======================================================
+    const megaMenu = new HSMegaMenu('.js-mega-menu', {
+      desktop: {
+        position: 'left'
+      }
+    })
+
+
+    // INITIALIZATION OF GO TO
+    // =======================================================
+    new HSGoTo('.js-go-to')
+
+
+    // INITIALIZATION OF SWIPER
+    // =======================================================
+    var swiper = new Swiper('.js-swiper-clients',{
+      slidesPerView: 2,
+      breakpoints: {
+        380: {
+          slidesPerView: 3,
+          spaceBetween: 15,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 15,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 15,
+        },
+      },
+    });
+  })()
+</script>
+

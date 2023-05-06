@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('localStorage', { static: true }) localStorage: any;
-  
+
   constructor(
     public authService: AuthService,
     private router: Router
