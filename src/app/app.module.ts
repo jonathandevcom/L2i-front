@@ -18,6 +18,7 @@ import { UserAdministrationComponent } from './components/user-administration/us
 import { CardArticleComponent } from './components/card-article/card-article.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
+import { AdminAdministrationComponent } from './components/admin-administration/admin-administration.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PaymentPageComponent } from './components/payment-page/payment-page.com
     UserAdministrationComponent,
     CardArticleComponent,
     AlertComponent,
-    PaymentPageComponent
+    PaymentPageComponent,
+    AdminAdministrationComponent
   ],
   imports: [
     BrowserModule,
