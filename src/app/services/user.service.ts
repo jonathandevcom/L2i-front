@@ -5,19 +5,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  
+
   private url: string = 'http://localhost/rest'
 
   constructor(private http: HttpClient) {  }
 
-  postNewUser(item : any| null) {
+  postNewUser(user : any| null) {
     const headers = new HttpHeaders({
       'username-4D': 'toto',
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    
-    return this.http.post(`${this.url}/User/postNewUser(${item})`,null,{ headers, withCredentials: true });
+
+    return this.http.post(`${this.url}/User/postNewUser(${user})`,null,{ headers, withCredentials: true });
   }
 
   login(user : any| null) {
@@ -26,7 +26,7 @@ export class UserService {
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    
+
     return this.http.post(`${this.url}/User/login(${user})`,null,{ headers, withCredentials: true });
   }
 
@@ -36,7 +36,7 @@ export class UserService {
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    
+
     return this.http.post(`${this.url}/User/getUserById(${id})`,null,{ headers, withCredentials: true });
   }
 
@@ -46,7 +46,7 @@ export class UserService {
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    
+
     return this.http.post(`${this.url}/User/updateUser(${user})`,null,{ headers, withCredentials: true });
   }
 
@@ -56,7 +56,7 @@ export class UserService {
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    
+
     return this.http.post(`${this.url}/User/updateAddressDelivery(${user})`,null,{ headers, withCredentials: true });
   }
 
