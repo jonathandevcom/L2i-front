@@ -3,7 +3,7 @@
     <!-- Content -->
     <div class="container content-space-t-1 content-space-b-2 mt-5">
       <div class="mx-lg-auto mt-5" style="max-width: 55rem;">
-        <div class="d-flex justify-content-center align-items-center flex-column min-vh-lg-100">
+        <div class="justify-content-center align-items-center flex-column">
           <div class="position-relative">
             <!-- Nav -->
             <ul class="nav nav-pills justify-content-center mb-7" role="tablist">
@@ -17,14 +17,11 @@
             <!-- End Nav -->
             <!-- Tab Content -->
             <div class="tab-content">
-
               <div class="tab-pane fade show active" id="nav-one-eg2" role="tabpanel" aria-labelledby="nav-one-eg2-tab">
                 <div class="card card-shadow card-login">
                   <div class="row">
                     <div class="card-body" id="display-alert">
-
                       <app-alert *ngIf="success" message={{message}} color="alert-primary"></app-alert>
-
                       <form [formGroup]="updateUserForm" (ngSubmit)="onUpdateUserForm()" class="js-validate needs-validation" novalidate id="signup-form">
                         <div class="text-center">
                           <div class="mb-5">
@@ -237,7 +234,61 @@
               </div>
 
               <div class="tab-pane fade" id="nav-two-eg2" role="tabpanel" aria-labelledby="nav-two-eg2-tab">
-                  <p>First tab content...</p>
+                  <ng-container *ngIf="this.orderList && this.orderList.length > 0; then orderDisplay; else noOrder">
+                  </ng-container>
+                    <ng-template #orderDisplay>
+                      <!-- Card -->
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-header-title">Commandes</h4>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="table-responsive">
+                          <table class="table table-nowrap table-align-middle ">
+                            <thead class="thead-light">
+                            <tr class="text-center">
+                              <th>Date</th>
+                              <th>Numéro</th>
+                              <th>Total TTC</th>
+                              <th>Statut</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr *ngFor="let order of orderList">
+                              <td>
+                                <span class="d-block h5 text-inherit mb-0 text-center">{{ order.date | date: 'dd/MM/yyyy' }}</span>
+                              <td>
+                                <span class="d-block h5 text-inherit mb-0 text-center">{{ order.number }}</span>
+                              </td>
+                              <td>
+                                <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes }} €</span>
+                              </td>
+                              <td class="text-center">
+                                <span class="legend-indicator bg-success"></span>En cours
+                              </td>
+                            </tr>
+
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- End Table -->
+                      </div>
+                      <!-- End Card -->
+                    </ng-template>
+                    <ng-template #noOrder>
+                      <div class="container text-center mt-lg-10 mb-lg-10 content-space-t-1">
+                        <div class="mt-lg-6">
+                          <h1 class="display-6">Vous n'avez pas encore passé de commande.</h1>
+                          <br>
+                          <p class="display-6">Ne vous inquiétez pas, nous avons le livre qu'il vous faut...</p>
+                        </div>
+                        <a class="btn btn-primary mt-3" routerLink="../../home">Page d'accueil</a>
+                      </div>
+                    </ng-template>
+
+
               </div>
 
             </div>

@@ -9,12 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserAdministrationComponent implements OnInit {
 
-  constructor(
-    private formBuilder:FormBuilder,
-    private route: ActivatedRoute,
-    private us:UserService
-  ) { }
-
+  orderList: any[] = [];
   updateUserForm!: FormGroup;
   updateDeliveryForm!: FormGroup;
   submittedUpdateUserForm = false;
@@ -23,11 +18,21 @@ export class UserAdministrationComponent implements OnInit {
   success = false;
   message: string = '';
 
+  constructor(
+    private formBuilder:FormBuilder,
+    private route: ActivatedRoute,
+    private us:UserService,
+  ) { }
+
   ngOnInit(): void {
+
     const id: string| null  = this.route.snapshot.paramMap.get('id');
 
     this.us.getUserById(id).subscribe((res:any) => {
       this.user = res.result;
+      // ajouter la liste des commandes
+      console.log(res.result.orders)
+      this.orderList = res.result.orders;
     });
 
     this.updateUserForm = this.formBuilder.group({
