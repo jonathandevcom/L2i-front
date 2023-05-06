@@ -33,7 +33,6 @@ export class ShoppingCartComponent implements OnInit {
     }
     this.calculateTotal()
 
-
   }
 
   goToArticleDetail(item: any) {

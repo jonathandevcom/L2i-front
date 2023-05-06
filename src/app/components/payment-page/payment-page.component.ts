@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { OrderService } from "../../services/order.service";
 
 @Component({
   selector: 'app-payment-page',
@@ -14,7 +15,8 @@ export class PaymentPageComponent implements OnInit {
   success = false;
   message: string = '';
   constructor(
-    private router: Router
+    private router: Router,
+    private os: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -52,16 +54,31 @@ export class PaymentPageComponent implements OnInit {
       const articleCardElement = document.getElementById('articleCard');
 
       if (articleCardElement) {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-        const totalItems = cartItems.reduce((total : number, item : any) => total + parseInt(item.quantity || '0', 10), 0);
-        articleCardElement.innerText = totalItems.toString();
+        articleCardElement.innerText = "0";
       }
         }, 2000);
 
+    // Envoi de la commande au serveur
+    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    // suprimer image et description de l'objet pour éviter les erreurs de parse
+    cartItems.forEach((item : any) => {
+      delete item.image;
+      delete item.summary;
+    });
+    console.log(cartItems)
 
+    const order = {
+      userID: localStorage.getItem('userID'),
+      items: cartItems,
+      totalExcludingTaxes: this.totalExcludingTaxes,
+      totalIncludingTaxes: this.totalIncludingTaxes,
+      taxes: this.taxes
+    };
+    console.log(order)
+    const oderString = JSON.stringify(order).replace(/,/g, ';');
 
-
-
+    this.os.postNewOrder(oderString).subscribe((res:any) => {
+      console.log(res);
+    });
   }
-
 }
