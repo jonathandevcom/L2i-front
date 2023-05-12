@@ -26,7 +26,7 @@
               <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
             </div>
             <!-- End Input Card -->
-            
+
             <!-- SVG Shape -->
             <figure class="position-absolute top-0 end-0 d-none d-sm-block zi-n1 mt-n7 me-n10" style="width: 4rem;">
               <img class="img-fluid" src="../assets/svg/components/pointer-up.svg" alt="Image Description">
@@ -44,7 +44,7 @@
     </div>
   </div>
   <!-- End Search by title -->
- 
+
   <!-- Articles by search -->
   <div *ngIf="filteredArticle.length !== article.length">
     <div class="container content-space-t-1">
@@ -52,7 +52,7 @@
       <div class="row row-cols-1 row-cols-sm-2 gx-7">
         <div *ngFor="let article of filteredArticle">
           <div class="col mb-7 mb-md-10">
-          <!-- Card -->      
+          <!-- Card -->
           <app-card-article [article]="article"></app-card-article>
           <!-- End Card -->
           </div>
@@ -67,7 +67,7 @@
     <span class="divider-start mb-4">Meilleurs ventes</span>
     <div class="row row-cols-1 row-cols-sm-2 gx-7">
       <div *ngFor="let article of articleBySold">
-        <!-- Card -->      
+        <!-- Card -->
         <app-card-article [article]="article"></app-card-article>
         <!-- End Card -->
       </div>
@@ -78,7 +78,7 @@
   <!-- Search by author -->
   <div class="overflow-hidden">
     <div class="container content-space-1">
-      <div class="w-lg-50 text-center mx-lg-auto">    
+      <div class="w-lg-50 text-center mx-lg-auto">
         <form (submit)="searchAuthor($event)">
           <div class="position-relative">
             <!-- Input Card -->
@@ -93,7 +93,7 @@
               <button type="submit" class="btn btn-dark btn-lg"><i class="bi-search"></i></button>
             </div>
             <!-- End Input Card -->
-            
+
             <!-- SVG Shape -->
             <figure class="position-absolute top-0 end-0 d-none d-sm-block zi-n1 mt-n7 me-n10" style="width: 4rem;">
               <img class="img-fluid" src="../assets/svg/components/pointer-up.svg" alt="Image Description">
@@ -119,7 +119,7 @@
       <div class="row row-cols-1 row-cols-sm-2 gx-7">
         <div *ngFor="let article of filteredArticleByAuthor">
           <div class="col mb-7 mb-md-10">
-            <!-- Card -->      
+            <!-- Card -->
             <app-card-article [article]="article"></app-card-article>
             <!-- End Card -->
           </div>

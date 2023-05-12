@@ -29,20 +29,43 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    let message: string = '';
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
-    
+
+
     const item = JSON.stringify(this.loginForm.value).replace(/,/g, ';');
     this.us.login(item).subscribe((res:any) => {
-      
-      if (res.result) {
+
+      if (!res.result.login) {
+        localStorage.setItem('login', 'false');
+        this.authService.setIsLogged(false);
+        message = res.result.error;
+      }
+
+      if (res.result.login) {
         localStorage.setItem('login', 'true');
         localStorage.setItem('userID', res.result.userID);
-        this.authService.setIsLogged(true);      
+        this.authService.setIsLogged(true);
+        message = res.result.message;
         this.router.navigate(['/home']);
       }
+
+
+    const alertElement = document.getElementById('cart-alert');
+
+    if (alertElement) {
+      //afficher le message d'alerte pendant 3 secondes
+      alertElement.innerHTML = message;
+      alertElement.style.display = 'block';
+
+      // masquer le message après 3 secondes
+      setTimeout(function() {
+        alertElement.style.display = 'none';
+      }, 3000);
+    }
     });
   }
 

@@ -1,4 +1,4 @@
-<!-- Card -->      
+<!-- Card -->
 <div class="col mb-7 mb-md-10">
     <div class="row">
         <div class="col-lg-5 mb-3 mb-lg-0">
@@ -6,11 +6,11 @@
                 <img class="card-img" [src]="'data:image/png;base64,' + article.image" alt="Image Description">
             </a>
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-7 button-container">
             <a class="cursor" (click)="goToArticleDetail(article)">
                 <h4>{{ article.title }}</h4>
-                <p class="card-text">{{ article.summary ? article.summary.substring(0, 50) + '...'  : "" }}</p>    
-                <p>Auteur : 
+                <p class="card-text">{{ article.summary ? article.summary.substring(0, 50) + '...'  : "" }}</p>
+                <p>Auteur :
                     <ng-container *ngFor="let author of article.bookAuthor">
                         {{ author.lastname }} {{ author.firstname }} <br/>
                     </ng-container>

@@ -28,3 +28,12 @@
 .cursor{
     cursor: pointer;
 }
+
+.button-container {
+  position: relative;
+}
+
+.btn {
+  position: absolute;
+  bottom: 0;
+}

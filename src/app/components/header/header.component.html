@@ -10,7 +10,7 @@
       </a>
 
       <!-- Toggle -->
-      <button type="button" class="navbar-toggler ms-auto" data-bs-toggle="collapse" data-bs-target="#megaMenuColumnsToggler" aria-label="Toggle navigation" aria-expanded="false" aria-controls="megaMenuColumnsToggler">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-default">
           <i class="bi-list"></i>
         </span>
@@ -41,9 +41,13 @@
             <li class="nav-item" *ngIf="authService.isLogged">
               <a class="btn btn-ghost-dark me-2 me-lg-0" (click)="goToUserAdministration()">Mon compte</a>
             </li>
+            <!-- management administrator -->
+            <li class="nav-item">
+              <a class="btn btn-primary" routerLink="admin-administration">Administration</a>
+            </li>
             <!-- Logout -->
             <li class="nav-item" *ngIf="authService.isLogged">
-              <a class="btn  btn-dark d-none d-lg-inline-block" (click)="logout()">Se déconnecter</a>
+              <a class="btn btn-dark d-none d-lg-inline-block" (click)="logout()">Se déconnecter</a>
             </li>
           </ul>
           </nav>

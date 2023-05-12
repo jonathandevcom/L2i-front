@@ -25,6 +25,7 @@ export class ArticleService {
         'password-4D': 'toto',
         'Content-Type': 'application/json'
       });
+    //  return this.http.post(`${this.url}/Article(${id})/toto()`,null,{ headers, withCredentials: true });
 
       return this.http.post(`${this.url}/Article/getArticleById(${id})`,null,{ headers, withCredentials: true });
     }

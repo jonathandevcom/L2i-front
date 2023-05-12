@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'article-detail/:id', component: ArticleDetailComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'user-administration/:id', component: UserAdministrationComponent },
-  { path: 'admin-administration/:id', component: AdminAdministrationComponent },
+  { path: 'admin-administration', component: AdminAdministrationComponent },
   { path: 'legal-mention', component: LegalMentionComponent },
   { path: 'payment-page', component: PaymentPageComponent },
   { path: '**', component: PageNotFoundComponent }
