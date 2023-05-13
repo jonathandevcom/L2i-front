@@ -10,7 +10,7 @@
           Sélectionner un auteur
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" *ngFor="let author of authors$ | async" (click)="selectAuthor(author)">{{ author.firstname }} {{ author.lastname }}</a>
+          <a class="dropdown-item" *ngFor="let author of authors" (click)="selectAuthor(author)">{{ author.firstname }} {{ author.lastname }}</a>
         </div>
       </div>
       <button class="btn btn-primary" *ngIf="selectedAuthorCheck" (click)="addAuthor()">Nouveau auteur</button>

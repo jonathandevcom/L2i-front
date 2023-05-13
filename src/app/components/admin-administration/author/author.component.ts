@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorService } from '../../../services/author.service';
-import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-author',
@@ -11,42 +9,35 @@ import { map, catchError } from 'rxjs/operators';
 export class AuthorComponent implements OnInit {
 
   authors!: any[]; // Tableau d'auteurs
-  authors$!: Observable<any>;
   selectedAuthor: any = {}; // Auteur sélectionné initialisé avec un objet vide
   selectedAuthorCheck: boolean = false;
 
   constructor(private authorService: AuthorService) { }
   ngOnInit(): void {
-    this.authors$ = this.getAuthors();
+    this.getAuthors()
   }
 
-  getAuthors(): Observable<any> {
-    return this.authorService.getAllAuthor().pipe(
-      map((response: any) => {
-        return response.result;
-      }),
-      catchError((error: any) => {
-        console.log(error);
-        throw error;
-      })
-    );
+  getAuthors(): void {
+    this.authorService.getAllAuthor().subscribe({
+      next: (response: any) => {
+          this.authors = response.result;
+        },
+      error: (error) => console.log(error),
+    });
   }
-
-  postAuthor(){
+  postAuthor() {
     let message: string = '';
-    this.authorService.postAuthor(JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe(
-      (response: any) => {
+    this.authorService.postAuthor(JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe({
+      next: (response: any) => {
         if(response.result.error){
           message = response.result.error;
 
           const alertElement = document.getElementById('cart-error');
 
           if (alertElement) {
-            //afficher le message d'alerte pendant 3 secondes
             alertElement.innerHTML = message;
             alertElement.style.display = 'block';
 
-            // masquer le message après 3 secondes
             setTimeout(function() {
               alertElement.style.display = 'none';
             }, 3000);
@@ -58,38 +49,25 @@ export class AuthorComponent implements OnInit {
           const alertElement = document.getElementById('cart-success');
 
           if (alertElement) {
-            //afficher le message d'alerte pendant 3 secondes
             alertElement.innerHTML = message;
             alertElement.style.display = 'block';
+            this.getAuthors()
 
-            // masquer le message après 3 secondes
             setTimeout(function() {
               alertElement.style.display = 'none';
             }, 3000);
           }
         }
       },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
+      error: (error) => console.log(error),
+      });
 
-  selectAuthor(author: any): void {
-    this.selectedAuthor = author;
-    this.selectedAuthorCheck = true
-  }
-
-  addAuthor(): void {
-    // Remettre selectedAuthor en objet vide
-    this.selectedAuthor = {};
-    this.selectedAuthorCheck = false
   }
 
   updateAuthor(){
     let message: string = '';
-    this.authorService.putAuthor(this.selectedAuthor.ID, JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe(
-      (response: any) => {
+    this.authorService.putAuthor(this.selectedAuthor.ID, JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe({
+      next: (response: any) => {
         if(response.result.error){
           message = response.result.error;
 
@@ -122,17 +100,15 @@ export class AuthorComponent implements OnInit {
             }, 3000);
           }
         }
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
+        },
+      error: (error) => console.log(error),
+      })
+    }
 
   deleteAuthor(): void {
     let message: string = '';
-    this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe(
-      (response: any) => {
+    this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe({
+      next:(response: any) => {
         if(response.result.error){
           message = response.result.error;
           const alertElement = document.getElementById('cart-error');
@@ -158,6 +134,7 @@ export class AuthorComponent implements OnInit {
             alertElement.innerHTML = message;
             alertElement.style.display = 'block';
 
+            this.getAuthors()
             this.selectedAuthor = {};
             this.selectedAuthorCheck = false
 
@@ -168,11 +145,21 @@ export class AuthorComponent implements OnInit {
           }
         }
       },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+      error: (error) => console.log(error),
+    })
+  }
+
+  selectAuthor(author: any): void {
+    this.selectedAuthor = author;
+    this.selectedAuthorCheck = true
+  }
+
+  addAuthor(): void {
+    this.selectedAuthor = {};
+    this.selectedAuthorCheck = false
   }
 }
+
+
 
 
