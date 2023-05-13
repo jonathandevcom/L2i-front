@@ -13,153 +13,84 @@ export class AuthorComponent implements OnInit {
   selectedAuthorCheck: boolean = false;
 
   constructor(private authorService: AuthorService) { }
+
   ngOnInit(): void {
-    this.getAuthors()
+    this.getAuthors();
   }
 
   getAuthors(): void {
     this.authorService.getAllAuthor().subscribe({
       next: (response: any) => {
-          this.authors = response.result;
-        },
+        this.authors = response.result;
+      },
       error: (error) => console.log(error),
     });
   }
-  postAuthor() {
+
+  handleResponse(response: any): void {
     let message: string = '';
-    this.authorService.postAuthor(JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe({
-      next: (response: any) => {
-        if(response.result.error){
-          message = response.result.error;
-
-          const alertElement = document.getElementById('cart-error');
-
-          if (alertElement) {
-            alertElement.innerHTML = message;
-            alertElement.style.display = 'block';
-
-            setTimeout(function() {
-              alertElement.style.display = 'none';
-            }, 3000);
-          }
-        }
-
-        if(response.result.success){
-          message = response.result.success;
-          const alertElement = document.getElementById('cart-success');
-
-          if (alertElement) {
-            alertElement.innerHTML = message;
-            alertElement.style.display = 'block';
-            this.getAuthors()
-
-            setTimeout(function() {
-              alertElement.style.display = 'none';
-            }, 3000);
-          }
-        }
-      },
-      error: (error) => console.log(error),
-      });
-
-  }
-
-  updateAuthor(){
-    let message: string = '';
-    this.authorService.putAuthor(this.selectedAuthor.ID, JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe({
-      next: (response: any) => {
-        if(response.result.error){
-          message = response.result.error;
-
-          const alertElement = document.getElementById('cart-error');
-
-          if (alertElement) {
-            //afficher le message d'alerte pendant 3 secondes
-            alertElement.innerHTML = message;
-            alertElement.style.display = 'block';
-
-            // masquer le message après 3 secondes
-            setTimeout(function() {
-              alertElement.style.display = 'none';
-            }, 3000);
-          }
-        }
-
-        if(response.result.success){
-          message = response.result.success;
-          const alertElement = document.getElementById('cart-success');
-
-          if (alertElement) {
-            //afficher le message d'alerte pendant 3 secondes
-            alertElement.innerHTML = message;
-            alertElement.style.display = 'block';
-
-            // masquer le message après 3 secondes
-            setTimeout(function() {
-              alertElement.style.display = 'none';
-            }, 3000);
-          }
-        }
-        },
-      error: (error) => console.log(error),
-      })
+    if (response.result.error) {
+      message = response.result.error;
+      const alertElement = document.getElementById('cart-error');
+      if (alertElement) {
+        alertElement.innerHTML = message;
+        alertElement.style.display = 'block';
+        setTimeout(function() {
+          alertElement.style.display = 'none';
+        }, 3000);
+      }
     }
 
-  deleteAuthor(): void {
-    let message: string = '';
-    this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe({
-      next:(response: any) => {
-        if(response.result.error){
-          message = response.result.error;
-          const alertElement = document.getElementById('cart-error');
+    if (response.result.success) {
+      message = response.result.success;
+      const alertElement = document.getElementById('cart-success');
+      if (alertElement) {
+        alertElement.innerHTML = message;
+        alertElement.style.display = 'block';
+        this.getAuthors();
+        setTimeout(function() {
+          alertElement.style.display = 'none';
+        }, 3000);
+      }
+    }
+  }
 
-          if (alertElement) {
-            //afficher le message d'alerte pendant 3 secondes
-            alertElement.innerHTML = message;
-            alertElement.style.display = 'block';
-
-            // masquer le message après 3 secondes
-            setTimeout(function() {
-              alertElement.style.display = 'none';
-            }, 3000);
-          }
-        }
-
-        if(response.result.success){
-          message = response.result.success;
-          const alertElement = document.getElementById('cart-success');
-
-          if (alertElement) {
-            //afficher le message d'alerte pendant 3 secondes
-            alertElement.innerHTML = message;
-            alertElement.style.display = 'block';
-
-            this.getAuthors()
-            this.selectedAuthor = {};
-            this.selectedAuthorCheck = false
-
-            // masquer le message après 3 secondes
-            setTimeout(function() {
-              alertElement.style.display = 'none';
-            }, 3000);
-          }
-        }
+  postAuthor() {
+    this.authorService.postAuthor(JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe({
+      next: (response: any) => {
+        this.handleResponse(response);
       },
       error: (error) => console.log(error),
-    })
+    });
+  }
+
+  updateAuthor() {
+    this.authorService.putAuthor(this.selectedAuthor.ID, JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe({
+      next: (response: any) => {
+        this.handleResponse(response);
+      },
+      error: (error) => console.log(error),
+    });
+  }
+
+  deleteAuthor(): void {
+    this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe({
+      next:(response: any) => {
+        this.handleResponse(response);
+        this.selectedAuthor = {};
+        this.selectedAuthorCheck = false;
+      },
+      error: (error) => console.log(error),
+    });
   }
 
   selectAuthor(author: any): void {
     this.selectedAuthor = author;
-    this.selectedAuthorCheck = true
+    this.selectedAuthorCheck = true;
   }
 
   addAuthor(): void {
     this.selectedAuthor = {};
-    this.selectedAuthorCheck = false
+    this.selectedAuthorCheck = false;
   }
 }
-
-
-
-
