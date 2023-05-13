@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorService } from '../../../services/author.service';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-author',
@@ -9,65 +11,167 @@ import { AuthorService } from '../../../services/author.service';
 export class AuthorComponent implements OnInit {
 
   authors!: any[]; // Tableau d'auteurs
+  authors$!: Observable<any>;
   selectedAuthor: any = {}; // Auteur sélectionné initialisé avec un objet vide
-
+  selectedAuthorCheck: boolean = false;
 
   constructor(private authorService: AuthorService) { }
   ngOnInit(): void {
-    this.getAuthors();
+    this.authors$ = this.getAuthors();
   }
 
-  getAuthors(): void {
-    this.authorService.getAllAuthor().subscribe(
+  getAuthors(): Observable<any> {
+    return this.authorService.getAllAuthor().pipe(
+      map((response: any) => {
+        return response.result;
+      }),
+      catchError((error: any) => {
+        console.log(error);
+        throw error;
+      })
+    );
+  }
+
+  postAuthor(){
+    let message: string = '';
+    this.authorService.postAuthor(JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe(
       (response: any) => {
-        console.log(response);
-        this.authors = response.result; // Mettre à jour le tableau d'auteurs avec la réponse du service
+        if(response.result.error){
+          message = response.result.error;
+
+          const alertElement = document.getElementById('cart-error');
+
+          if (alertElement) {
+            //afficher le message d'alerte pendant 3 secondes
+            alertElement.innerHTML = message;
+            alertElement.style.display = 'block';
+
+            // masquer le message après 3 secondes
+            setTimeout(function() {
+              alertElement.style.display = 'none';
+            }, 3000);
+          }
+        }
+
+        if(response.result.success){
+          message = response.result.success;
+          const alertElement = document.getElementById('cart-success');
+
+          if (alertElement) {
+            //afficher le message d'alerte pendant 3 secondes
+            alertElement.innerHTML = message;
+            alertElement.style.display = 'block';
+
+            // masquer le message après 3 secondes
+            setTimeout(function() {
+              alertElement.style.display = 'none';
+            }, 3000);
+          }
+        }
       },
       (error: any) => {
-        console.log(error); // Gérer l'erreur de récupération des auteurs
+        console.log(error);
       }
     );
   }
 
   selectAuthor(author: any): void {
-    this.selectedAuthor = author; // Sélectionner l'auteur dans la dropdown
-    console.log(author)
+    this.selectedAuthor = author;
+    this.selectedAuthorCheck = true
   }
 
-  submitForm(): void {
-    if (this.selectedAuthor) {
-      // Modifier l'auteur existant
-      // Implémentez votre logique de modification ici
-      console.log('Modifier l\'auteur :', this.selectedAuthor);
-    } else {
-      // Ajouter un nouvel auteur
-      // Implémentez votre logique d'ajout ici
-      console.log('Ajouter un nouvel auteur');
-    }
-  }
-
-  addAuthor(): void{
-    // remettre slectedAuthor en objet vide
-    this.selectedAuthor={}
+  addAuthor(): void {
+    // Remettre selectedAuthor en objet vide
+    this.selectedAuthor = {};
+    this.selectedAuthorCheck = false
   }
 
   updateAuthor(){
+    let message: string = '';
+    this.authorService.putAuthor(this.selectedAuthor.ID, JSON.stringify(this.selectedAuthor).replace(/,/g, ';')).subscribe(
+      (response: any) => {
+        if(response.result.error){
+          message = response.result.error;
 
+          const alertElement = document.getElementById('cart-error');
+
+          if (alertElement) {
+            //afficher le message d'alerte pendant 3 secondes
+            alertElement.innerHTML = message;
+            alertElement.style.display = 'block';
+
+            // masquer le message après 3 secondes
+            setTimeout(function() {
+              alertElement.style.display = 'none';
+            }, 3000);
+          }
+        }
+
+        if(response.result.success){
+          message = response.result.success;
+          const alertElement = document.getElementById('cart-success');
+
+          if (alertElement) {
+            //afficher le message d'alerte pendant 3 secondes
+            alertElement.innerHTML = message;
+            alertElement.style.display = 'block';
+
+            // masquer le message après 3 secondes
+            setTimeout(function() {
+              alertElement.style.display = 'none';
+            }, 3000);
+          }
+        }
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
+
   deleteAuthor(): void {
-    if (this.selectedAuthor) {
-      // Supprimer l'auteur sélectionné
-      // Implémentez votre logique de suppression ici
-      console.log('Supprimer l\'auteur :', this.selectedAuthor);
-      // Réinitialiser les valeurs
-      this.selectedAuthor = {};
-    }
-  }
+    let message: string = '';
+    this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe(
+      (response: any) => {
+        if(response.result.error){
+          message = response.result.error;
+          const alertElement = document.getElementById('cart-error');
 
+          if (alertElement) {
+            //afficher le message d'alerte pendant 3 secondes
+            alertElement.innerHTML = message;
+            alertElement.style.display = 'block';
 
+            // masquer le message après 3 secondes
+            setTimeout(function() {
+              alertElement.style.display = 'none';
+            }, 3000);
+          }
+        }
 
-  isEmptyObject(obj: any): boolean {
-    return Object.keys(obj).length != 0;
+        if(response.result.success){
+          message = response.result.success;
+          const alertElement = document.getElementById('cart-success');
+
+          if (alertElement) {
+            //afficher le message d'alerte pendant 3 secondes
+            alertElement.innerHTML = message;
+            alertElement.style.display = 'block';
+
+            this.selectedAuthor = {};
+            this.selectedAuthorCheck = false
+
+            // masquer le message après 3 secondes
+            setTimeout(function() {
+              alertElement.style.display = 'none';
+            }, 3000);
+          }
+        }
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }
 
