@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-lg-6">
+    <!-- Dropdown pour sélectionner un auteur -->
+    <div class="d-flex justify-content-between">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Sélectionner un auteur
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" *ngFor="let author of authors" (click)="selectAuthor(author)">{{ author.firstname }} {{ author.lastname }}</a>
+        </div>
+      </div>
+      <button class="btn btn-primary" *ngIf="isEmptyObject(selectedAuthor)" (click)="addAuthor()">Nouveau auteur</button>
+    </div>
+    <!-- Formulaire pour ajouter/modifier un auteur -->
+    <form (ngSubmit)="submitForm()" #authorForm="ngForm">
+      <div class="form-group mt-4">
+        <label for="firstname">Prénom</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="selectedAuthor.firstname" required>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Nom</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="selectedAuthor.lastname" required>
+      </div>
+      <div class="form-group">
+        <label for="language">Langue</label>
+        <input type="text" class="form-control" id="language" name="language" [(ngModel)]="selectedAuthor.language" required>
+      </div>
+
+      <!-- Boutons Ajouter/Modifier/Supprimer -->
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary mt-3" type="submit" *ngIf="isEmptyObject(selectedAuthor)" (click)="updateAuthor()">Modifier</button>
+        <button class="btn btn-primary mt-3" type="submit" *ngIf="!isEmptyObject(selectedAuthor)" (click)="addAuthor()">Ajouter</button>
+        <button class="btn btn-danger mt-3" *ngIf="isEmptyObject(selectedAuthor)" (click)="deleteAuthor()">Supprimer</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<!-- afficher la liste des articles -->
+<!-- Card -->
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-header-title">Commandes</h4>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table table-nowrap table-align-middle ">
+      <thead class="thead-light">
+      <tr class="text-center">
+        <th>Date</th>
+        <th>Numéro</th>
+        <th>Total TTC</th>
+        <th>Statut</th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let article of articlesList">
+        <td>
+          <span class="d-block h5 text-inherit mb-0 text-center">{{ article.ID }}</span>
+        <td>
+          <span class="d-block h5 text-inherit mb-0 text-center">{{ article.title }}</span>
+        </td>
+        <td>
+          <span class="d-block h5 mb-0 text-align-right">{{ article.title }}</span>
+        </td>
+        <td class="text-center">
+          <span class="legend-indicator bg-success"></span>En cours
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <!-- End Table -->
+</div>
+<!-- End Card -->

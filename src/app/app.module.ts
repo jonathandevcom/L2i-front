@@ -19,6 +19,10 @@ import { CardArticleComponent } from './components/card-article/card-article.com
 import { AlertComponent } from './shared/alert/alert.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 import { AdminAdministrationComponent } from './components/admin-administration/admin-administration.component';
+import { ArticlesComponent } from './components/admin-administration/articles/articles.component';
+import { EditorComponent } from './components/admin-administration/editor/editor.component';
+import { AuthorComponent } from './components/admin-administration/author/author.component';
+import { TypeComponent } from './components/admin-administration/type/type.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { AdminAdministrationComponent } from './components/admin-administration/
     CardArticleComponent,
     AlertComponent,
     PaymentPageComponent,
-    AdminAdministrationComponent
+    AdminAdministrationComponent,
+    ArticlesComponent,
+    EditorComponent,
+    AuthorComponent,
+    TypeComponent
   ],
   imports: [
     BrowserModule,
