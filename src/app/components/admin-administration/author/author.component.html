@@ -17,19 +17,28 @@
         <button class="btn btn-primary" *ngIf="selectedAuthorCheck" (click)="addAuthor()">Nouveau auteur</button>
       </div>
       <!-- Formulaire pour ajouter/modifier un auteur -->
-      <form #authorForm="ngForm">
-        <input class="d-none" id="id" name="id" [(ngModel)]="selectedAuthor.id">
+      <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="author-form" [formGroup]="authorForm">
+        <input class="d-none" id="id" name="id" formControlName="id">
         <div class="form-group mt-4">
           <label for="firstname">Prénom</label>
-          <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="selectedAuthor.firstname" required>
+          <input [ngClass]="{'is-invalid':submitted && authorForm.controls['firstname'].errors}" type="text" class="form-control" id="firstname" name="firstname" formControlName="firstname" required>
+          <div *ngIf="submitted && authorForm.controls['firstname'].errors" class="text-danger">
+            Le prénom de l'auteur est obligatoire.
+          </div>
         </div>
         <div class="form-group">
           <label for="lastname">Nom</label>
-          <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="selectedAuthor.lastname" required>
+          <input [ngClass]="{'is-invalid':submitted && authorForm.controls['lastname'].errors}" type="text" class="form-control" id="lastname" name="lastname" formControlName="lastname" required>
+          <div *ngIf="submitted && authorForm.controls['lastname'].errors" class="text-danger">
+            Le nom de l'auteur est obligatoire.
+          </div>
         </div>
         <div class="form-group">
           <label for="language">Langue</label>
-          <input type="text" class="form-control" id="language" name="language" [(ngModel)]="selectedAuthor.language" required>
+          <input [ngClass]="{'is-invalid':submitted && authorForm.controls['language'].errors}" type="text" class="form-control" id="language" name="language" formControlName="language" required>
+          <div *ngIf="submitted && authorForm.controls['language'].errors" class="text-danger">
+            La langue de l'auteur est obligatoire.
+          </div>
         </div>
 
         <!-- Boutons Ajouter/Modifier/Supprimer -->
@@ -39,6 +48,7 @@
           <button class="btn btn-danger mt-3" *ngIf="selectedAuthorCheck" (click)="deleteAuthor()">Supprimer</button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
