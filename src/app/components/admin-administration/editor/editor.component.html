@@ -1,1 +1,40 @@
+<div class="container content-space-1">
+  <div class="d-flex justify-content-center">
+    <div class="col-lg-6">
+      <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
+      <div id="cart-error" class="alert alert-danger" role="alert" style="display:none;"></div>
 
+      <!-- Dropdown pour sélectionner un auteur -->
+      <div class="d-flex justify-content-between">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Sélectionner un éditeur
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" *ngFor="let editor of editors" (click)="selectEditor(editor)">{{ editor.name }}</a>
+          </div>
+        </div>
+        <button class="btn btn-primary" *ngIf="selectedEditorCheck" (click)="addEditor()">Nouveau éditeur</button>
+      </div>
+      <!-- Formulaire pour ajouter/modifier un auteur -->
+      <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="editor-form" [formGroup]="editorForm">
+        <input class="d-none" id="id" name="id" formControlName="id">
+        <div class="form-group mt-4">
+          <label for="name">Nom</label>
+          <input [ngClass]="{'is-invalid':submitted && editorForm.controls['name'].errors}" type="text" class="form-control" id="name" name="name" formControlName="name" required>
+          <div *ngIf="submitted && editorForm.controls['name'].errors" class="text-danger">
+            Le nom de l'éditeur est obligatoire.
+          </div>
+        </div>
+
+        <!-- Boutons Ajouter/Modifier/Supprimer -->
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary mt-3" type="submit" *ngIf="selectedEditorCheck" (click)="updateEditor()">Modifier</button>
+          <button class="btn btn-primary mt-3" type="submit" *ngIf="!selectedEditorCheck" (click)="postEditor()">Ajouter</button>
+          <button class="btn btn-danger mt-3" *ngIf="selectedEditorCheck" (click)="deleteEditor()">Supprimer</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

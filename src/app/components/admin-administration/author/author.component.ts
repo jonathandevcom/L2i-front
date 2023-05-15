@@ -104,7 +104,6 @@ export class AuthorComponent implements OnInit {
     });
   }
 
-
   updateAuthor() {
     if (this.authorForm.invalid) {
       return;

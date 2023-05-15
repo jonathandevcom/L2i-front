@@ -4,46 +4,47 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthorService {
+export class EditorService {
 
   private url: string = 'http://localhost/rest'
   constructor(private http: HttpClient) { }
 
-  getAllAuthor() {
+  getAllEditor() {
     const headers = new HttpHeaders({
       'username-4D': 'toto',
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`${this.url}/Author/getAllAuthor`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Editor/getAllEditor`, null,{ headers, withCredentials: true });
   }
 
-  postAuthor(author: any| null) {
+  postEditor(editor: any| null) {
+    console.log(editor)
     const headers = new HttpHeaders({
       'username-4D': 'toto',
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.url}/Author/postAuthor(${author})`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Editor/postEditor(${editor})`, null,{ headers, withCredentials: true });
   }
 
-  putAuthor(id:string| null ,author: string| null) {
+  putEditor(id:string| null ,editor: string| null) {
     const headers = new HttpHeaders({
       'username-4D': 'toto',
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.url}/Author(${id})/putAuthor(${author})`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Editor(${id})/putEditor(${editor})`, null,{ headers, withCredentials: true });
   }
 
-  deleteAuthor(id: string| null) {
+  deleteEditor(id: string| null) {
     const headers = new HttpHeaders({
       'username-4D': 'toto',
       'password-4D': 'toto',
       'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.url}/Author(${id})/deleteAuthor`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Editor(${id})/deleteEditor`, null,{ headers, withCredentials: true });
   }
 
 }

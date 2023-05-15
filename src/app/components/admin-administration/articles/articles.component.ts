@@ -32,7 +32,6 @@ export class ArticlesComponent implements OnInit {
           }
         });
       });
-      console.log(this.articlesList)
       authorList.sort((a, b) => {
         const lastNameComparison = (a.lastname || '').localeCompare(b.lastname || '');
         if (lastNameComparison !== 0) {
