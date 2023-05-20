@@ -28,7 +28,7 @@
                         </a>
                         <span class="divider-center text-muted mb-4">OU</span>
                       </div>
-                      
+
                       <!-- full name -->
                       <div class="row">
                         <div class="col-sm-2">
@@ -79,7 +79,6 @@
                           <!-- End Form -->
                         </div>
                       </div>
-                      <!-- end full name -->
 
                       <!-- Address -->
                       <div class="row">
@@ -106,9 +105,8 @@
                           <!-- End Form -->
                         </div>
                       </div>
-                      <!-- end nom complet -->
 
-                      <!-- full name -->
+                      <!-- address more -->
                       <div class="row">
                         <div class="col-sm-2">
                           <div class="mb-4 form-group">
@@ -152,9 +150,7 @@
                             </div>
                           </div>
                         </div>
-
                       </div>
-                      <!-- end full name -->
 
                       <!-- email -->
                       <div class="mb-4 form-group">
@@ -196,7 +192,7 @@
 
                       <!-- confirm mot de passe -->
                       <div class="mb-4 form-group">
-                        <label class="form-label" for="signupSrConfirmPassword">Confirmer le mot de passe</label>
+                        <label class="form-label" for="confirmPassword">Confirmer le mot de passe</label>
 
                         <div class="input-group-merge">
                           <input formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls['confirmPassword'].errors}" type="password" class="js-toggle-password form-control form-control-lg" name="confirmPassword" id="confirmPassword" placeholder="Mot de passe fort" aria-label="Mot de passe fort" required minlength="8"

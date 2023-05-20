@@ -23,6 +23,7 @@ import { ArticlesComponent } from './components/admin-administration/articles/ar
 import { EditorComponent } from './components/admin-administration/editor/editor.component';
 import { AuthorComponent } from './components/admin-administration/author/author.component';
 import { TypeComponent } from './components/admin-administration/type/type.component';
+import { UsersComponent } from './components/admin-administration/users/users.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TypeComponent } from './components/admin-administration/type/type.compo
     ArticlesComponent,
     EditorComponent,
     AuthorComponent,
-    TypeComponent
+    TypeComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

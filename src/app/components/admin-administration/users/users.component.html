@@ -1,0 +1,282 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="col-lg-8">
+      <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
+      <div id="cart-error" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+      <!-- Dropdown pour sélectionner un utilisateur -->
+      <div class="d-flex justify-content-between">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Sélectionner un utilisateur
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" *ngFor="let user of users" (click)="selectUser(user)">{{ user.civility }} {{ user.firstname }} {{ user.lastname }}</a>
+          </div>
+        </div>
+        <button class="btn btn-primary" *ngIf="selectedUserCheck" (click)="addUser()">Nouveau utilisateur</button>
+      </div>
+
+      <!-- Formulaire pour ajouter/modifier un utilisateur -->
+      <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="user-form" [formGroup]="userForm">
+        <!-- full name -->
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group mt-4">
+              <label for="civility">Civilité</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['civility'].errors}" type="text" class="form-control" id="civility" name="civility" formControlName="civility" required>
+              <div *ngIf="submitted && userForm.controls['civility'].errors" class="text-danger">
+                La civilité est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="form-group mt-4">
+              <label for="userFirstname">Prénom</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['userFirstname'].errors}" type="text" class="form-control" id="userFirstname" name="userFirstname" formControlName="userFirstname" required>
+              <div *ngIf="submitted && userForm.controls['userFirstname'].errors" class="text-danger">
+                Le prénom est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="form-group mt-4">
+              <label for="userLastname">Nom</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['userLastname'].errors}" type="text" class="form-control" id="userLastname" name="userLastname" formControlName="userLastname" required>
+              <div *ngIf="submitted && userForm.controls['userLastname'].errors" class="text-danger">
+                Le nom est obligatoire.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="email">Email</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['email'].errors}" type="email" class="form-control" id="email" name="email" formControlName="email" required>
+              <div *ngIf="submitted && userForm.controls['email'].errors" class="text-danger">
+                L'email est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="type">Type d'utilisateur <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userType"></i>
+              </label>
+              <!-- End Button trigger modal -->
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['type'].errors}" type="text" class="form-control" id="type" name="type" formControlName="type" required>
+              <div *ngIf="submitted && userForm.controls['type'].errors" class="text-danger">
+                Le type d'utilisateur est obligatoire.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="password">Mot de passe <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userPassword"></i></label>
+              <div class="input-group-merge">
+                <input [ngClass]="{'is-invalid':submitted && userForm.controls['password'].errors}" type="password" class="js-toggle-password form-control" id="password" name="password" formControlName="password"
+                       data-hs-toggle-password-options='{
+                                     "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                                     "defaultClass": "bi-eye-slash",
+                                     "showClass": "bi-eye",
+                                     "classChangeTarget": ".js-toggle-password-show-icon-1"
+                                   }'>
+                <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;" (click)="diplayPassword()">
+                  <i class="js-toggle-password-show-icon-1 bi-eye"></i>
+                </a>
+                <div *ngIf="submitted && userForm.controls['password'].errors" class="text-danger">
+                  <ng-container *ngIf="submitted && userForm.controls['password'].errors['required']; then errorsRequired; else errorsPassword"></ng-container>
+                  <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
+                  <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group mb-md-auto d-flex mt-4">
+              <div class="form-check mt-1 mt-md-4">
+                <input class="form-check-input" type="checkbox" id="isAccess" name="isAccess" formControlName="isAccess">
+                <label class="form-check-label" for="isAccess">
+                  Compte autorisé
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <span class="divider-center text-muted mt-4">Adresse de livraison</span>
+        <!-- address -->
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="deliveryStreet">Numéro et nom de la rue</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['deliveryStreet'].errors}" type="text" class="form-control" id="deliveryStreet" name="deliveryStreet" formControlName="deliveryStreet" required>
+              <div *ngIf="submitted && userForm.controls['deliveryStreet'].errors" class="text-danger">
+                Le numéro et le nom de la rue sont obligatoires.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="deliveryAddressComplement">Complément d'adresse</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['deliveryAddressComplement'].errors}" type="text" class="form-control" id="deliveryAddressComplement" name="deliveryAddressComplement" formControlName="deliveryAddressComplement">
+            </div>
+          </div>
+        </div>
+
+        <!-- address end-->
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group mt-4">
+              <label for="deliveryZipCode">Code Postal</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['deliveryZipCode'].errors}" type="text" class="form-control" id="deliveryZipCode" name="deliveryZipCode" formControlName="deliveryZipCode" required>
+              <div *ngIf="submitted && userForm.controls['deliveryZipCode'].errors" class="text-danger">
+                Le code postal est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="form-group mt-4">
+              <label for="deliveryCity">Ville</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['deliveryCity'].errors}" type="text" class="form-control" id="deliveryCity" name="deliveryCity" formControlName="deliveryCity" required>
+              <div *ngIf="submitted && userForm.controls['deliveryCity'].errors" class="text-danger">
+                La ville est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="form-group mt-4">
+              <label for="deliveryCountry">Pays</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['deliveryCountry'].errors}" type="text" class="form-control" id="deliveryCountry" name="deliveryCountry" formControlName="deliveryCountry" required>
+              <div *ngIf="submitted && userForm.controls['deliveryCountry'].errors" class="text-danger">
+                Le pays est obligatoire.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span class="divider-center text-muted mt-4">Adresse de facturation</span>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="invoiceStreet">Numéro et nom de la rue</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['invoiceStreet'].errors}" type="text" class="form-control" id="invoiceStreet" name="invoiceStreet" formControlName="invoiceStreet">
+              <div *ngIf="submitted && userForm.controls['invoiceStreet'].errors" class="text-danger">
+                Le numéro et nom de la rue sont obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group mt-4">
+              <label for="invoiceAddressComplement">Complément d'adresse</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['invoiceAddressComplement'].errors}" type="text" class="form-control" id="invoiceAddressComplement" name="invoiceAddressComplement" formControlName="invoiceAddressComplement">
+            </div>
+          </div>
+        </div>
+
+        <!-- address end-->
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group mt-4">
+              <label for="invoiceZipCode">Code postal</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['invoiceZipCode'].errors}" type="text" class="form-control" id="invoiceZipCode" name="invoiceZipCode" formControlName="invoiceZipCode">
+              <div *ngIf="submitted && userForm.controls['invoiceZipCode'].errors" class="text-danger">
+                Le code postal est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="form-group mt-4">
+              <label for="invoiceCity">Ville</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['invoiceCity'].errors}" type="text" class="form-control" id="invoiceCity" name="invoiceCity" formControlName="invoiceCity">
+              <div *ngIf="submitted && userForm.controls['invoiceCity'].errors" class="text-danger">
+                La ville est obligatoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="form-group mt-4">
+              <label for="invoiceCountry">Pays</label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.controls['invoiceCountry'].errors}" type="text" class="form-control" id="invoiceCountry" name="invoiceCountry" formControlName="invoiceCountry">
+              <div *ngIf="submitted && userForm.controls['invoiceCountry'].errors" class="text-danger">
+                Le pays est obligatoire.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Boutons Ajouter/Modifier/Supprimer -->
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary mt-3" type="submit" *ngIf="selectedUserCheck" (click)="updateUser()">Modifier</button>
+          <button class="btn btn-primary mt-3" type="submit" *ngIf="!selectedUserCheck" (click)="postUser()">Ajouter</button>
+          <button class="btn btn-danger mt-3" *ngIf="selectedUserCheck" (click)="deleteUser()">Supprimer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal user type-->
+<div class="modal fade" id="userType" tabindex="-1" role="dialog" aria-labelledby="userType" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userTypeLabel">Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Seules les types "admin" ou "user" sont autorisés.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal user password-->
+<div class="modal fade" id="userPassword" tabindex="-1" role="dialog" aria-labelledby="userPassword" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userPasswordLabel">Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Le mot de passe est obligatoire uniquement lors de la création ou de la modification du mot de passe d'un compte existant.</p>
+        <div>
+          <p>Le mot de passe doit respecter les critères suivants :</p>
+          <ul>
+            <li>Contenir au moins une lettre majuscule</li>
+            <li>Contenir au moins une lettre minuscule</li>
+            <li>Contenir au moins un chiffre</li>
+            <li>Avoir une longueur minimale de 8 caractères</li>
+            <li>Autoriser les caractères spéciaux suivants : - + _ ! ?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->

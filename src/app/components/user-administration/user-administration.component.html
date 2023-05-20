@@ -153,7 +153,7 @@
                               <input formControlName="deliveryStreet" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryStreet'].errors}" type="text" class="form-control form-control-lg" name="deliveryStreet" id="deliveryStreet" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" value="{{ user?.deliveryStreet }}" [(ngModel)]="user.deliveryStreet" required>
                               <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryStreet'].errors" class="text-danger">
                                 <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryStreet'].errors['required']">
-                                  Merci le numéro et le nom de votre rue.
+                                  Merci d'indiquer le numéro et le nom de votre rue.
                                 </div>
                               </div>
                             </div>
