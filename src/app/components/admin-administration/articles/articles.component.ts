@@ -111,7 +111,7 @@ export class ArticlesComponent implements OnInit {
 
     // Mettre à jour les valeurs du formulaire
     this.articleForm.patchValue({
-      ISBN: article.ISBN,
+      ISBN: article.ISBN13,
       bookAuthor: article.bookAuthor,
       bookEditor: article.bookEditor,
       bookType: article.bookType,

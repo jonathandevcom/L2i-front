@@ -15,99 +15,136 @@
 
         <button class="btn btn-primary" *ngIf="selectedArticleCheck" (click)="addArticle()">Nouvel article</button>
         <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="article-form" [formGroup]="articleForm">
-          <div class="form-group mt-4">
-            <label for="title">Titre</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['title'].errors}" type="text" class="form-control" id="title" name="title" formControlName="title" required>
-            <div *ngIf="submitted && articleForm.controls['title'].errors" class="text-danger">
-              Le titre est obligatoire.
-            </div>
-          </div>
 
-          <div class="form-group mt-4">
-            <label for="stock">Stock</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['stock'].errors}" type="number" class="form-control" id="stock" name="stock" formControlName="stock" required>
-            <div *ngIf="submitted && articleForm.controls['stock'].errors" class="text-danger">
-              Le stock est obligatoire.
-            </div>
-          </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group mt-4">
+                  <label for="title">Titre</label>
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['title'].errors}" type="text" class="form-control" id="title" name="title" formControlName="title" required>
+                  <div *ngIf="submitted && articleForm.controls['title'].errors" class="text-danger">
+                    Le titre est obligatoire.
+                  </div>
+                </div>
+              </div>
 
-          <div class="form-group mt-4">
-            <label for="sold">Vendu</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['sold'].errors}" type="number" class="form-control" id="sold" name="sold" formControlName="sold" required>
-            <div *ngIf="submitted && articleForm.controls['sold'].errors" class="text-danger">
-              La quantité vendue est obligatoire.
-            </div>
-          </div>
+              <div class="col-sm-3">
+                <div class="form-group mt-4">
+                  <label for="stock">Stock</label>
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['stock'].errors}" type="number" class="form-control text-right-css" id="stock" name="stock" formControlName="stock" required>
+                  <div *ngIf="submitted && articleForm.controls['stock'].errors" class="text-danger">
+                    Le stock est obligatoire.
+                  </div>
+                </div>
+              </div>
 
-          <div class="form-group mt-4">
-            <label for="ISBN">ISBN</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['ISBN'].errors}" type="text" class="form-control" id="ISBN" name="ISBN" formControlName="ISBN" required>
-            <div *ngIf="submitted && articleForm.controls['ISBN'].errors" class="text-danger">
-              L'ISBN est obligatoire.
+              <div class="col-sm-3">
+                <div class="form-group mt-4">
+                  <label for="sold">Vendu</label>
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['sold'].errors}" type="number" class="form-control text-right-css" id="sold" name="sold" formControlName="sold" required>
+                  <div *ngIf="submitted && articleForm.controls['sold'].errors" class="text-danger">
+                    La quantité vendue est obligatoire.
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group mt-4">
-            <label for="bookAuthor">Auteur</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookAuthor'].errors}" type="text" class="form-control" id="bookAuthor" name="bookAuthor" formControlName="bookAuthor" required>
-            <div *ngIf="submitted && articleForm.controls['bookAuthor'].errors" class="text-danger">
-              L'auteur est obligatoire.
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group mt-4">
+                <label for="ISBN">ISBN</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['ISBN'].errors}" type="text" class="form-control" id="ISBN" name="ISBN" formControlName="ISBN" required>
+                <div *ngIf="submitted && articleForm.controls['ISBN'].errors" class="text-danger">
+                  L'ISBN est obligatoire.
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="form-group mt-4">
-            <label for="bookEditor">Éditeur</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookEditor'].errors}" type="text" class="form-control" id="bookEditor" name="bookEditor" formControlName="bookEditor" required>
-            <div *ngIf="submitted && articleForm.controls['bookEditor'].errors" class="text-danger">
-              L'éditeur est obligatoire.
-            </div>
-          </div>
-
-          <div class="form-group mt-4">
-            <label for="bookType">Type de livre</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookType'].errors}" type="text" class="form-control" id="bookType" name="bookType" formControlName="bookType" required>
-            <div *ngIf="submitted && articleForm.controls['bookType'].errors" class="text-danger">
-              Le type de livre est obligatoire.
-            </div>
-          </div>
-
-          <div class="form-group mt-4">
-            <label for="format">Format</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['format'].errors}" type="text" class="form-control" id="format" name="format" formControlName="format" required>
-            <div *ngIf="submitted && articleForm.controls['format'].errors" class="text-danger">
-              Le format est obligatoire.
-            </div>
-          </div>
-
-          <div class="form-group mt-4">
-            <label for="image">Image</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['image'].errors}" type="text" class="form-control" id="image" name="image" formControlName="image" required>
-            <div *ngIf="submitted && articleForm.controls['image'].errors" class="text-danger">
-              L'image est obligatoire.
+            <div class="col-sm-6">
+              <div class="form-group mt-4">
+                <label for="format">Format</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['format'].errors}" type="text" class="form-control" id="format" name="format" formControlName="format" required>
+                <div *ngIf="submitted && articleForm.controls['format'].errors" class="text-danger">
+                  Le format est obligatoire.
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="form-group mt-4">
             <label for="summary">Résumé</label>
-            <textarea [ngClass]="{'is-invalid': submitted && articleForm.controls['summary'].errors}" class="form-control" id="summary" name="summary" formControlName="summary" required></textarea>
+            <textarea [ngClass]="{'is-invalid': submitted && articleForm.controls['summary'].errors}" class="form-control textarea-resize" id="summary" name="summary" formControlName="summary" required></textarea>
             <div *ngIf="submitted && articleForm.controls['summary'].errors" class="text-danger">
               Le résumé est obligatoire.
             </div>
           </div>
 
-          <div class="form-group mt-4">
-            <label for="unitPriceExcludingTaxes">Prix unitaire HT</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceExcludingTaxes'].errors}" type="number" class="form-control" id="unitPriceExcludingTaxes" name="unitPriceExcludingTaxes" formControlName="unitPriceExcludingTaxes" required>
-            <div *ngIf="submitted && articleForm.controls['unitPriceExcludingTaxes'].errors" class="text-danger">
-              Le prix unitaire HT est obligatoire.
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group mt-4">
+                <label for="bookAuthor">Auteur</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookAuthor'].errors}" type="text" class="form-control" id="bookAuthor" name="bookAuthor" formControlName="bookAuthor" required>
+                <div *ngIf="submitted && articleForm.controls['bookAuthor'].errors" class="text-danger">
+                  L'auteur est obligatoire.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group mt-4">
+                <label for="bookEditor">Éditeur</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookEditor'].errors}" type="text" class="form-control" id="bookEditor" name="bookEditor" formControlName="bookEditor" required>
+                <div *ngIf="submitted && articleForm.controls['bookEditor'].errors" class="text-danger">
+                  L'éditeur est obligatoire.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group mt-4">
+                <label for="bookType">Type de livre</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookType'].errors}" type="text" class="form-control" id="bookType" name="bookType" formControlName="bookType" required>
+                <div *ngIf="submitted && articleForm.controls['bookType'].errors" class="text-danger">
+                  Le type de livre est obligatoire.
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="form-group mt-4">
-            <label for="unitPriceIncludingTaxes">Prix unitaire TTC</label>
-            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceIncludingTaxes'].errors}" type="number" class="form-control" id="unitPriceIncludingTaxes" name="unitPriceIncludingTaxes" formControlName="unitPriceIncludingTaxes" required>
-            <div *ngIf="submitted && articleForm.controls['unitPriceIncludingTaxes'].errors" class="text-danger">
-              Le prix unitaire TTC est obligatoire.
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group mt-4">
+                <label for="image">Image</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['image'].errors}" type="text" class="form-control" id="image" name="image" formControlName="image" required>
+                <div *ngIf="submitted && articleForm.controls['image'].errors" class="text-danger">
+                  L'image est obligatoire.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group mt-4">
+                <label for="unitPriceExcludingTaxes">Prix unitaire HT</label>
+                <div class="input-group">
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceExcludingTaxes'].errors}" type="number" class="form-control text-right-css" id="unitPriceExcludingTaxes" name="unitPriceExcludingTaxes" formControlName="unitPriceExcludingTaxes" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">€</span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && articleForm.controls['unitPriceExcludingTaxes'].errors" class="text-danger">
+                  Le prix unitaire HT est obligatoire.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="form-group mt-4">
+                <label for="unitPriceIncludingTaxes">Prix unitaire TTC</label>
+                <div class="input-group">
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceIncludingTaxes'].errors}" type="number" class="form-control text-right-css" id="unitPriceIncludingTaxes" name="unitPriceIncludingTaxes" formControlName="unitPriceIncludingTaxes" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon-3">€</span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && articleForm.controls['unitPriceIncludingTaxes'].errors" class="text-danger">
+                  Le prix unitaire TTC est obligatoire.
+                </div>
+              </div>
             </div>
           </div>
 
