@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Article } from '../../../interfaces/article';
 import { ArticleService } from '../../../services/article.service';
+import { AuthorService } from '../../../services/author.service';
+import { EditorService } from '../../../services/editor.service';
+import { TypeService } from '../../../services/type.service';
 
 @Component({
   selector: 'app-articles',
@@ -11,6 +14,9 @@ import { ArticleService } from '../../../services/article.service';
 export class ArticlesComponent implements OnInit {
 
   articlesList: Article[]= [];
+  authors!: any[];
+  editors!: any[];
+  types!: any[];
   selectedArticle: any;
   selectedArticleCheck: boolean = false;
   authorList: { firstname?: string, lastname?: string, language?: string }[] = [];
@@ -19,11 +25,17 @@ export class ArticlesComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private as:ArticleService
+    private as:ArticleService,
+    private authorService: AuthorService,
+    private editorService: EditorService,
+    private typeService: TypeService
   ) { }
 
   ngOnInit(): void {
     this.getArticles();
+    this.getAuthors();
+    this.getEditors();
+    this.getTypes();
 
     this.articleForm = this.formBuilder.group({
       ISBN: ['', Validators.required],
@@ -104,6 +116,35 @@ export class ArticlesComponent implements OnInit {
     });
 
   }
+
+  getAuthors(): void {
+    this.authorService.getAllAuthor().subscribe({
+      next: (response: any) => {
+        this.authors = response.result;
+      },
+      error: (error) => console.log(error),
+    });
+    console.log(this.authors)
+  }
+
+  getEditors(): void {
+    this.editorService.getAllEditor().subscribe({
+      next: (response: any) => {
+        this.editors = response.result;
+      },
+      error: (error) => console.log(error),
+    });
+  }
+
+  getTypes(): void {
+    this.typeService.getAllType().subscribe({
+      next: (response: any) => {
+        this.types = response.result;
+      },
+      error: (error) => console.log(error),
+    });
+  }
+
   selectArticle(article: any) {
     this.selectedArticle = article;
     this.selectedArticleCheck = true;

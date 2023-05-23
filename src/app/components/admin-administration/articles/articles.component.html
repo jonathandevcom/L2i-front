@@ -81,24 +81,39 @@
             <div class="col-sm-4">
               <div class="form-group mt-4">
                 <label for="bookAuthor">Auteur</label>
+                <select class="form-select mb-2" >
+                  <option selected>Choisir un auteur</option>
+                  <option *ngFor="let author of authors" [value]="author.id">{{ author.firstname }} {{ author.lastname }}</option>
+                </select>
                 <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookAuthor'].errors}" type="text" class="form-control" id="bookAuthor" name="bookAuthor" formControlName="bookAuthor" required>
                 <div *ngIf="submitted && articleForm.controls['bookAuthor'].errors" class="text-danger">
                   L'auteur est obligatoire.
                 </div>
               </div>
             </div>
+
             <div class="col-sm-4">
               <div class="form-group mt-4">
                 <label for="bookEditor">Éditeur</label>
+                <select class="form-select mb-2" >
+                  <option selected>Choisir un éditeur</option>
+                  <option *ngFor="let editor of editors" [value]="editor.id">{{ editor.name }}</option>
+                </select>
                 <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookEditor'].errors}" type="text" class="form-control" id="bookEditor" name="bookEditor" formControlName="bookEditor" required>
                 <div *ngIf="submitted && articleForm.controls['bookEditor'].errors" class="text-danger">
                   L'éditeur est obligatoire.
                 </div>
               </div>
             </div>
+
+
             <div class="col-sm-4">
               <div class="form-group mt-4">
                 <label for="bookType">Type de livre</label>
+                <select class="form-select mb-2" >
+                  <option selected>Choisir un type</option>
+                  <option *ngFor="let type of types" [value]="type.id">{{ type.typeName }}</option>
+                </select>
                 <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookType'].errors}" type="text" class="form-control" id="bookType" name="bookType" formControlName="bookType" required>
                 <div *ngIf="submitted && articleForm.controls['bookType'].errors" class="text-danger">
                   Le type de livre est obligatoire.
