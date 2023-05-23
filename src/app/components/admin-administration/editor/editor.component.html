@@ -1,8 +1,6 @@
 <div class="container content-space-3">
   <div class="d-flex justify-content-center">
     <div class="col-lg-6">
-      <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
-      <div id="cart-error" class="alert alert-danger" role="alert" style="display:none;"></div>
 
       <!-- Dropdown pour sélectionner un auteur -->
       <div class="d-flex justify-content-between">
@@ -18,7 +16,6 @@
       </div>
       <!-- Formulaire pour ajouter/modifier un auteur -->
       <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="editor-form" [formGroup]="editorForm">
-        <input class="d-none" id="id" name="id" formControlName="id">
         <div class="form-group mt-4">
           <label for="name">Nom</label>
           <input [ngClass]="{'is-invalid':submitted && editorForm.controls['name'].errors}" type="text" class="form-control" id="name" name="name" formControlName="name" required>

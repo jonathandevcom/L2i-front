@@ -14,12 +14,7 @@
       <div class="col-md-9">
 
         <button class="btn btn-primary" *ngIf="selectedArticleCheck" (click)="addArticle()">Nouvel article</button>
-        <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
-        <div id="cart-error" class="alert alert-danger" role="alert" style="display:none;"></div>
-
         <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="article-form" [formGroup]="articleForm">
-          <input class="d-none" id="id" name="id" formControlName="id">
-
           <div class="form-group mt-4">
             <label for="title">Titre</label>
             <input [ngClass]="{'is-invalid': submitted && articleForm.controls['title'].errors}" type="text" class="form-control" id="title" name="title" formControlName="title" required>
