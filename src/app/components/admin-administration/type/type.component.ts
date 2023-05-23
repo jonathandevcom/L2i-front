@@ -23,7 +23,7 @@ export class TypeComponent implements OnInit {
     this.getTypes();
 
     this.typeForm = this.formBuilder.group({
-      id: [''], // Ajouter les autres champs ici avec leurs validations
+      id: [''],
       typeName: ['', Validators.required]
     });
   }

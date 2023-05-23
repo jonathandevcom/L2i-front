@@ -53,7 +53,6 @@ export class UsersComponent implements OnInit {
     this.userService.getAllUser().subscribe({
       next: (response: any) => {
         this.users = response.result;
-        console.log(this.users)
       },
       error: (error) => console.log(error),
     });

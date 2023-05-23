@@ -1,41 +1,130 @@
-<!-- afficher la liste des articles -->
-<!-- Card -->
-<div class="card">
-  <div class="card-header">
-    <h4 class="card-header-title">Commandes</h4>
+<main id="content" role="main" class="flex-grow-1 overflow-hidden">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Article List -->
+        <div class="list-group">
+          <a *ngFor="let article of articlesList" class="list-group-item list-group-item-action" (click)="selectArticle(article)">
+            {{ article.title }}
+          </a>
+        </div>
+        <!-- End Article List -->
+      </div>
+
+      <div class="col-md-9">
+
+        <button class="btn btn-primary" *ngIf="selectedArticleCheck" (click)="addArticle()">Nouvel article</button>
+        <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
+        <div id="cart-error" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+        <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="article-form" [formGroup]="articleForm">
+          <input class="d-none" id="id" name="id" formControlName="id">
+
+          <div class="form-group mt-4">
+            <label for="title">Titre</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['title'].errors}" type="text" class="form-control" id="title" name="title" formControlName="title" required>
+            <div *ngIf="submitted && articleForm.controls['title'].errors" class="text-danger">
+              Le titre est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="stock">Stock</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['stock'].errors}" type="number" class="form-control" id="stock" name="stock" formControlName="stock" required>
+            <div *ngIf="submitted && articleForm.controls['stock'].errors" class="text-danger">
+              Le stock est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="sold">Vendu</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['sold'].errors}" type="number" class="form-control" id="sold" name="sold" formControlName="sold" required>
+            <div *ngIf="submitted && articleForm.controls['sold'].errors" class="text-danger">
+              La quantité vendue est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="ISBN">ISBN</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['ISBN'].errors}" type="text" class="form-control" id="ISBN" name="ISBN" formControlName="ISBN" required>
+            <div *ngIf="submitted && articleForm.controls['ISBN'].errors" class="text-danger">
+              L'ISBN est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="bookAuthor">Auteur</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookAuthor'].errors}" type="text" class="form-control" id="bookAuthor" name="bookAuthor" formControlName="bookAuthor" required>
+            <div *ngIf="submitted && articleForm.controls['bookAuthor'].errors" class="text-danger">
+              L'auteur est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="bookEditor">Éditeur</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookEditor'].errors}" type="text" class="form-control" id="bookEditor" name="bookEditor" formControlName="bookEditor" required>
+            <div *ngIf="submitted && articleForm.controls['bookEditor'].errors" class="text-danger">
+              L'éditeur est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="bookType">Type de livre</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['bookType'].errors}" type="text" class="form-control" id="bookType" name="bookType" formControlName="bookType" required>
+            <div *ngIf="submitted && articleForm.controls['bookType'].errors" class="text-danger">
+              Le type de livre est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="format">Format</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['format'].errors}" type="text" class="form-control" id="format" name="format" formControlName="format" required>
+            <div *ngIf="submitted && articleForm.controls['format'].errors" class="text-danger">
+              Le format est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="image">Image</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['image'].errors}" type="text" class="form-control" id="image" name="image" formControlName="image" required>
+            <div *ngIf="submitted && articleForm.controls['image'].errors" class="text-danger">
+              L'image est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="summary">Résumé</label>
+            <textarea [ngClass]="{'is-invalid': submitted && articleForm.controls['summary'].errors}" class="form-control" id="summary" name="summary" formControlName="summary" required></textarea>
+            <div *ngIf="submitted && articleForm.controls['summary'].errors" class="text-danger">
+              Le résumé est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="unitPriceExcludingTaxes">Prix unitaire HT</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceExcludingTaxes'].errors}" type="number" class="form-control" id="unitPriceExcludingTaxes" name="unitPriceExcludingTaxes" formControlName="unitPriceExcludingTaxes" required>
+            <div *ngIf="submitted && articleForm.controls['unitPriceExcludingTaxes'].errors" class="text-danger">
+              Le prix unitaire HT est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="unitPriceIncludingTaxes">Prix unitaire TTC</label>
+            <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceIncludingTaxes'].errors}" type="number" class="form-control" id="unitPriceIncludingTaxes" name="unitPriceIncludingTaxes" formControlName="unitPriceIncludingTaxes" required>
+            <div *ngIf="submitted && articleForm.controls['unitPriceIncludingTaxes'].errors" class="text-danger">
+              Le prix unitaire TTC est obligatoire.
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary mt-3" type="submit" *ngIf="selectedArticleCheck" (click)="updateArticle()">Modifier</button>
+            <button class="btn btn-primary mt-3" type="submit" *ngIf="!selectedArticleCheck" (click)="postArticle()">Ajouter</button>
+            <button class="btn btn-danger mt-3" *ngIf="selectedArticleCheck" (click)="deleteArticle()">Supprimer</button>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
   </div>
-
-  <!-- Table -->
-  <div class="table-responsive">
-    <table class="table table-nowrap table-align-middle ">
-      <thead class="thead-light">
-      <tr class="text-center">
-        <th>Date</th>
-        <th>Numéro</th>
-        <th>Total TTC</th>
-        <th>Statut</th>
-      </tr>
-      </thead>
-
-      <tbody>
-
-      <tr *ngFor="let article of articlesList">
-        <td>
-          <span class="d-block h5 text-inherit mb-0 text-center">{{ article.ID }}</span>
-        <td>
-          <span class="d-block h5 text-inherit mb-0 text-center">{{ article.title }}</span>
-        </td>
-        <td>
-          <span class="d-block h5 mb-0 text-align-right">{{ article.title }}</span>
-        </td>
-        <td class="text-center">
-          <span class="legend-indicator bg-success"></span>En cours
-        </td>
-      </tr>
-
-      </tbody>
-    </table>
-  </div>
-  <!-- End Table -->
-</div>
-<!-- End Card -->
+</main>
