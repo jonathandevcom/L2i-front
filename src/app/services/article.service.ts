@@ -29,4 +29,13 @@ export class ArticleService {
 
       return this.http.post(`${this.url}/Article/getArticleById(${id})`,null,{ headers, withCredentials: true });
     }
+
+    postArticle(article: any) {
+      const headers = new HttpHeaders({
+        'username-4D': 'toto',
+        'password-4D': 'toto',
+        'Content-Type': 'application/json'
+      });
+      return this.http.post(`${this.url}/Article/postArticle(${article})`, null,{ headers, withCredentials: true });
+      }
 }

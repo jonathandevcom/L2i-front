@@ -5,3 +5,11 @@
 .textarea-resize {
   min-height: 100px;
 }
+
+.remove-icon {
+  cursor: pointer;
+}
+
+.size-bi {
+  cursor: pointer;
+}

@@ -17,9 +17,15 @@ export class ArticlesComponent implements OnInit {
   authors!: any[];
   editors!: any[];
   types!: any[];
+
   selectedArticle: any;
   selectedArticleCheck: boolean = false;
-  authorList: { firstname?: string, lastname?: string, language?: string }[] = [];
+
+  authorList: { id?: string, firstname?: string, lastname?: string, language?: string }[] = [];
+  typeList: { id?: string, typeName?: string }[] = [];
+  editorList: { id?: string, name?: string }[] = [];
+  imageBook: string = "";
+
   articleForm!: FormGroup;
   submitted = false;
 
@@ -38,12 +44,8 @@ export class ArticlesComponent implements OnInit {
     this.getTypes();
 
     this.articleForm = this.formBuilder.group({
-      ISBN: ['', Validators.required],
-      bookAuthor: ['', Validators.required],
-      bookEditor: ['', Validators.required],
-      bookType: ['', Validators.required],
+      ISBN: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       format: ['', Validators.required],
-      image: ['', Validators.required],
       sold: ['', Validators.required],
       stock: ['', Validators.required],
       summary: ['', Validators.required],
@@ -89,33 +91,78 @@ export class ArticlesComponent implements OnInit {
     }
   }
 
-  getArticles(): void {
-    this.as.getAllArticle().subscribe((res: any) => {
-      this.articlesList = res.result as Article[];
-      console.log(this.articlesList)
-      let authorList: { firstname?: string, lastname?: string, language?: string }[] = [];
-      this.articlesList.forEach((articlesList) => {
-        articlesList.bookAuthor?.forEach((author) => {
-          if (!authorList.some((a) => a.firstname === author.firstname && a.lastname === author.lastname)) {
-            authorList.push({
-              firstname: author.firstname,
-              lastname: author.lastname,
-              language: author.language
-            });
-          }
-        });
-      });
-      authorList.sort((a, b) => {
-        const lastNameComparison = (a.lastname || '').localeCompare(b.lastname || '');
-        if (lastNameComparison !== 0) {
-          return lastNameComparison;
-        }
-        return (a.firstname || '').localeCompare(b.firstname || '');
-      });
-      this.authorList = authorList;
-    });
+  handleImageSelection(event: any) {
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
+    if (allowedTypes.includes(file.type)) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.imageBook = e.target.result.split(',')[1];
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      this.imageBook = '';
+      let response = {
+        result: {
+          error: 'Format de fichier non pris en charge'
+        }
+      }
+      this.handleResponse(response);
+    }
   }
+
+  addAuthor(authorIndex: number) {
+    if (authorIndex !== 0) {
+      const selectedAuthor = this.authors[authorIndex - 1];
+      if (selectedAuthor && !this.authorList.includes(selectedAuthor)) {
+        this.authorList.push(selectedAuthor);
+      }
+    }
+  }
+
+  removeAuthor(author: any) {
+    const index = this.authorList.indexOf(author);
+    if (index !== -1) {
+      this.authorList.splice(index, 1);
+    }
+  }
+
+  addType(typeIndex: number) {
+    if (typeIndex !== 0) {
+      const selectedType = this.types[typeIndex - 1];
+      if (selectedType && !this.typeList.includes(selectedType)) {
+        this.typeList.push(selectedType);
+      }
+    }
+  }
+
+  removeType(type: any) {
+     const index = this.typeList.indexOf(type);
+      if (index !== -1) {
+        this.typeList.splice(index, 1);
+    }
+  }
+
+  addEditor(editorIndex: number) {
+    if (editorIndex !== 0) {
+      const selectedEditor = this.editors[editorIndex - 1];
+      if (selectedEditor) {
+        this.editorList = [selectedEditor];
+      }
+    }
+  }
+
+  getArticles(): void {
+    this.as.getAllArticle().subscribe({
+      next: (response: any) => {
+        this.articlesList = response.result;
+      },
+      error: (error) => console.log(error),
+    });
+    }
 
   getAuthors(): void {
     this.authorService.getAllAuthor().subscribe({
@@ -124,7 +171,6 @@ export class ArticlesComponent implements OnInit {
       },
       error: (error) => console.log(error),
     });
-    console.log(this.authors)
   }
 
   getEditors(): void {
@@ -150,12 +196,14 @@ export class ArticlesComponent implements OnInit {
     this.selectedArticleCheck = true;
     this.submitted = false;
 
-    // Mettre à jour les valeurs du formulaire
+    this.authorList = article.bookAuthor;
+    this.editorList = article.bookEditor;
+    this.typeList = article.booktypes;
+
+    this.imageBook = article.image;
+
     this.articleForm.patchValue({
       ISBN: article.ISBN13,
-      bookAuthor: article.bookAuthor,
-      bookEditor: article.bookEditor,
-      bookType: article.bookType,
       format: article.format,
       image: article.image,
       sold: article.sold,
@@ -168,7 +216,33 @@ export class ArticlesComponent implements OnInit {
   }
 
   postArticle() {
+    if (this.articleForm.invalid) {
+      return;
+    }
+    const formValues = this.articleForm.value;
 
+    const articleData = {
+      bookAuthor : this.authorList,
+      bookEditor : this.editorList,
+      booktypes : this.typeList,
+      image : this.imageBook,
+      ISBN13 : formValues.ISBN,
+      format : formValues.format,
+      sold : formValues.sold,
+      stock : formValues.stock,
+      summary : formValues.summary,
+      title : formValues.title,
+      unitPriceExcludingTaxes : formValues.unitPriceExcludingTaxes,
+      unitPriceIncludingTaxes : formValues.unitPriceIncludingTaxes,
+    }
+
+    this.as.postArticle(JSON.stringify(articleData).replace(/,/g, ';')).subscribe({
+      next: (response: any) => {
+        this.handleResponse(response);
+        this.getArticles();
+      },
+      error: (error) => console.log(error),
+    });
   }
 
   updateArticle() {
@@ -183,13 +257,13 @@ export class ArticlesComponent implements OnInit {
     this.selectedArticle = {};
     this.selectedArticleCheck = false;
     this.submitted = false;
+    this.authorList = [];
+    this.typeList = [];
+    this.editorList = [];
+    this.imageBook = "";
     this.articleForm.patchValue({
       ISBN: '',
-      bookAuthor: '',
-      bookEditor: '',
-      bookType: '',
       format: '',
-      image: '',
       sold: '',
       stock: '',
       summary: '',
@@ -198,6 +272,7 @@ export class ArticlesComponent implements OnInit {
       unitPriceIncludingTaxes: '',
     })
   }
+
 
 }
 

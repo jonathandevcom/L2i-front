@@ -201,18 +201,10 @@
                       </div>
                       <!-- end confirm mot de passe -->
 
-                      <!-- Form Check -->
-                      <div class="form-check mb-4 form-group">
-                        <input formControlName="termsCheckbox" [ngClass]="{'is-invalid':submitted && registerForm.controls['termsCheckbox'].errors}" class="form-check-input" type="checkbox" value="" id="termsCheckbox" required>
-                        <label class="form-check-label" for="termsCheckbox">J'accepte les <a href="#">conditions générales d'utilisation.</a></label>
-                        <span class="invalid-feedback">Merci d'accepter les conditions générales d'utilisation.</span>
-                      </div>
-                      <!-- End Form Check -->
-
                       <div class="d-grid gap-4">
                         <button type="submit" class="btn btn-primary btn-lg">Créer mon compte</button>
 
-                        <p class="card-text text-muted">Vous avez déjà un compte ? <a class="link" routerLink="login">Se connecter</a></p>
+                        <p class="card-text text-muted">Vous avez déjà un compte ? <a class="link" routerLink="../login">Se connecter</a></p>
                       </div>
                     </form>
                     <!-- End Form -->
