@@ -19,7 +19,7 @@ export class AuthService {
     console.log(cookieValue)
     console.log(allCookies)
     // problème de lecture des cookies httpOnly
-    
+
   }
 
 
