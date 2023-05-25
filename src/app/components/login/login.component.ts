@@ -46,11 +46,13 @@ export class LoginComponent implements OnInit {
       }
 
       if (res.result.login) {
+        console.log(res.result)
         localStorage.setItem('login', 'true');
         localStorage.setItem('userID', res.result.userID);
+
         this.authService.setIsLogged(true);
         message = res.result.message;
-        this.router.navigate(['/home']);
+      //  this.router.navigate(['/home']);
       }
 
 

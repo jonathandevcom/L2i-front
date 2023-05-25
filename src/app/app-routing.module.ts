@@ -10,6 +10,7 @@ import { AdminAdministrationComponent } from './components/admin-administration/
 import { LegalMentionComponent } from './components/legal-mention/legal-mention.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'article-detail/:id', component: ArticleDetailComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'user-administration/:id', component: UserAdministrationComponent },
-  { path: 'admin-administration', component: AdminAdministrationComponent },
+  { path: 'admin-administration', component: AdminAdministrationComponent, canActivate: [AuthGuard] },
   { path: 'legal-mention', component: LegalMentionComponent },
   { path: 'payment-page', component: PaymentPageComponent },
   { path: '**', component: PageNotFoundComponent }

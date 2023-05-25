@@ -24,6 +24,7 @@ import { EditorComponent } from './components/admin-administration/editor/editor
 import { AuthorComponent } from './components/admin-administration/author/author.component';
 import { TypeComponent } from './components/admin-administration/type/type.component';
 import { UsersComponent } from './components/admin-administration/users/users.component';
+import {AuthGuard} from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { UsersComponent } from './components/admin-administration/users/users.co
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
