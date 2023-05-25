@@ -25,6 +25,7 @@ import { AuthorComponent } from './components/admin-administration/author/author
 import { TypeComponent } from './components/admin-administration/type/type.component';
 import { UsersComponent } from './components/admin-administration/users/users.component';
 import {AuthGuard} from "./guards/auth.guard";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,10 @@ import {AuthGuard} from "./guards/auth.guard";
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

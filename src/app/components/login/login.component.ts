@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
 
         this.authService.setIsLogged(true);
         message = res.result.message;
+        console.log(this.authService.getCookies())
       //  this.router.navigate(['/home']);
       }
 
