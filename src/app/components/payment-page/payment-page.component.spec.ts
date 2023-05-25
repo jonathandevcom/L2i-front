@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentPageComponent } from './payment-page.component';
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('PaymentPageComponent', () => {
   let component: PaymentPageComponent;
@@ -8,7 +10,9 @@ describe('PaymentPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaymentPageComponent ]
+      declarations: [ PaymentPageComponent ],
+      imports: [ ReactiveFormsModule, HttpClientModule ],
+      providers: [ FormBuilder ]
     })
     .compileComponents();
 

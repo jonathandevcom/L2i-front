@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TypeComponent } from './type.component';
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('TypeComponent', () => {
   let component: TypeComponent;
@@ -8,7 +10,9 @@ describe('TypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TypeComponent ]
+      declarations: [ TypeComponent ],
+      imports: [ ReactiveFormsModule, HttpClientModule ],
+      providers: [ FormBuilder ]
     })
     .compileComponents();
 

@@ -10,7 +10,7 @@ import { Article } from '../../interfaces/article';
 export class CardArticleComponent {
 
   @Input() article!: Article;
- 
+
   constructor(
     private router: Router,
   ) { }
@@ -33,7 +33,7 @@ deducQuantity(article: any){
 addQuantity(article:any){
   const num = document.querySelector('.product-' + article.ID + ' .num');
 
-  if (num) {      
+  if (num) {
     if(num.innerHTML == article.stock){
       return;
     }
@@ -77,7 +77,7 @@ addToCart(article: any) {
       quantity: num?.innerHTML,
       stock: article.stock
     };
-    
+
     cartItems.push(cartItem);
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     message = 'L\'article a été ajouté au panier.';
@@ -94,7 +94,7 @@ addToCart(article: any) {
 
   // Affichage du message d'alerte Bootstrap
   const alertElement = document.getElementById('cart-alert');
-  
+
   if (alertElement) {
     //afficher le message d'alerte pendant 3 secondes
 

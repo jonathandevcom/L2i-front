@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthorComponent } from './author.component';
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('AuthorComponent', () => {
   let component: AuthorComponent;
@@ -8,7 +10,9 @@ describe('AuthorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthorComponent ]
+      declarations: [ AuthorComponent ],
+      imports: [ ReactiveFormsModule, HttpClientModule ],
+      providers: [ FormBuilder ]
     })
     .compileComponents();
 
