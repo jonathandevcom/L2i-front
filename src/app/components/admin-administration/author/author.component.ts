@@ -32,9 +32,7 @@ export class AuthorComponent implements OnInit {
   }
 
   onSubmit() {
-    let message: string = '';
     this.submitted = true;
-    console.log(this.authorForm.invalid)
     if (this.authorForm.invalid) {
       return;
     }
@@ -125,7 +123,6 @@ export class AuthorComponent implements OnInit {
     });
   }
 
-
   deleteAuthor(): void {
     this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe({
       next:(response: any) => {
@@ -157,7 +154,6 @@ export class AuthorComponent implements OnInit {
       language: author.language
     });
   }
-
 
   addAuthor(): void {
     this.selectedAuthor = {};
