@@ -197,7 +197,7 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(): void {
-    this.userService.deleteUserByAdmin(this.selectedUser.ID).subscribe({
+    this.userService.deleteUser(this.selectedUser.ID).subscribe({
       next:(response: any) => {
         this.handleResponse(response);
         this.selectedUser = {};

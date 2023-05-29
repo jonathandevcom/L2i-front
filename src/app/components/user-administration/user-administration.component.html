@@ -214,7 +214,7 @@
                         </div>
                       </form>
                       <div class="d-grid gap-4">
-                        <button type="submit" class="btn btn-danger btn-lg mt-3">Supprimer votre compte</button>
+                        <button type="submit" class="btn btn-danger btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#deleteAccount">Supprimer votre compte</button>
                       </div>
                     </div>
                   </div>
@@ -299,3 +299,25 @@
     </div>
     <!-- End Content -->
   </main>
+
+<!-- Modal confirm delete-->
+<div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccount" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteAccountLabel">Demande confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous certain(e) de vouloir désactiver votre compte de manière permanente ?</p>
+        <div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUser()">Oui</button>
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->

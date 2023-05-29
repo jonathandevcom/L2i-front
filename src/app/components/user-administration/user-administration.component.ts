@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import {AuthService} from "../../services/auth.service";
+
 @Component({
   selector: 'app-user-administration',
   templateUrl: './user-administration.component.html',
@@ -22,6 +24,8 @@ export class UserAdministrationComponent implements OnInit {
     private formBuilder:FormBuilder,
     private route: ActivatedRoute,
     private us:UserService,
+    public authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,10 +67,9 @@ export class UserAdministrationComponent implements OnInit {
     }
 
     const formValue = this.updateUserForm.value;
-    formValue.id = id;
     const item = JSON.stringify(formValue).replace(/,/g, ';');
 
-    this.us.updateUser(item).subscribe((res:any) => {
+    this.us.updateUser(id, item).subscribe((res:any) => {
       this.success=true;
       this.message='Votre profil a été mis à jour avec succès.'
       setTimeout(() => {
@@ -84,16 +87,31 @@ export class UserAdministrationComponent implements OnInit {
     }
 
     const formValue = this.updateDeliveryForm.value;
-    formValue.id = id;
     const item = JSON.stringify(formValue).replace(/,/g, ';');
 
-    this.us.updateAddressDelivery(item).subscribe((res:any) => {
+    this.us.updateAddressDelivery(id, item).subscribe((res:any) => {
       this.success=true;
       this.message='Votre adresse a été mise à jour avec succès.'
       setTimeout(() => {
         this.success=false;
         this.message='';
       }, 2000);
+    });
+  }
+
+  deleteUser() {
+     const id = this.route.snapshot.paramMap.get('id');
+    this.us.deleteUser(id).subscribe((res:any) => {
+      this.success=true;
+      this.message='Votre compte a été supprimé avec succès.'
+      setTimeout(() => {
+        this.success=false;
+        this.message='';
+      }, 2000);
+      localStorage.setItem('login', 'false');
+      localStorage.removeItem('userID');
+      this.authService.setIsLogged(false);
+      this.router.navigate(['/login']);
     });
   }
 

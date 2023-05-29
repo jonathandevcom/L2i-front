@@ -20,7 +20,6 @@ export class UserService {
 
   postNewUser(user : any| null) {
     const headers = this.authService.getHeaders();
-    console.log(user)
     return this.http.post(`${this.url}/User/postNewUser(${user})`,null,{ headers, withCredentials: true });
   }
 
@@ -31,17 +30,17 @@ export class UserService {
 
   getUserById(id: string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/User/getUserById(${id})`,null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/User(${id})/getUserById`,null,{ headers, withCredentials: true });
   }
 
-  updateUser(user: string| null) {
+  updateUser(id: string| null, user: string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/User/updateUser(${user})`,null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/User(${id})/updateUser(${user})`,null,{ headers, withCredentials: true });
   }
 
-  updateAddressDelivery(user: string| null) {
+  updateAddressDelivery(id: string| null, user: string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/User/updateAddressDelivery(${user})`,null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/User(${id})/updateAddressDelivery(${user})`,null,{ headers, withCredentials: true });
   }
 
   postNewUserByAdmin(user : any| null) {
@@ -54,9 +53,9 @@ export class UserService {
     return this.http.post(`${this.url}/User(${id})/updateUserByAdmin(${user})`,null,{ headers, withCredentials: true });
   }
 
-  deleteUserByAdmin(id:string| null) {
+  deleteUser(id:string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/User(${id})/deleteUserByAdmin`,null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/User(${id})/deleteUser`,null,{ headers, withCredentials: true });
   }
 
 }
