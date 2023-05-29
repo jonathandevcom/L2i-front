@@ -75,6 +75,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   addQuantity(article:any){
+    if(article.quantity == "5"){
+      return;
+    }
     if(article.quantity == article.stock){
       return;
     }

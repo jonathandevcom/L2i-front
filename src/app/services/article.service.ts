@@ -16,15 +16,26 @@ export class ArticleService {
     return this.http.post(`${this.url}/Article/getAllArticle`, null,{ headers, withCredentials: true });
    }
 
-    getArticleById(id: string| null) {
+   getArticleById(id: string| null) {
       const headers = this.authService.getHeaders();
-    //  return this.http.post(`${this.url}/Article(${id})/toto()`,null,{ headers, withCredentials: true });
-
-      return this.http.post(`${this.url}/Article/getArticleById(${id})`,null,{ headers, withCredentials: true });
+      return this.http.post(`${this.url}/Article(${id})/getArticleById`,null,{ headers, withCredentials: true });
     }
 
-    postArticle(article: any) {
+   postArticle(article: any) {
       const headers = this.authService.getHeaders();
       return this.http.post(`${this.url}/Article/postArticle(${article})`, null,{ headers, withCredentials: true });
       }
+
+    putArticle(id:string| null, article: any) {
+        const headers = this.authService.getHeaders();
+        return this.http.post(`${this.url}/Article(${id})/putArticle(${article})`, null,{ headers, withCredentials: true });
+    }
+
+    deleteArticle(id: string| null) {
+        const headers = this.authService.getHeaders();
+        return this.http.post(`${this.url}/Article(${id})/deleteArticle`, null,{ headers, withCredentials: true });
+    }
+
+
+
 }

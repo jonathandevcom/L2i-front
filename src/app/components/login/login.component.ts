@@ -46,16 +46,14 @@ export class LoginComponent implements OnInit {
       }
 
       if (res.result.login) {
-        console.log(res.result)
         localStorage.setItem('login', 'true');
         localStorage.setItem('userID', res.result.userID);
 
         this.authService.setIsLogged(true);
         message = res.result.message;
-        console.log(this.authService.getCookies())
-      //  this.router.navigate(['/home']);
+        //console.log(this.authService.getCookies())
+        this.router.navigate(['/home']);
       }
-
 
     const alertElement = document.getElementById('cart-alert');
 

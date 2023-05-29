@@ -34,6 +34,9 @@ addQuantity(article:any){
   const num = document.querySelector('.product-' + article.ID + ' .num');
 
   if (num) {
+    if(num.innerHTML == "5"){
+      return;
+    }
     if(num.innerHTML == article.stock){
       return;
     }

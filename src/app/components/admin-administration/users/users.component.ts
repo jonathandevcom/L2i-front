@@ -49,6 +49,7 @@ export class UsersComponent implements OnInit {
       return;
     }
   }
+
   getUsers(): void {
     this.userService.getAllUser().subscribe({
       next: (response: any) => {

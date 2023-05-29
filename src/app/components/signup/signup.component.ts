@@ -31,7 +31,6 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, this.passwordValidator()]],
       confirmPassword: ['', [Validators.required, this.matchPasswordValidator()]],
-      termsCheckbox: ['', Validators.requiredTrue]
     });
   }
 
@@ -41,13 +40,12 @@ export class SignupComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    
     const item = JSON.stringify(this.registerForm.value).replace(/,/g, ';');
-   
+
     this.us.postNewUser(item).subscribe((res:any) => {
-      //console.log(res);
+      // TODO : afficher un message de succès et changer de page
     });
-    
+
   }
 
   passwordValidator(): ValidatorFn {

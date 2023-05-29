@@ -118,7 +118,14 @@ export class ArticlesComponent implements OnInit {
     if (authorIndex !== 0) {
       const selectedAuthor = this.authors[authorIndex - 1];
       if (selectedAuthor && !this.authorList.includes(selectedAuthor)) {
-        this.authorList.push(selectedAuthor);
+        // Vérifier si le lastname et firstname sont identiques
+        const isIdentical = this.authorList.some((author) =>
+          author.lastname === selectedAuthor.lastname &&
+          author.firstname === selectedAuthor.firstname
+        );
+        if (!isIdentical) {
+          this.authorList.push(selectedAuthor);
+        }
       }
     }
   }
@@ -134,7 +141,13 @@ export class ArticlesComponent implements OnInit {
     if (typeIndex !== 0) {
       const selectedType = this.types[typeIndex - 1];
       if (selectedType && !this.typeList.includes(selectedType)) {
-        this.typeList.push(selectedType);
+        // Vérifier si le nameType est identique
+        const isIdentical = this.typeList.some((type) =>
+          type.typeName === selectedType.typeName
+        );
+        if (!isIdentical) {
+          this.typeList.push(selectedType);
+        }
       }
     }
   }
@@ -159,6 +172,7 @@ export class ArticlesComponent implements OnInit {
     this.as.getAllArticle().subscribe({
       next: (response: any) => {
         this.articlesList = response.result;
+        console.log(this.articlesList)
       },
       error: (error) => console.log(error),
     });
@@ -192,6 +206,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   selectArticle(article: any) {
+    console.log(article)
     this.selectedArticle = article;
     this.selectedArticleCheck = true;
     this.submitted = false;
@@ -246,11 +261,44 @@ export class ArticlesComponent implements OnInit {
   }
 
   updateArticle() {
+    if (this.articleForm.invalid) {
+      return;
+    }
+    const formValues = this.articleForm.value;
 
+    const articleData = {
+      bookAuthor : this.authorList,
+      bookEditor : this.editorList,
+      booktypes : this.typeList,
+      image : this.imageBook,
+      ISBN13 : formValues.ISBN,
+      format : formValues.format,
+      sold : formValues.sold,
+      stock : formValues.stock,
+      summary : formValues.summary,
+      title : formValues.title,
+      unitPriceExcludingTaxes : formValues.unitPriceExcludingTaxes,
+      unitPriceIncludingTaxes : formValues.unitPriceIncludingTaxes,
+    }
+
+    this.as.putArticle(this.selectedArticle.ID, JSON.stringify(articleData).replace(/,/g, ';')).subscribe({
+      next: (response: any) => {
+        this.handleResponse(response);
+        this.getArticles();
+      },
+      error: (error) => console.log(error),
+    });
   }
 
   deleteArticle() {
-
+    this.as.deleteArticle(this.selectedArticle.ID).subscribe({
+      next: (response: any) => {
+        this.handleResponse(response);
+        this.getArticles();
+        this.addArticle();
+      },
+      error: (error) => console.log(error),
+    });
   }
 
   addArticle() {

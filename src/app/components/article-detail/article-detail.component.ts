@@ -18,17 +18,14 @@ export class ArticleDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
-    
+
     this.as.getArticleById(id).subscribe((res:any) => {
       this.article = res.result;
-      console.log(this.article);
-      
     });
   }
 
   deducQuantity(){
     const num = document.getElementById('num');
-
     if (num) {
       if(num.innerHTML == '1'){
         return;
@@ -39,8 +36,10 @@ export class ArticleDetailComponent implements OnInit {
 
   addQuantity(article:any){
     const num = document.getElementById('num');
-
-    if (num) {      
+    if (num) {
+      if(num.innerHTML == "5"){
+        return;
+      }
       if(num.innerHTML == article.stock){
         return;
       }
@@ -56,7 +55,7 @@ export class ArticleDetailComponent implements OnInit {
     const existingItemIndex = cartItems.findIndex((item: any) => item.title === articleTitle);
     const num = document.getElementById('num');
     let message: string = '';
-  
+
     if (existingItemIndex !== -1 && num) {
       // Si l'article existe déjà, incrémenter la quantité
 
@@ -84,7 +83,7 @@ export class ArticleDetailComponent implements OnInit {
         quantity: num?.innerHTML,
         stock: article.stock
       };
-      
+
       cartItems.push(cartItem);
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
       message = 'L\'article a été ajouté au panier.';
@@ -101,7 +100,7 @@ export class ArticleDetailComponent implements OnInit {
 
     // Affichage du message d'alerte Bootstrap
     const alertElement = document.getElementById('cart-alert');
-    
+
     if (alertElement) {
       //afficher le message d'alerte pendant 5 secondes
 

@@ -20,6 +20,7 @@ export class UserService {
 
   postNewUser(user : any| null) {
     const headers = this.authService.getHeaders();
+    console.log(user)
     return this.http.post(`${this.url}/User/postNewUser(${user})`,null,{ headers, withCredentials: true });
   }
 
