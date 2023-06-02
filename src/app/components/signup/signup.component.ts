@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,9 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private us:UserService
+    private us:UserService,
+    private authService: AuthService,
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
@@ -35,6 +39,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    let message: string = '';
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.invalid) {
@@ -43,7 +48,33 @@ export class SignupComponent implements OnInit {
     const item = JSON.stringify(this.registerForm.value).replace(/,/g, ';');
 
     this.us.postNewUser(item).subscribe((res:any) => {
-      // TODO : afficher un message de succès et changer de page
+      if (!res.result.login) {
+        localStorage.setItem('login', 'false');
+        this.authService.setIsLogged(false);
+        message = res.result.error;
+      }
+      if (res.result.login) {
+        localStorage.setItem('login', 'true');
+        localStorage.setItem('userID', res.result.userID);
+
+        this.authService.setIsLogged(true);
+        message = res.result.message;
+        //console.log(this.authService.getCookies())
+        this.router.navigate(['/home']);
+      }
+
+      const alertElement = document.getElementById('cart-alert');
+
+      if (alertElement) {
+        //afficher le message d'alerte pendant 3 secondes
+        alertElement.innerHTML = message;
+        alertElement.style.display = 'block';
+
+        // masquer le message après 3 secondes
+        setTimeout(function() {
+          alertElement.style.display = 'none';
+        }, 3000);
+      }
     });
 
   }
