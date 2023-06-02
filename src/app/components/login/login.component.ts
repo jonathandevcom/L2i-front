@@ -35,10 +35,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-
     const item = JSON.stringify(this.loginForm.value).replace(/,/g, ';');
     this.us.login(item).subscribe((res:any) => {
-
       if (!res.result.login) {
         localStorage.setItem('login', 'false');
         this.authService.setIsLogged(false);

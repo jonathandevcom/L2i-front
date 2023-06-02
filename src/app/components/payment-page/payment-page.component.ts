@@ -40,32 +40,11 @@ export class PaymentPageComponent implements OnInit {
   }
 
   payement() {
-    // message de confirmation en utilisant mon alert componant
-    this.success=true;
-    this.message='Votre paiement a été validée avec succès !';
-    localStorage.removeItem('cartItems');
-
-    setTimeout(() => {
-      this.success=false;
-      this.message='';
-      this.router.navigate(['../home']);
-
-      // Mise à jour du nombre d'articles dans le panier
-      const articleCardElement = document.getElementById('articleCard');
-
-      if (articleCardElement) {
-        articleCardElement.innerText = "0";
-      }
-        }, 2000);
-
-    // Envoi de la commande au serveur
     const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-    // suprimer image et description de l'objet pour éviter les erreurs de parse
     cartItems.forEach((item : any) => {
       delete item.image;
       delete item.summary;
     });
-    console.log(cartItems)
 
     const order = {
       userID: localStorage.getItem('userID'),
@@ -74,11 +53,22 @@ export class PaymentPageComponent implements OnInit {
       totalIncludingTaxes: this.totalIncludingTaxes,
       taxes: this.taxes
     };
-    console.log(order)
     const oderString = JSON.stringify(order).replace(/,/g, ';');
 
     this.os.postNewOrder(oderString).subscribe((res:any) => {
-      console.log(res);
+      setTimeout(() => {
+        this.success=false;
+        this.message='';
+        this.router.navigate(['../home']);
+      }, 3000);
+      this.success=true;
+      this.message='Votre paiement a été validée avec succès !';
+      localStorage.removeItem('cartItems');
+
+      const articleCardElement = document.getElementById('articleCard');
+      if (articleCardElement) {
+        articleCardElement.innerText = "0";
+      }
     });
   }
 }
