@@ -5,6 +5,8 @@ import { ArticleService } from '../../../services/article.service';
 import { AuthorService } from '../../../services/author.service';
 import { EditorService } from '../../../services/editor.service';
 import { TypeService } from '../../../services/type.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-articles',
@@ -34,7 +36,9 @@ export class ArticlesComponent implements OnInit {
     private as:ArticleService,
     private authorService: AuthorService,
     private editorService: EditorService,
-    private typeService: TypeService
+    private typeService: TypeService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -293,6 +297,7 @@ export class ArticlesComponent implements OnInit {
   deleteArticle() {
     this.as.deleteArticle(this.selectedArticle.ID).subscribe({
       next: (response: any) => {
+        this.checkCookie(response.result.disconnect)
         this.handleResponse(response);
         this.getArticles();
         this.addArticle();
@@ -321,6 +326,16 @@ export class ArticlesComponent implements OnInit {
     })
   }
 
+  checkCookie(check:boolean) {
+    if (check) {
+      setTimeout(() => {
+        localStorage.setItem('login', 'false');
+        localStorage.removeItem('userID');
+        this.authService.setIsLogged(false);
+        this.router.navigate(['/login']);
+      }, 2000);
+    }
+  }
 
 }
 
