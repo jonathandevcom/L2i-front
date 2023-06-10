@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class AuthService {
 
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'username-4D': 'anonymous',
-      'password-4D': 'anonymous',
+      'username-4D': environment.username4D,
+      'password-4D': environment.password4D,
       'Content-Type': 'application/json'
     });
   }
