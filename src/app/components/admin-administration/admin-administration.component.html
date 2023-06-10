@@ -53,76 +53,88 @@
       <div class="tab-content">
         <div class="tab-pane fade show active" id="nav-one-eg2" role="tabpanel" aria-labelledby="nav-one-eg2-tab">
 
+              <!-- Card -->
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-header-title">Commandes</h4>
+                </div>
 
-          <!-- Accordion
-          <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingOne">
-                <a class="accordion-button" role="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Commandes en cours
-                </a>
+                <!-- Table -->
+                <div class="table-responsive">
+                  <table class="table table-nowrap table-align-middle ">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                      <th>Date</th>
+                      <th>Numéro</th>
+                      <th>Total TTC</th>
+                      <th>Statut</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let order of orderList" (click)="showOrderDetails(order)" class="cursor">
+                      <td>
+                        <span class="d-block h5 text-inherit mb-0 text-center">{{ order.date | date: 'dd/MM/yyyy' }}</span>
+                      <td>
+                        <span class="d-block h5 text-inherit mb-0 text-center">{{ order.number }}</span>
+                      </td>
+                      <td>
+                        <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes | number:'.2' }} €</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="legend-indicator bg-success"></span>En cours
+                      </td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- End Table -->
               </div>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
+              <!-- End Card -->
 
-                  <div class="card">
-                    <div class="card-header">
-                      <h4 class="card-header-title">Commandes</h4>
-                    </div>
+              <!-- Après la boucle *ngFor -->
+              <div *ngIf="showDetails" class="card mt-5">
+                <div class="card-header">
+                  <h4 class="card-header-title">Détail</h4>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-nowrap table-align-middle">
+                    <thead class="thead-light">
+                    <tr>
+                      <th>Image</th>
+                      <th>Titre</th>
+                      <th>Prix</th>
+                      <th>Quantité</th>
+                    </tr>
+                    </thead>
 
-                    <div class="table-responsive">
-                      <table class="table table-nowrap table-align-middle ">
-                        <thead class="thead-light">
-                        <tr class="text-center">
-                          <th>Date</th>
-                          <th>Numéro</th>
-                          <th>Total TTC</th>
-                          <th>Statut</th>
-                        </tr>
-                        </thead>
+                    <tbody>
+                    <tr *ngFor="let item of detailItems">
+                      <td>
+                        <a class="d-flex cursor">
+                          <div class="flex-shrink-0">
+                            <div class="avatar">
+                              <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                            </div>
+                          </div>
 
-                        <tbody>
-
-                        <tr *ngFor="let order of orderList">
-                          <td>
-                            <span class="d-block h5 text-inherit mb-0 text-center">{{ order.date | date: 'dd/MM/yyyy' }}</span>
-                          <td>
-                            <span class="d-block h5 text-inherit mb-0 text-center">{{ order.number }}</span>
-                          </td>
-                          <td>
-                            <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes }} €</span>
-                          </td>
-                          <td class="text-center">
-                            <span class="legend-indicator bg-success"></span>En cours
-                          </td>
-                        </tr>
-
-                        </tbody>
-                      </table>
-                    </div>
-
-                  </div>
-
-
-
+                        </a>
+                      </td>
+                      <td>
+                        <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
+                      </td>
+                      <td class="text-align-right">
+                        <span class="d-block h5 text-inherit mb-0"> {{ item.priceIncludingTaxes | number:'.2' }} €</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="d-block h5 text-inherit mb-0">{{ item.quantityOrder }}</span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </div>
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingTwo">
-                <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Commandes expédiées
-                </a>
-              </div>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
-              </div>
-            </div>
-          </div>
-           End Accordion -->
-
 
         </div>
 

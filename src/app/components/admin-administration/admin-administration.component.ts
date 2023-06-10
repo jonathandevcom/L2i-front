@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-admin-administration',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-administration.component.css']
 })
 export class AdminAdministrationComponent implements OnInit {
+  orderList: any[] = [];
+  showDetails: boolean = false;
+  detailItems: any[] = [];
 
-  constructor() { }
+  constructor(
+    private os: OrderService
+  ) { }
 
   ngOnInit(): void {
+    this.os.getAllOrders().subscribe((res:any) => {
+      this.orderList = res.result;
+      console.log(res)
+    });
+
+  }
+
+  showOrderDetails(order:any ): void {
+    console.log(order);
+    this.detailItems=order.lines
+    this.showDetails = true;
   }
 
 }
