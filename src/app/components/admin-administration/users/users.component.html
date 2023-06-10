@@ -90,9 +90,7 @@
                   <i class="js-toggle-password-show-icon-1 bi-eye"></i>
                 </a>
                 <div *ngIf="submitted && userForm.controls['password'].errors" class="text-danger">
-                  <ng-container *ngIf="submitted && userForm.controls['password'].errors['required']; then errorsRequired; else errorsPassword"></ng-container>
-                  <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                  <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
+                    Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.
                 </div>
               </div>
             </div>

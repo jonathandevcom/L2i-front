@@ -34,9 +34,9 @@
                           <div class="col-sm-2">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="civility">Civilité</label>
-                              <input formControlName="civility" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['civility'].errors}" type="text" class="form-control form-control-lg" name="civility" id="civility" placeholder="M." aria-label="M." value="{{ user?.civility }}" [(ngModel)]="user.civility" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['civility'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['civility'].errors['required']">
+                              <input formControlName="civility" [ngClass]="{'is-invalid': submittedUpdateUserForm && updateUserForm.get('civility')?.invalid}" type="text" class="form-control form-control-lg" name="civility" id="civility" placeholder="M." aria-label="M."  required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('civility')?.invalid" class="text-danger">
+                                <div *ngIf="updateUserForm.get('civility')?.errors?.['required']">
                                   Merci de saisir votre civilité.
                                 </div>
                               </div>
@@ -46,12 +46,12 @@
                           <div class="col-sm-5">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="firstName">Prénom</label>
-                              <input formControlName="firstName" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['firstName'].errors}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" value="{{ user?.firstname }}" [(ngModel)]="user.firstname" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['firstName'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['firstName'].errors['required']">
+                              <input formControlName="firstName" [ngClass]="{'is-invalid': submittedUpdateUserForm && updateUserForm.get('firstName')?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('firstName')?.invalid" class="text-danger">
+                                <div *ngIf="updateUserForm.get('firstName')?.errors?.['required']">
                                   Merci de saisir votre prénom.
                                 </div>
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['firstName'].errors['minlength']">
+                                <div *ngIf="updateUserForm.get('firstName')?.errors?.['minlength']">
                                   Votre prénom doit comporter au moins 3 lettres.
                                 </div>
                               </div>
@@ -61,18 +61,19 @@
                           <div class="col-sm-5">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="lastName">Nom</label>
-                              <input formControlName="lastName" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['lastName'].errors}" type="text" class="form-control form-control-lg" placeholder="Mark" aria-label="Mark" name="lastName" id="lastName" value="{{ user?.lastname }}" [(ngModel)]="user.lastname" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['lastName'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['lastName'].errors['required']">
+                              <input formControlName="lastName" [ngClass]="{'is-invalid': submittedUpdateUserForm && updateUserForm.get('lastName')?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="lastName" placeholder="Martin" aria-label="Martin" required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('lastName')?.invalid" class="text-danger">
+                                <div *ngIf="updateUserForm.get('lastName')?.errors?.['required']">
                                   Merci de saisir votre nom.
                                 </div>
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['lastName'].errors['minlength']">
+                                <div *ngIf="updateUserForm.get('lastName')?.errors?.['minlength']">
                                   Votre nom doit comporter au moins 3 lettres.
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+
                         <!-- end full name -->
 
                         <span class="divider-center text-muted mb-4">Adresse de facturation</span>
@@ -81,9 +82,9 @@
                           <div class="col-sm-6">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="invoiceStreet">Numéro et nom de la rue</label>
-                              <input formControlName="invoiceStreet" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['invoiceStreet'].errors}" type="text" class="form-control form-control-lg" name="invoiceStreet" id="invoiceStreet" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" value="{{ user?.invoiceStreet }}" [(ngModel)]="user.invoiceStreet" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceStreet'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceStreet'].errors['required']">
+                              <input formControlName="invoiceStreet" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.get('invoiceStreet')?.invalid}" type="text" class="form-control form-control-lg" name="invoiceStreet" id="invoiceStreet" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceStreet')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceStreet')?.errors?.['required']">
                                   Merci le numéro et le nom de votre rue.
                                 </div>
                               </div>
@@ -92,7 +93,7 @@
                           <div class="col-sm-6">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="invoiceAddressComplement">Complément d'adresse</label>
-                              <input formControlName="invoiceAddressComplement" type="text" class="form-control form-control-lg" placeholder="Entrée B1" aria-label="Entrée B1" name="invoiceAddressComplement" id="invoiceAddressComplement" value="{{ user?.invoiceAddressComplement }}">
+                              <input formControlName="invoiceAddressComplement" type="text" class="form-control form-control-lg" placeholder="Entrée B1" aria-label="Entrée B1" name="invoiceAddressComplement" id="invoiceAddressComplement">
                             </div>
                           </div>
                         </div>
@@ -101,12 +102,12 @@
                           <div class="col-sm-2">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="invoiceZipCode">Code Postal</label>
-                              <input formControlName="invoiceZipCode" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['invoiceZipCode'].errors}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="invoiceZipCode" id="invoiceZipCode" value="{{ user?.invoiceZipCode }}" [(ngModel)]="user.invoiceZipCode" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceZipCode'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceZipCode'].errors['required']">
+                              <input formControlName="invoiceZipCode" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.get('invoiceZipCode')?.invalid}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="invoiceZipCode" id="invoiceZipCode" required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceZipCode')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceZipCode')?.errors?.['required']">
                                   Merci de saisir votre code postal.
                                 </div>
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceZipCode'].errors['minlength']">
+                                <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceZipCode')?.errors?.['minlength']">
                                   Votre code postal doit comporter au moins 5 chiffres.
                                 </div>
                               </div>
@@ -115,12 +116,12 @@
                           <div class="col-sm-5">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="invoiceCity">Ville</label>
-                              <input formControlName="invoiceCity" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['invoiceCity'].errors}" type="text" class="form-control form-control-lg" name="invoiceCity" id="invoiceCity" placeholder="Marseille" aria-label="Marseille" value="{{ user?.invoiceCity }}" [(ngModel)]="user.invoiceCity" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceCity'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceCity'].errors['required']">
+                              <input formControlName="invoiceCity" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.get('invoiceCity')?.invalid}" type="text" class="form-control form-control-lg" name="invoiceCity" id="invoiceCity" placeholder="Marseille" aria-label="Marseille" required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceCity')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceCity')?.errors?.['required']">
                                   Merci de saisir votre ville.
                                 </div>
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceCity'].errors['minlength']">
+                                <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceCity')?.errors?.['minlength']">
                                   Votre ville doit comporter au moins 3 lettres.
                                 </div>
                               </div>
@@ -129,9 +130,9 @@
                           <div class="col-sm-5">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="invoiceCountry">Pays</label>
-                              <input formControlName="invoiceCountry" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.controls['invoiceCountry'].errors}" type="text" class="form-control form-control-lg" name="invoiceCountry" id="invoiceCountry" placeholder="France" aria-label="France" value="{{ user?.invoiceCountry }}" [(ngModel)]="user.invoiceCountry" required>
-                              <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceCountry'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateUserForm && updateUserForm.controls['invoiceCountry'].errors['required']">
+                              <input formControlName="invoiceCountry" [ngClass]="{'is-invalid':submittedUpdateUserForm && updateUserForm.get('invoiceCountry')?.invalid}" type="text" class="form-control form-control-lg" name="invoiceCountry" id="invoiceCountry" placeholder="France" aria-label="France" required>
+                              <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceCountry')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateUserForm && updateUserForm.get('invoiceCountry')?.errors?.['required']">
                                   Merci de saisir votre pays.
                                 </div>
                               </div>
@@ -150,9 +151,9 @@
                           <div class="col-sm-6">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="deliveryStreet">Numéro et nom de la rue</label>
-                              <input formControlName="deliveryStreet" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryStreet'].errors}" type="text" class="form-control form-control-lg" name="deliveryStreet" id="deliveryStreet" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" value="{{ user?.deliveryStreet }}" [(ngModel)]="user.deliveryStreet" required>
-                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryStreet'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryStreet'].errors['required']">
+                              <input formControlName="deliveryStreet" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryStreet')?.invalid}" type="text" class="form-control form-control-lg" name="deliveryStreet" id="deliveryStreet" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
+                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryStreet')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryStreet')?.errors?.['required']">
                                   Merci d'indiquer le numéro et le nom de votre rue.
                                 </div>
                               </div>
@@ -161,7 +162,7 @@
                           <div class="col-sm-6">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="deliveryAddressComplement">Complément d'adresse</label>
-                              <input formControlName="deliveryAddressComplement" type="text" class="form-control form-control-lg" placeholder="Entrée B1" aria-label="Entrée B1" name="deliveryAddressComplement" id="deliveryAddressComplement" value="{{ user?.deliveryAddressComplement }}" [(ngModel)]="user.deliveryAddressComplement">
+                              <input formControlName="deliveryAddressComplement" type="text" class="form-control form-control-lg" placeholder="Entrée B1" aria-label="Entrée B1" name="deliveryAddressComplement" id="deliveryAddressComplement">
                             </div>
                             <!-- End Form -->
                           </div>
@@ -171,12 +172,12 @@
                           <div class="col-sm-2">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="deliveryZipCode">Code Postal</label>
-                              <input formControlName="deliveryZipCode" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryZipCode'].errors}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="deliveryZipCode" id="deliveryZipCode" value="{{ user?.deliveryZipCode }}" [(ngModel)]="user.deliveryZipCode" required>
-                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryZipCode'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryZipCode'].errors['required']">
+                              <input formControlName="deliveryZipCode" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryZipCode')?.invalid}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="deliveryZipCode" id="deliveryZipCode" required>
+                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryZipCode')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryZipCode')?.errors?.['required']">
                                   Merci de saisir votre code postal.
                                 </div>
-                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryZipCode'].errors['minlength']">
+                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryZipCode')?.errors?.['minlength']">
                                   Votre code postal doit comporter au moins 5 chiffres.
                                 </div>
                               </div>
@@ -185,12 +186,12 @@
                           <div class="col-sm-5">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="deliveryCity">Ville</label>
-                              <input formControlName="deliveryCity" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCity'].errors}" type="text" class="form-control form-control-lg" name="deliveryCity" id="deliveryCity" placeholder="Marseille" aria-label="Marseille" value="{{ user?.deliveryCity }}" [(ngModel)]="user.deliveryCity" required>
-                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCity'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCity'].errors['required']">
+                              <input formControlName="deliveryCity" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCity')?.invalid}" type="text" class="form-control form-control-lg" name="deliveryCity" id="deliveryCity" placeholder="Marseille" aria-label="Marseille" required>
+                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCity')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCity')?.errors?.['required']">
                                   Merci de saisir votre ville.
                                 </div>
-                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCity'].errors['minlength']">
+                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCity')?.errors?.['minlength']">
                                   Votre ville doit comporter au moins 3 lettres.
                                 </div>
                               </div>
@@ -199,9 +200,9 @@
                           <div class="col-sm-5">
                             <div class="mb-4 form-group">
                               <label class="form-label" for="deliveryCountry">Pays</label>
-                              <input formControlName="deliveryCountry" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCountry'].errors}" type="text" class="form-control form-control-lg" name="deliveryCountry" id="deliveryCountry" placeholder="France" aria-label="France" [(ngModel)]="user.deliveryCountry" value="{{ user?.deliveryCountry }}" required>
-                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCountry'].errors" class="text-danger">
-                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.controls['deliveryCountry'].errors['required']">
+                              <input formControlName="deliveryCountry" [ngClass]="{'is-invalid':submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCountry')?.invalid}" type="text" class="form-control form-control-lg" name="deliveryCountry" id="deliveryCountry" placeholder="France" aria-label="France" required>
+                              <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCountry')?.invalid" class="text-danger">
+                                <div *ngIf="submittedUpdateDeliveryForm && updateDeliveryForm.get('deliveryCountry')?.errors?.['required']">
                                   Merci de saisir votre pays.
                                 </div>
                               </div>

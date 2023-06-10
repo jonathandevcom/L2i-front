@@ -37,9 +37,18 @@ export class UserAdministrationComponent implements OnInit {
 
     this.us.getUserById(id).subscribe((res:any) => {
       this.user = res.result;
-      // ajouter la liste des commandes
-      console.log(res.result.orders)
       this.orderList = res.result.orders;
+
+      this.updateUserForm.patchValue({
+        civility: this.user.civility,
+        firstName: this.user.firstname,
+        lastName: this.user.lastname,
+        invoiceStreet: this.user.invoiceStreet,
+        invoiceAddressComplement: this.user.invoiceAddressComplement,
+        invoiceZipCode: this.user.invoiceZipCode,
+        invoiceCity: this.user.invoiceCity,
+        invoiceCountry: this.user.invoiceCountry,
+      });
     });
 
     this.updateUserForm = this.formBuilder.group({
