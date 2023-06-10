@@ -278,9 +278,11 @@
                       <!-- End Card -->
 
                       <!-- Après la boucle *ngFor -->
-                      <div *ngIf="showDetails">
-
-                        <div class="table-responsive mt-5">
+                        <div *ngIf="showDetails" class="card mt-5">
+                          <div class="card-header">
+                            <h4 class="card-header-title">Détail</h4>
+                          </div>
+                        <div class="table-responsive">
                           <table class="table table-nowrap table-align-middle">
                             <thead class="thead-light">
                               <tr>
