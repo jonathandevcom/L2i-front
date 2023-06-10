@@ -256,14 +256,14 @@
                             </thead>
 
                             <tbody>
-                            <tr *ngFor="let order of orderList">
+                            <tr *ngFor="let order of orderList" (click)="showOrderDetails(order)" class="cursor">
                               <td>
                                 <span class="d-block h5 text-inherit mb-0 text-center">{{ order.date | date: 'dd/MM/yyyy' }}</span>
                               <td>
                                 <span class="d-block h5 text-inherit mb-0 text-center">{{ order.number }}</span>
                               </td>
                               <td>
-                                <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes }} €</span>
+                                <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes | number:'.2' }} €</span>
                               </td>
                               <td class="text-center">
                                 <span class="legend-indicator bg-success"></span>En cours
@@ -276,6 +276,48 @@
                         <!-- End Table -->
                       </div>
                       <!-- End Card -->
+
+                      <!-- Après la boucle *ngFor -->
+                      <div *ngIf="showDetails">
+
+                        <div class="table-responsive mt-5">
+                          <table class="table table-nowrap table-align-middle">
+                            <thead class="thead-light">
+                              <tr>
+                                <th>Image</th>
+                                <th>Titre</th>
+                                <th>Prix</th>
+                                <th>Quantité</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr *ngFor="let item of detailItems">
+                              <td>
+                                <a class="d-flex cursor">
+                                  <div class="flex-shrink-0">
+                                    <div class="avatar">
+                                      <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                                    </div>
+                                  </div>
+
+                                </a>
+                              </td>
+                              <td>
+                                  <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
+                              </td>
+                              <td class="text-align-right">
+                                <span class="d-block h5 text-inherit mb-0"> {{ item.priceIncludingTaxes | number:'.2' }} €</span>
+                              </td>
+                              <td class="text-center">
+                                <span class="d-block h5 text-inherit mb-0">{{ item.quantityOrder }}</span>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
                     </ng-template>
                     <ng-template #noOrder>
                       <div class="container text-center mt-lg-10 mb-lg-10 content-space-t-1">

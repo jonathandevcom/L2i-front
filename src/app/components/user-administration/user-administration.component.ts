@@ -19,6 +19,9 @@ export class UserAdministrationComponent implements OnInit {
   user!: any;
   success = false;
   message: string = '';
+  showDetails: boolean = false;
+  detailItems: any[] = [];
+
 
   constructor(
     private formBuilder:FormBuilder,
@@ -57,6 +60,12 @@ export class UserAdministrationComponent implements OnInit {
       deliveryCity: ['', [Validators.required, Validators.minLength(3)]],
       deliveryCountry: ['', [Validators.required, Validators.minLength(3)]],
     });
+  }
+
+  showOrderDetails(order:any ): void {
+    console.log(order);
+    this.detailItems=order.lines
+    this.showDetails = true;
   }
 
   onUpdateUserForm() {
