@@ -8,8 +8,8 @@ import { UserService } from '../../../services/user.service';
 })
 export class UsersComponent implements OnInit {
 
-  users!: any[]; // Tableau d'utilisateur
-  selectedUser: any = {}; // User sélectionné initialisé avec un objet vide
+  users!: any[];
+  selectedUser: any = {};
   selectedUserCheck: boolean = false;
   userForm!: FormGroup;
   submitted = false;
@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+
     this.userForm = this.formBuilder.group({
       civility: ['', Validators.required],
       userFirstname: ['', Validators.required],
@@ -232,12 +233,11 @@ export class UsersComponent implements OnInit {
     this.selectedUserCheck = true;
     this.submitted = false;
 
-    // Mettre à jour les valeurs du formulaire
     this.userForm.patchValue({
       idUser: user.id,
       civility: user.civility,
-      userFirstname: user.userFirstname,
-      userLastname: user.userFirstname,
+      userFirstname: user.firstname,
+      userLastname: user.lastname,
       email: user.email,
       type: user.type,
       password: user.password,

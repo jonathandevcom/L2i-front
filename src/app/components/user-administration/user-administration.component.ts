@@ -126,6 +126,14 @@ export class UserAdministrationComponent implements OnInit {
   deleteUser() {
      const id = this.route.snapshot.paramMap.get('id');
     this.us.deleteUser(id).subscribe((res:any) => {
+      if(res.result.disconnect === true) {
+        localStorage.setItem('login', 'false');
+        localStorage.removeItem('userID');
+        this.authService.setIsLogged(false);
+        this.router.navigate(['/login']);
+        return;
+      }
+
       this.success=true;
       this.message='Votre compte a été supprimé avec succès.'
       setTimeout(() => {

@@ -41,13 +41,13 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     let message: string = '';
     this.submitted = true;
-    // stop here if form is invalid
+
     if (this.registerForm.invalid) {
       return;
     }
-    const item = JSON.stringify(this.registerForm.value).replace(/,/g, ';');
+    const user = JSON.stringify(this.registerForm.value).replace(/,/g, ';');
 
-    this.us.postNewUser(item).subscribe((res:any) => {
+    this.us.postNewUser(user).subscribe((res:any) => {
       if (!res.result.login) {
         localStorage.setItem('login', 'false');
         this.authService.setIsLogged(false);
@@ -66,11 +66,9 @@ export class SignupComponent implements OnInit {
       const alertElement = document.getElementById('cart-alert');
 
       if (alertElement) {
-        //afficher le message d'alerte pendant 3 secondes
         alertElement.innerHTML = message;
         alertElement.style.display = 'block';
 
-        // masquer le message après 3 secondes
         setTimeout(function() {
           alertElement.style.display = 'none';
         }, 3000);
@@ -100,7 +98,7 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  diplayPassword() {
+  displayPassword() {
     const x = document.getElementById("password");
     if (x?.getAttribute("type") === "password") {
       x.setAttribute("type", "text");
@@ -109,7 +107,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  diplayConfirmPassword() {
+  displayConfirmPassword() {
     const x = document.getElementById("confirmPassword");
     if (x?.getAttribute("type") === "password") {
       x.setAttribute("type", "text");
