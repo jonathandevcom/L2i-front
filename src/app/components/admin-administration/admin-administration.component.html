@@ -1,0 +1,169 @@
+
+
+<main id="content" role="main" class="flex-grow-1 overflow-hidden mt-5">
+  <!-- Content -->
+  <div class="container content-space-t-1 content-space-b-2 mt-5">
+    <div class="mx-lg-auto mt-5">
+      <div class="justify-content-center align-items-center flex-column">
+        <div class="justify-content-center align-items-center d-flex">
+          <!-- Nav -->
+          <ul class="nav nav-segment justify-content-center mb-7" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="nav-one-eg2-tab" href="#nav-one-eg2" data-bs-toggle="pill" data-bs-target="#nav-one-eg2" role="tab" aria-controls="nav-one-eg2" aria-selected="true">
+                <i class="bi-house nav-icon"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-two-eg2-tab" href="#nav-two-eg2" data-bs-toggle="pill" data-bs-target="#nav-two-eg2" role="tab" aria-controls="nav-two-eg2" aria-selected="false">
+                <i class="bi-book nav-icon"></i> Articles
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-three-eg2-tab" href="#nav-three-eg2" data-bs-toggle="pill" data-bs-target="#nav-three-eg2" role="tab" aria-controls="nav-three-eg2" aria-selected="false">
+                <i class="bi-box-seam nav-icon"></i> Éditeurs
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-four-eg2-tab" href="#nav-four-eg2" data-bs-toggle="pill" data-bs-target="#nav-four-eg2" role="tab" aria-controls="nav-four-eg2" aria-selected="false">
+                <i class="bi-pen nav-icon"></i> Auteurs
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-five-eg2-tab" href="#nav-five-eg2" data-bs-toggle="pill" data-bs-target="#nav-five-eg2" role="tab" aria-controls="nav-five-eg2" aria-selected="false">
+                <i class="bi-collection nav-icon"></i> Genres
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-six-eg2-tab" href="#nav-six-eg2" data-bs-toggle="pill" data-bs-target="#nav-six-eg2" role="tab" aria-controls="nav-six-eg2" aria-selected="false">
+                <i class="bi-person nav-icon"></i> Comptes
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <div class="col-lg-8">
+          <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
+          <div id="cart-error" class="alert alert-danger" role="alert" style="display:none;"></div>
+        </div>
+      </div>
+
+          <!-- Tab Content -->
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="nav-one-eg2" role="tabpanel" aria-labelledby="nav-one-eg2-tab">
+
+              <!-- Card -->
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-header-title">Commandes</h4>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                  <table class="table table-nowrap table-align-middle ">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                      <th>Date</th>
+                      <th>Numéro</th>
+                      <th>Total TTC</th>
+                      <th>Statut</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let order of orderList" (click)="showOrderDetails(order)" class="cursor">
+                      <td>
+                        <span class="d-block h5 text-inherit mb-0 text-center">{{ order.date | date: 'dd/MM/yyyy' }}</span>
+                      <td>
+                        <span class="d-block h5 text-inherit mb-0 text-center">{{ order.number }}</span>
+                      </td>
+                      <td>
+                        <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes | number:'.2' }} €</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="legend-indicator bg-success"></span>En cours
+                      </td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- End Table -->
+              </div>
+              <!-- End Card -->
+
+              <!-- Après la boucle *ngFor -->
+              <div *ngIf="showDetails" class="card mt-5">
+                <div class="card-header">
+                  <h4 class="card-header-title">Détail</h4>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-nowrap table-align-middle">
+                    <thead class="thead-light">
+                    <tr>
+                      <th>Image</th>
+                      <th>Titre</th>
+                      <th>Prix</th>
+                      <th>Quantité</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let item of detailItems">
+                      <td>
+                        <a class="d-flex cursor">
+                          <div class="flex-shrink-0">
+                            <div class="avatar">
+                              <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                            </div>
+                          </div>
+
+                        </a>
+                      </td>
+                      <td>
+                        <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
+                      </td>
+                      <td class="text-align-right">
+                        <span class="d-block h5 text-inherit mb-0"> {{ item.priceIncludingTaxes | number:'.2' }} €</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="d-block h5 text-inherit mb-0">{{ item.quantityOrder }}</span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+        </div>
+
+        <div class="tab-pane fade" id="nav-two-eg2" role="tabpanel" aria-labelledby="nav-two-eg2-tab">
+          <app-articles></app-articles>
+        </div>
+
+        <div class="tab-pane fade" id="nav-three-eg2" role="tabpanel" aria-labelledby="nav-three-eg2-tab">
+          <app-editor></app-editor>
+        </div>
+
+        <div class="tab-pane fade" id="nav-four-eg2" role="tabpanel" aria-labelledby="nav-four-eg2-tab">
+          <app-author></app-author>
+        </div>
+
+        <div class="tab-pane fade" id="nav-five-eg2" role="tabpanel" aria-labelledby="nav-five-eg2-tab">
+          <app-type></app-type>
+        </div>
+
+        <div class="tab-pane fade" id="nav-six-eg2" role="tabpanel" aria-labelledby="nav-six-eg2-tab">
+          <app-users></app-users>
+        </div>
+
+      </div>
+          <!-- End Tab Content -->
+    </div>
+  </div>
+  <!-- End Content -->
+</main>
+
+
+

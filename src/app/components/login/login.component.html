@@ -1,0 +1,95 @@
+<main id="content" role="main" class="flex-grow-1 overflow-hidden mt-5">
+  <div id="cart-alert" class="alert alert-danger" role="alert" style="display:none;"></div>
+    <!-- Content -->
+    <div class="container">
+      <div class="mx-lg-auto mt-5" style="max-width: 55rem;">
+        <div class="d-flex justify-content-center align-items-center flex-column min-vh-lg-100">
+          <div class="position-relative">
+            <!-- Card -->
+            <div class="card card-shadow card-login">
+              <div class="row">
+                  <div class="card-body">
+                    <!-- Form -->
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="login-form">
+                      <div class="text-center">
+                        <div class="mb-5">
+                          <h3 class="card-title">S'identifier</h3>
+                        </div>
+                      </div>
+
+                     <!-- email -->
+                     <div class="mb-4 form-group">
+                      <label class="form-label" for="email">Email</label>
+                      <input formControlName="email" [ngClass]="{'is-invalid':submitted && loginForm.get('email')?.invalid}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
+                      <div *ngIf="submitted && loginForm.get('email')?.errors?.['required']">
+                        Merci de saisir votre email.
+                      </div>
+                      <div *ngIf="submitted && loginForm.get('email')?.errors?.['email']">
+                        Votre email n'est pas valide.
+                      </div>
+                    </div>
+                    <!-- end email -->
+
+                      <!-- mot de passe -->
+                      <div class="mb-4 form-group">
+                        <label class="form-label" for="password">Mot de passe</label>
+                        <div class="input-group-merge">
+                          <input formControlName="password" [ngClass]="{'is-invalid':submitted && loginForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
+                                 data-hs-toggle-password-options='{
+                                   "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                                   "defaultClass": "bi-eye-slash",
+                                   "showClass": "bi-eye",
+                                   "classChangeTarget": ".js-toggle-password-show-icon-1"
+                                 }'>
+                          <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:" (click)="diplayPassword()">
+                            <i class="js-toggle-password-show-icon-1 bi-eye"></i>
+                          </a>
+                          <div *ngIf="submitted && loginForm.get('password')?.invalid" class="text-danger">
+                            <ng-container *ngIf="submitted && loginForm.get('password')?.errors?.['required']; then errorsRequired; else errorsPassword"></ng-container>
+                              <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
+                              <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
+                            </div>
+                          </div>
+                        </div>
+                      <div class="d-grid gap-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Se connecter</button>
+
+                        <p class="card-text text-muted">Vous n'avez pas encore de compte ? <a class="link" routerLink="../signup">Cliquez ici</a></p>
+                      </div>
+                    </form>
+                    <!-- End Form -->
+                  </div>
+                </div>
+                <!-- End Col -->
+
+              <!-- End Row -->
+            </div>
+            <!-- End Card -->
+
+            <!-- SVG Shape -->
+            <figure class="position-absolute top-0 end-0 zi-n1 d-none d-sm-block mt-n7 me-n10" style="width: 4rem;">
+              <img class="img-fluid" src="./assets/svg/components/pointer-up.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+
+            <!-- SVG Shape -->
+            <figure class="position-absolute bottom-0 start-0 d-none d-sm-block ms-n10 mb-n10" style="width: 15rem;">
+              <img class="img-fluid" src="./assets/svg/components/curved-shape.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+
+            <!-- SVG Shape -->
+            <figure class="position-absolute bottom-0 start-0 d-none d-sm-block ms-n10 mb-n10" style="width: 15rem;">
+              <img class="img-fluid" src="./assets/svg/components/curved-shape.svg" alt="Image Description">
+            </figure>
+            <!-- End SVG Shape -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Content -->
+  </main>
+  <!-- ========== END MAIN CONTENT ========== -->
+
+
+

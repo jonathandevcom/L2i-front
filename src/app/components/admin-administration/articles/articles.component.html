@@ -1,0 +1,215 @@
+<main id="content" role="main" class="flex-grow-1 overflow-hidden">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Article List -->
+        <div class="list-group">
+          <a *ngFor="let article of articlesList" class="list-group-item list-group-item-action" (click)="selectArticle(article)">
+            {{ article.title }}
+          </a>
+        </div>
+        <!-- End Article List -->
+      </div>
+
+      <div class="col-md-9">
+
+        <button class="btn btn-primary" *ngIf="selectedArticleCheck" (click)="addArticle()">Nouvel article</button>
+        <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="article-form" [formGroup]="articleForm">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group mt-4">
+                  <label for="title">Titre</label>
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['title'].errors}" type="text" class="form-control" id="title" name="title" formControlName="title" required>
+                  <div *ngIf="submitted && articleForm.controls['title'].errors" class="text-danger">
+                    Le titre est obligatoire.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group mt-4">
+                  <label for="stock">Stock</label>
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['stock'].errors}" type="number" class="form-control text-right-css" id="stock" name="stock" formControlName="stock" required>
+                  <div *ngIf="submitted && articleForm.controls['stock'].errors" class="text-danger">
+                    Le stock est obligatoire.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group mt-4">
+                  <label for="sold">Vendu</label>
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['sold'].errors}" type="number" class="form-control text-right-css" id="sold" name="sold" formControlName="sold" required>
+                  <div *ngIf="submitted && articleForm.controls['sold'].errors" class="text-danger">
+                    La quantité vendue est obligatoire.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group mt-4">
+                <label for="ISBN">ISBN</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['ISBN'].errors}" type="text" class="form-control" id="ISBN" name="ISBN" formControlName="ISBN" required pattern="[0-9]*">
+                <div *ngIf="submitted && articleForm.controls['ISBN'].errors" class="text-danger">
+                  <div *ngIf="articleForm.get('ISBN')?.errors?.['required']">L'ISBN est obligatoire.</div>
+                  <div *ngIf="articleForm.get('ISBN')?.errors?.['minlength']">L'ISBN doit contenir au moins 13 caractères.</div>
+                  <div *ngIf="articleForm.get('ISBN')?.errors?.['maxlength']">L'ISBN ne doit pas dépasser 13 caractères.</div>
+                  <div *ngIf="articleForm.get('ISBN')?.errors?.['pattern']">L'ISBN ne doit contenir que des chiffres.</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+              <div class="form-group mt-4">
+                <label for="format">Format</label>
+                <input [ngClass]="{'is-invalid': submitted && articleForm.controls['format'].errors}" type="text" class="form-control" id="format" name="format" formControlName="format" required>
+                <div *ngIf="submitted && articleForm.controls['format'].errors" class="text-danger">
+                  Le format est obligatoire.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="summary">Résumé</label>
+            <textarea [ngClass]="{'is-invalid': submitted && articleForm.controls['summary'].errors}" class="form-control textarea-resize" id="summary" name="summary" formControlName="summary" required></textarea>
+            <div *ngIf="submitted && articleForm.controls['summary'].errors" class="text-danger">
+              Le résumé est obligatoire.
+            </div>
+          </div>
+
+
+          <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group mt-4">
+                  <label>Auteur</label>
+                  <select class="form-select mb-2" #authorSelect (change)="addAuthor(authorSelect.selectedIndex)">
+                    <option selected disabled>Choisir un auteur</option>
+                    <option *ngFor="let author of authors" [value]="author.id">{{ author.firstname }} {{ author.lastname }}</option>
+                  </select>
+                  <ul>
+                    <li *ngFor="let author of authorList">
+                      {{ author.firstname }} {{ author.lastname }}
+                      <span class="remove-icon" (click)="removeAuthor(author)">
+                        <i class="bi bi-x-circle"></i>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            <div class="col-sm-4">
+              <div class="form-group mt-4">
+                <label>Éditeur <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#editor"></i></label>
+                <select class="form-select mb-2" #editorSelect (change)="addEditor(editorSelect.selectedIndex)">
+                  <option selected disabled>Choisir un éditeur</option>
+                  <option *ngFor="let editor of editors" [value]="editor.id">{{ editor.name }}</option>
+                </select>
+                 <ul>
+                   <li *ngIf="editorList && editorList.length > 0">{{ editorList[0].name }}</li>
+                 </ul>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group mt-4">
+                <label>Type de livre</label>
+                <select class="form-select mb-2" #typeSelect (change)="addType(typeSelect.selectedIndex)">
+                  <option selected disabled>Choisir un type</option>
+                  <option *ngFor="let type of types" [value]="type.id">{{ type.typeName }}</option>
+                </select>
+                <ul>
+                  <li *ngFor="let type of typeList">
+                    {{ type.typeName }}
+                    <span class="remove-icon" (click)="removeType(type)">
+                      <i class="bi bi-x-circle"></i>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group mt-7">
+                <div class="input-group">
+                  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" (change)="handleImageSelection($event)">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-1">
+                <span class="avatar avatar-sm avatar-4x3">
+                  <img *ngIf="imageBook && imageBook.length > 0" class="avatar-img" [src]="'data:image/png;base64,' + imageBook" alt="Image Description">
+                </span>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group mt-4">
+                <label for="unitPriceExcludingTaxes">Prix unitaire HT</label>
+                <div class="input-group">
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceExcludingTaxes'].errors}" type="number" class="form-control text-right-css" id="unitPriceExcludingTaxes" name="unitPriceExcludingTaxes" formControlName="unitPriceExcludingTaxes" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">€</span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && articleForm.controls['unitPriceExcludingTaxes'].errors" class="text-danger">
+                  Le prix unitaire HT est obligatoire.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="form-group mt-4">
+                <label for="unitPriceIncludingTaxes">Prix unitaire TTC</label>
+                <div class="input-group">
+                  <input [ngClass]="{'is-invalid': submitted && articleForm.controls['unitPriceIncludingTaxes'].errors}" type="number" class="form-control text-right-css" id="unitPriceIncludingTaxes" name="unitPriceIncludingTaxes" formControlName="unitPriceIncludingTaxes" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon-3">€</span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && articleForm.controls['unitPriceIncludingTaxes'].errors" class="text-danger">
+                  Le prix unitaire TTC est obligatoire.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary mt-3" type="submit" *ngIf="selectedArticleCheck" (click)="updateArticle()">Modifier</button>
+            <button class="btn btn-primary mt-3" type="submit" *ngIf="!selectedArticleCheck" (click)="postArticle()">Ajouter</button>
+            <button class="btn btn-danger mt-3" *ngIf="selectedArticleCheck" (click)="deleteArticle()">Supprimer</button>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal editor-->
+  <div class="modal fade" id="editor" tabindex="-1" role="dialog" aria-labelledby="editor" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userPasswordLabel">Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Vous ne pouvez pas sélectionner plusieurs éditeurs pour un livre.</p>
+          <div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-white" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+
+</main>

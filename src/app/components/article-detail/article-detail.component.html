@@ -1,0 +1,61 @@
+<!-- Features -->
+<div class="container content-space-4" *ngIf="article">
+    <div class="row justify-content-lg-between align-items-lg-center">
+
+      <div id="cart-alert" class="alert alert-primary" role="alert" style="display:none;"></div>
+
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <img class="img-fluid rounded-3" [src]="'data:image/png;base64,' + article.image" alt="Image Description">
+      </div>
+      <!-- End Col -->
+
+      <div class="col-lg-8">
+        <div class="mb-5">
+          <h2>{{ article.title }}</h2>
+          <p>{{ article.summary }}</p>
+        </div>
+
+        <!-- List Checked -->
+        <ul class="list-checked list-checked-soft-bg-primary list-checked-lg mb-5">
+          <li class="list-checked-item"><span class="fw-bold">Editeur :</span>
+            <ng-container *ngFor="let bookEditor of article.bookEditor">
+
+                {{ bookEditor }}
+            </ng-container>
+          </li>
+
+          <li class="list-checked-item"><span class="fw-bold">Catégories : </span>
+            <ul>
+              <ng-container *ngFor="let types of article.booktypes">
+                <li>
+                  {{ types }}
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+
+          <li class="list-checked-item"><span class="fw-bold">Autheur : </span>
+            <ul>
+                <ng-container *ngFor="let author of article.bookAuthor">
+                  <li>
+                  {{ author.lastname }} {{ author.firstname }}
+                  </li>
+                </ng-container>
+            </ul>
+          </li>
+        </ul>
+        <!-- End List Checked -->
+
+        <div class="wrapper">
+          <span id="minus" (click)="deducQuantity()">-</span>
+          <span id="num">1</span>
+          <span id="plus" (click)="addQuantity(article)">+</span>
+        </div>
+
+        <a (click)="addToCart(article)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
+      </div>
+      <!-- End Col -->
+    </div>
+    <!-- End Row -->
+  </div>
+  <!-- End Features -->
