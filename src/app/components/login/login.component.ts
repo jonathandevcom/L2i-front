@@ -47,16 +47,21 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('login', 'true');
         localStorage.setItem('userID', res.result.userID);
 
+        if(res.result.type === 'admin') {
+          localStorage.setItem('type', 'admin');
+          this.authService.setAdmin(true)
+        }
+        if(res.result.type === 'user') {
+          localStorage.setItem('type', 'user');
+        }
         this.authService.setIsLogged(true);
         message = res.result.message;
-        //console.log(this.authService.getCookies())
         this.router.navigate(['/home']);
       }
 
     const alertElement = document.getElementById('cart-alert');
 
     if (alertElement) {
-      //afficher le message d'alerte pendant 3 secondes
       alertElement.innerHTML = message;
       alertElement.style.display = 'block';
 
@@ -69,7 +74,7 @@ export class LoginComponent implements OnInit {
   }
 
   passwordValidator(): ValidatorFn {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\-\+\_\!\?]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d+\-!?]{8,}$/;
     return (control: AbstractControl): { [key: string]: any } | null => {
       const password = control.value;
       if (!passwordRegex.test(password)) {

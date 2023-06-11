@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import {AuthService} from "../../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-user-administration',
@@ -21,7 +21,6 @@ export class UserAdministrationComponent implements OnInit {
   message: string = '';
   showDetails: boolean = false;
   detailItems: any[] = [];
-
 
   constructor(
     private formBuilder:FormBuilder,
@@ -49,6 +48,14 @@ export class UserAdministrationComponent implements OnInit {
         invoiceCity: this.user.invoiceCity,
         invoiceCountry: this.user.invoiceCountry,
       });
+
+      this.updateDeliveryForm.patchValue({
+        deliveryStreet: this.user.deliveryStreet,
+        deliveryAddressComplement: this.user.deliveryAddressComplement,
+        deliveryZipCode: this.user.deliveryZipCode,
+        deliveryCity: this.user.deliveryCity,
+        deliveryCountry: this.user.deliveryCountry,
+      });
     });
 
     this.updateUserForm = this.formBuilder.group({
@@ -57,7 +64,7 @@ export class UserAdministrationComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       invoiceStreet: ['', [Validators.required, Validators.minLength(3)]],
       invoiceAddressComplement: [''],
-      invoiceZipCode: ['', [Validators.required, Validators.minLength(3)]],
+      invoiceZipCode: ['', [Validators.required, Validators.minLength(5)]],
       invoiceCity: ['', [Validators.required, Validators.minLength(3)]],
       invoiceCountry: ['', [Validators.required, Validators.minLength(3)]],
     });
@@ -72,7 +79,6 @@ export class UserAdministrationComponent implements OnInit {
   }
 
   showOrderDetails(order:any ): void {
-    console.log(order);
     this.detailItems=order.lines
     this.showDetails = true;
   }

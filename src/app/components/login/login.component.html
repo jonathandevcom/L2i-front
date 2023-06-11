@@ -20,14 +20,12 @@
                      <!-- email -->
                      <div class="mb-4 form-group">
                       <label class="form-label" for="email">Email</label>
-                      <input formControlName="email" [ngClass]="{'is-invalid':submitted && loginForm.controls['email'].errors}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
-                      <div *ngIf="submitted && loginForm.controls['email'].errors" class="text-danger">
-                        <div *ngIf="submitted && loginForm.controls['email'].errors['required']">
-                          Merci de saisir votre email.
-                        </div>
-                        <div *ngIf="submitted && loginForm.controls['email'].errors['email']">
-                          Votre email n'est pas valide.
-                        </div>
+                      <input formControlName="email" [ngClass]="{'is-invalid':submitted && loginForm.get('email')?.invalid}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
+                      <div *ngIf="submitted && loginForm.get('email')?.errors?.['required']">
+                        Merci de saisir votre email.
+                      </div>
+                      <div *ngIf="submitted && loginForm.get('email')?.errors?.['email']">
+                        Votre email n'est pas valide.
                       </div>
                     </div>
                     <!-- end email -->
@@ -36,33 +34,25 @@
                       <div class="mb-4 form-group">
                         <label class="form-label" for="password">Mot de passe</label>
                         <div class="input-group-merge">
-                          <input formControlName="password" [ngClass]="{'is-invalid':submitted && loginForm.controls['password'].errors}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
+                          <input formControlName="password" [ngClass]="{'is-invalid':submitted && loginForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
                                  data-hs-toggle-password-options='{
                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
                                    "defaultClass": "bi-eye-slash",
                                    "showClass": "bi-eye",
                                    "classChangeTarget": ".js-toggle-password-show-icon-1"
                                  }'>
-                          <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;" (click)="diplayPassword()">
+                          <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:" (click)="diplayPassword()">
                             <i class="js-toggle-password-show-icon-1 bi-eye"></i>
                           </a>
-                          <div *ngIf="submitted && loginForm.controls['password'].errors" class="text-danger">
-                            <ng-container *ngIf="submitted && loginForm.controls['password'].errors['required']; then errorsRequired; else errorsPassword"></ng-container>
+                          <div *ngIf="submitted && loginForm.get('password')?.invalid" class="text-danger">
+                            <ng-container *ngIf="submitted && loginForm.get('password')?.errors?.['required']; then errorsRequired; else errorsPassword"></ng-container>
                               <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
                               <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
                             </div>
                           </div>
                         </div>
-                      <!-- mot de passe -->
-
-                      <!--
-                      <div class="d-flex justify-content-end mb-4">
-                        <a class="form-label-link" routerLink="../resetPassword">Mot de passe oublié ?</a>
-                      </div>
-                      -->
-
                       <div class="d-grid gap-4">
-                        <button type="submit" class="btn btn-primary btn-lg">S'enregistrer</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Se connecter</button>
 
                         <p class="card-text text-muted">Vous n'avez pas encore de compte ? <a class="link" routerLink="../signup">Cliquez ici</a></p>
                       </div>
@@ -71,8 +61,6 @@
                   </div>
                 </div>
                 <!-- End Col -->
-
-
 
               <!-- End Row -->
             </div>

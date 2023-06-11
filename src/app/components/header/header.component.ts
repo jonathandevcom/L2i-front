@@ -20,6 +20,13 @@ export class HeaderComponent implements OnInit {
       if (localStorage.getItem('login') === 'true') {
         this.authService.setIsLogged(true);
       }
+     }
+
+     if(localStorage.getItem('type')) {
+      if (localStorage.getItem('type') === 'admin') {
+        this.authService.setAdmin(true);
+      }
+     }
 
     const articleCardElement = document.getElementById('articleCard');
 
@@ -28,7 +35,6 @@ export class HeaderComponent implements OnInit {
       const totalItems = cartItems.reduce((total : number, item : any) => total + parseInt(item.quantity || '0', 10), 0);
       articleCardElement.innerText = totalItems.toString();
       }
-  }
 }
 
   goToUserAdministration() {
@@ -39,7 +45,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.setItem('login', 'false');
     localStorage.removeItem('userID');
+    localStorage.removeItem('type');
     this.authService.setIsLogged(false);
+    this.authService.setAdmin(false);
     this.router.navigate(['/login']);
   }
 }

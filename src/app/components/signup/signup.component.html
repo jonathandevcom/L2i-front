@@ -22,11 +22,9 @@
                           <!-- Form -->
                           <div class="mb-4 form-group">
                             <label class="form-label" for="civility">Civilité</label>
-                            <input formControlName="civility" [ngClass]="{'is-invalid':submitted && registerForm.controls['civility'].errors}" type="text" class="form-control form-control-lg" name="civility" id="civility" placeholder="M." aria-label="M." required>
-                            <div *ngIf="submitted && registerForm.controls['civility'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['civility'].errors['required']">
+                            <input formControlName="civility" [ngClass]="{'is-invalid':submitted && registerForm.get('civility')?.invalid}" type="text" class="form-control form-control-lg" name="civility" id="civility" placeholder="M." aria-label="M." required>
+                              <div *ngIf="submitted && registerForm.get('civility')?.errors?.['required']" class="text-danger">
                                 Merci de saisir votre civilité.
-                              </div>
                             </div>
                           </div>
                           <!-- End Form -->
@@ -36,14 +34,12 @@
                           <!-- Form -->
                           <div class="mb-4 form-group">
                             <label class="form-label" for="firstName">Prénom</label>
-                            <input formControlName="firstName" [ngClass]="{'is-invalid':submitted && registerForm.controls['firstName'].errors}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" required>
-                            <div *ngIf="submitted && registerForm.controls['firstName'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['firstName'].errors['required']">
-                                Merci de saisir votre prénom.
-                              </div>
-                              <div *ngIf="submitted && registerForm.controls['firstName'].errors['minlength']">
-                                Votre prénom doit comporter au moins 3 lettres.
-                              </div>
+                            <input formControlName="firstName" [ngClass]="{'is-invalid':submitted && registerForm.get('firstName')?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" required>
+                            <div *ngIf="submitted && registerForm.get('firstName')?.errors?.['required']" class="text-danger">
+                              Merci de saisir votre prénom.
+                            </div>
+                            <div *ngIf="submitted && registerForm.get('firstName')?.errors?.['minlength']" class="text-danger">
+                              Votre prénom doit comporter au moins 3 lettres.
                             </div>
                           </div>
                           <!-- End Form -->
@@ -53,14 +49,12 @@
                           <!-- Form -->
                           <div class="mb-4 form-group">
                             <label class="form-label" for="lastName">Nom</label>
-                            <input formControlName="lastName" [ngClass]="{'is-invalid':submitted && registerForm.controls['lastName'].errors}" type="text" class="form-control form-control-lg" placeholder="Mark" aria-label="Mark" name="lastName" id="lastName" required>
-                            <div *ngIf="submitted && registerForm.controls['lastName'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['lastName'].errors['required']">
-                                Merci de saisir votre nom.
-                              </div>
-                              <div *ngIf="submitted && registerForm.controls['lastName'].errors['minlength']">
-                                Votre nom doit comporter au moins 3 lettres.
-                              </div>
+                            <input formControlName="lastName" [ngClass]="{'is-invalid':submitted && registerForm.get('lastName')?.invalid}" type="text" class="form-control form-control-lg" placeholder="Mark" aria-label="Mark" name="lastName" id="lastName" required>
+                            <div *ngIf="submitted && registerForm.get('lastName')?.errors?.['required']" class="text-danger">
+                              Merci de saisir votre nom.
+                            </div>
+                            <div *ngIf="submitted && registerForm.get('lastName')?.errors?.['minlength']" class="text-danger">
+                              Votre nom doit comporter au moins 3 lettres.
                             </div>
                           </div>
                           <!-- End Form -->
@@ -73,11 +67,9 @@
                           <!-- Form -->
                           <div class="mb-4 form-group">
                             <label class="form-label" for="street">Numéro et nom de la rue</label>
-                            <input formControlName="street" [ngClass]="{'is-invalid':submitted && registerForm.controls['street'].errors}" type="text" class="form-control form-control-lg" name="street" id="street" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
-                            <div *ngIf="submitted && registerForm.controls['street'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['street'].errors['required']">
-                                Merci le numéro et le nom de votre rue.
-                              </div>
+                            <input formControlName="street" [ngClass]="{'is-invalid':submitted && registerForm.get('street')?.invalid}" type="text" class="form-control form-control-lg" name="street" id="street" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
+                            <div *ngIf="submitted && registerForm.get('street')?.errors?.['required']" class="text-danger">
+                              Merci le numéro et le nom de votre rue.
                             </div>
                           </div>
                           <!-- End Form -->
@@ -98,14 +90,12 @@
                         <div class="col-sm-2">
                           <div class="mb-4 form-group">
                             <label class="form-label" for="zipCode">Code Postal</label>
-                            <input formControlName="zipCode" [ngClass]="{'is-invalid':submitted && registerForm.controls['zipCode'].errors}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="zipCode" id="zipCode" required>
-                            <div *ngIf="submitted && registerForm.controls['zipCode'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['zipCode'].errors['required']">
-                                Merci de saisir votre code postal.
-                              </div>
-                              <div *ngIf="submitted && registerForm.controls['zipCode'].errors['minlength']">
-                                Votre code postal doit comporter au moins 5 chiffres.
-                              </div>
+                            <input formControlName="zipCode" [ngClass]="{'is-invalid':submitted && registerForm.get('zipCode')?.invalid}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="zipCode" id="zipCode" required>
+                            <div *ngIf="submitted && registerForm.get('zipCode')?.errors?.['required']" class="text-danger">
+                              Merci de saisir votre code postal.
+                            </div>
+                            <div *ngIf="submitted && registerForm.get('zipCode')?.errors?.['minlength']" class="text-danger">
+                              Votre code postal doit comporter au moins 5 chiffres.
                             </div>
                           </div>
                         </div>
@@ -113,14 +103,12 @@
                         <div class="col-sm-5">
                           <div class="mb-4 form-group">
                             <label class="form-label" for="city">Ville</label>
-                            <input formControlName="city" [ngClass]="{'is-invalid':submitted && registerForm.controls['city'].errors}" type="text" class="form-control form-control-lg" name="city" id="city" placeholder="Marseille" aria-label="Marseille" required>
-                            <div *ngIf="submitted && registerForm.controls['city'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['city'].errors['required']">
-                                Merci de saisir votre ville.
-                              </div>
-                              <div *ngIf="submitted && registerForm.controls['city'].errors['minlength']">
-                                Votre ville doit comporter au moins 3 lettres.
-                              </div>
+                            <input formControlName="city" [ngClass]="{'is-invalid':submitted && registerForm.get('city')?.invalid}" type="text" class="form-control form-control-lg" name="city" id="city" placeholder="Marseille" aria-label="Marseille" required>
+                            <div *ngIf="submitted && registerForm.get('city')?.errors?.['required']" class="text-danger">
+                              Merci de saisir votre ville.
+                            </div>
+                            <div *ngIf="submitted && registerForm.get('city')?.errors?.['minlength']" class="text-danger">
+                              Votre ville doit comporter au moins 3 lettres.
                             </div>
                           </div>
                           <!-- End Form -->
@@ -129,11 +117,12 @@
                         <div class="col-sm-5">
                           <div class="mb-4 form-group">
                             <label class="form-label" for="country">Pays</label>
-                            <input formControlName="country" [ngClass]="{'is-invalid':submitted && registerForm.controls['country'].errors}" type="text" class="form-control form-control-lg" name="country" id="country" placeholder="France" aria-label="France" required>
-                            <div *ngIf="submitted && registerForm.controls['country'].errors" class="text-danger">
-                              <div *ngIf="submitted && registerForm.controls['country'].errors['required']">
-                                Merci de saisir votre pays.
-                              </div>
+                            <input formControlName="country" [ngClass]="{'is-invalid':submitted && registerForm.get('country')?.invalid}" type="text" class="form-control form-control-lg" name="country" id="country" placeholder="France" aria-label="France" required>
+                            <div *ngIf="submitted && registerForm.get('country')?.errors?.['required']" class="text-danger">
+                              Merci de saisir votre pays.
+                            </div>
+                            <div *ngIf="submitted && registerForm.get('country')?.errors?.['minlength']" class="text-danger">
+                              Le pays doit comporter au moins 3 lettres.
                             </div>
                           </div>
                         </div>
@@ -142,14 +131,12 @@
                       <!-- email -->
                       <div class="mb-4 form-group">
                         <label class="form-label" for="email">Email</label>
-                        <input formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls['email'].errors}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
-                        <div *ngIf="submitted && registerForm.controls['email'].errors" class="text-danger">
-                          <div *ngIf="submitted && registerForm.controls['email'].errors['required']">
-                            Merci de saisir votre email.
-                          </div>
-                          <div *ngIf="submitted && registerForm.controls['email'].errors['email']">
-                            Votre email n'est pas valide.
-                          </div>
+                        <input formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.get('email')?.invalid}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
+                        <div *ngIf="submitted && registerForm.get('email')?.errors?.['required']" class="text-danger">
+                          Merci de saisir votre email.
+                        </div>
+                        <div *ngIf="submitted && registerForm.get('email')?.errors?.['email']" class="text-danger">
+                          Votre email n'est pas valide.
                         </div>
                       </div>
                       <!-- end email -->
@@ -158,7 +145,7 @@
                       <div class="mb-4 form-group">
                         <label class="form-label" for="password">Mot de passe</label>
                         <div class="input-group-merge">
-                          <input formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls['password'].errors}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
+                          <input formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
                                  data-hs-toggle-password-options='{
                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
                                    "defaultClass": "bi-eye-slash",
@@ -168,13 +155,13 @@
                           <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;" (click)="diplayPassword()">
                             <i class="js-toggle-password-show-icon-1 bi-eye"></i>
                           </a>
-                          <div *ngIf="submitted && registerForm.controls['password'].errors" class="text-danger">
-                            <ng-container *ngIf="submitted && registerForm.controls['password'].errors['required']; then errorsRequired; else errorsPassword"></ng-container>
-                              <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                              <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
-                            </div>
+                          <div *ngIf="submitted && registerForm.get('password')?.invalid" class="text-danger">
+                            <ng-container *ngIf="submitted && registerForm.get('password')?.errors?.['required']; then errorsRequired; else errorsPassword"></ng-container>
+                            <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
+                            <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
                           </div>
                         </div>
+                      </div>
                       <!-- mot de passe -->
 
                       <!-- confirm mot de passe -->
@@ -182,7 +169,7 @@
                         <label class="form-label" for="confirmPassword">Confirmer le mot de passe</label>
 
                         <div class="input-group-merge">
-                          <input formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls['confirmPassword'].errors}" type="password" class="js-toggle-password form-control form-control-lg" name="confirmPassword" id="confirmPassword" placeholder="Mot de passe fort" aria-label="Mot de passe fort" required minlength="8"
+                          <input formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.get('confirmPassword')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="confirmPassword" id="confirmPassword" placeholder="Mot de passe fort" aria-label="Mot de passe fort" required minlength="8"
                                  data-hs-toggle-password-options='{
                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
                                    "defaultClass": "bi-eye-slash",
@@ -192,10 +179,10 @@
                           <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:;" (click)="diplayConfirmPassword()">
                             <i class="js-toggle-password-show-icon-2 bi-eye"></i>
                           </a>
-                          <div *ngIf="submitted && registerForm.controls['confirmPassword'].errors" class="text-danger">
-                            <ng-container *ngIf="submitted && registerForm.controls['confirmPassword'].errors['required']; then errorsRequired; else errorsConfirmPassword"></ng-container>
-                                <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                                <ng-template #errorsConfirmPassword>La confirmation du mot de passe doit être identique au mot de passe.</ng-template>
+                          <div *ngIf="submitted && registerForm.get('confirmPassword')?.invalid" class="text-danger">
+                            <ng-container *ngIf="submitted && registerForm.get('confirmPassword')?.errors?.['required']; then errorsRequired; else errorsConfirmPassword"></ng-container>
+                            <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
+                            <ng-template #errorsConfirmPassword>La confirmation du mot de passe doit être identique au mot de passe.</ng-template>
                             </div>
                         </div>
                       </div>

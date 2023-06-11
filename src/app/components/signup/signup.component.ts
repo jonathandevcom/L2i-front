@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       street: ['', [Validators.required, Validators.minLength(3)]],
       addressComplement: [''],
-      zipCode: ['', [Validators.required, Validators.minLength(3)]],
+      zipCode: ['', [Validators.required, Validators.minLength(5)]],
       city: ['', [Validators.required, Validators.minLength(3)]],
       country: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -55,11 +55,11 @@ export class SignupComponent implements OnInit {
       }
       if (res.result.login) {
         localStorage.setItem('login', 'true');
+        localStorage.setItem('type', 'user');
         localStorage.setItem('userID', res.result.userID);
 
         this.authService.setIsLogged(true);
         message = res.result.message;
-        //console.log(this.authService.getCookies())
         this.router.navigate(['/home']);
       }
 
@@ -76,11 +76,10 @@ export class SignupComponent implements OnInit {
         }, 3000);
       }
     });
-
   }
 
   passwordValidator(): ValidatorFn {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\-\+\_\!\?]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d+\-!?]{8,}$/;
     return (control: AbstractControl): { [key: string]: any } | null => {
       const password = control.value;
       if (!passwordRegex.test(password)) {

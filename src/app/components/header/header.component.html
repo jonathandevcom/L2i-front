@@ -41,7 +41,7 @@
               <a class="btn btn-ghost-dark me-2 me-lg-0" (click)="goToUserAdministration()">Mon compte</a>
             </li>
             <!-- management administrator -->
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="authService.isLogged && authService.isAdmin">
               <a class="btn btn-primary d-lg-inline-block" routerLink="admin-administration">Administration</a>
             </li>
             <!-- Logout -->

@@ -7,13 +7,17 @@ import {environment} from "../../environments/environment";
 })
 export class AuthService {
   isLogged = false;
-  admin = false;
+  isAdmin = false;
 
   constructor(
   ) { }
 
   setIsLogged(value: boolean) {
     this.isLogged = value;
+  }
+
+  setAdmin(value: boolean) {
+    this.isAdmin = value;
   }
 
   getHeaders(): HttpHeaders {
