@@ -115,10 +115,7 @@
           <div class="col-sm-6">
             <div class="form-group mt-4">
               <label for="deliveryStreet">Numéro et nom de la rue</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('deliveryStreet')?.invalid}" type="text" class="form-control" id="deliveryStreet" name="deliveryStreet" formControlName="deliveryStreet" required>
-              <div *ngIf="submitted && userForm.get('deliveryStreet')?.errors?.['required']" class="text-danger">
-                Le numéro et le nom de la rue sont obligatoires.
-              </div>
+              <input type="text" class="form-control" id="deliveryStreet" name="deliveryStreet" formControlName="deliveryStreet">
             </div>
           </div>
 
@@ -135,30 +132,21 @@
           <div class="col-sm-2">
             <div class="form-group mt-4">
               <label for="deliveryZipCode">Code Postal</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('deliveryZipCode')?.invalid}" type="text" class="form-control" id="deliveryZipCode" name="deliveryZipCode" formControlName="deliveryZipCode" required>
-              <div *ngIf="submitted && userForm.get('deliveryZipCode')?.errors?.['required']" class="text-danger">
-                Le code postal est obligatoire.
-              </div>
+              <input type="text" class="form-control" id="deliveryZipCode" name="deliveryZipCode" formControlName="deliveryZipCode">
             </div>
           </div>
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
               <label for="deliveryCity">Ville</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('deliveryCity')?.invalid}" type="text" class="form-control" id="deliveryCity" name="deliveryCity" formControlName="deliveryCity" required>
-              <div *ngIf="submitted && userForm.get('deliveryCity')?.errors?.['required']" class="text-danger">
-                La ville est obligatoire.
-              </div>
+              <input type="text" class="form-control" id="deliveryCity" name="deliveryCity" formControlName="deliveryCity">
             </div>
           </div>
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
               <label for="deliveryCountry">Pays</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('deliveryCountry')?.invalid}" type="text" class="form-control" id="deliveryCountry" name="deliveryCountry" formControlName="deliveryCountry" required>
-              <div *ngIf="submitted && userForm.get('deliveryCountry')?.errors?.['required']" class="text-danger">
-                Le pays est obligatoire.
-              </div>
+              <input type="text" class="form-control" id="deliveryCountry" name="deliveryCountry" formControlName="deliveryCountry" >
             </div>
           </div>
         </div>

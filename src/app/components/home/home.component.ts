@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
+import {AuthService} from "../../services/auth.service";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  
+
   constructor(
     private _httpClient: HttpClient,
-    private as:ArticleService
+    private as:ArticleService,
+    private authService: AuthService
     ) {}
 
   article: Article[]= [];
@@ -25,12 +27,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     const url = 'http://localhost/rest/$directory/login';
-    const headers = new HttpHeaders({
-      'username-4D': 'toto',
-      'password-4D': 'toto',
-      'Content-Type': 'application/json'
-    });
-    
+    const headers = this.authService.getHeaders();
     this._httpClient.post(url, null, { headers, withCredentials: true }).subscribe(res => {});
 
     this.as.getAllArticle().subscribe((res: any) => {
@@ -63,10 +60,10 @@ export class HomeComponent implements OnInit {
 
   searchArticle(event: Event) {
     event.preventDefault();
-    const searchValue = (document.getElementById('searchForm') as HTMLInputElement).value; 
+    const searchValue = (document.getElementById('searchForm') as HTMLInputElement).value;
       this.filteredArticle = this.article.filter(item => item.title?.toLowerCase().includes(searchValue.toLowerCase()));
   }
-  
+
   searchAuthor(event: Event): void {
     event.preventDefault();
     const searchValue = (document.getElementById('searchAuthorValue') as HTMLInputElement).value.toLowerCase();
@@ -76,10 +73,10 @@ export class HomeComponent implements OnInit {
     });
   }
 }
-  
-  
 
 
 
-  
+
+
+
 

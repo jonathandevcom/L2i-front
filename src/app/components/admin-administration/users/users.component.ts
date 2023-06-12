@@ -32,16 +32,16 @@ export class UsersComponent implements OnInit {
       type: ['', Validators.required],
       password: ['', this.passwordValidator()],
       isAccess: [true],
-      deliveryStreet: ['', Validators.required],
+      deliveryStreet: [''],
       deliveryAddressComplement: [''],
-      deliveryZipCode: ['', Validators.required],
-      deliveryCity: ['', Validators.required],
-      deliveryCountry: ['', Validators.required],
-      invoiceStreet: [''],
+      deliveryZipCode: [''],
+      deliveryCity: [''],
+      deliveryCountry: [''],
+      invoiceStreet: ['', Validators.required],
       invoiceAddressComplement: [''],
-      invoiceZipCode: [''],
-      invoiceCity: [''],
-      invoiceCountry: [''],
+      invoiceZipCode: ['', Validators.required],
+      invoiceCity: ['', Validators.required],
+      invoiceCountry: ['', Validators.required],
     });
   }
 
@@ -60,6 +60,7 @@ export class UsersComponent implements OnInit {
           setTimeout(() => {
             this.authService.logout();
           }, 3000);
+          return;
         }
         this.users = response.result;
       },
@@ -175,7 +176,6 @@ export class UsersComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-
     const formValues = this.userForm.value;
     const userData = {
       civility: formValues.civility,
