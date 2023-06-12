@@ -35,6 +35,12 @@ export class UserAdministrationComponent implements OnInit {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
 
     this.us.getUserById(id).subscribe((res:any) => {
+      if(res.result.disconnect == true) {
+        setTimeout(() => {
+          this.authService.logout();
+        }, 3000);
+      }
+
       this.user = res.result;
       this.orderList = res.result.orders;
 
@@ -94,6 +100,12 @@ export class UserAdministrationComponent implements OnInit {
     const item = JSON.stringify(formValue).replace(/,/g, ';');
 
     this.us.updateUser(id, item).subscribe((res:any) => {
+      if(res.result.disconnect == true) {
+        setTimeout(() => {
+          this.authService.logout();
+        }, 3000);
+        return;
+      }
       this.success=true;
       this.message='Votre profil a été mis à jour avec succès.'
       setTimeout(() => {
@@ -114,6 +126,13 @@ export class UserAdministrationComponent implements OnInit {
     const item = JSON.stringify(formValue).replace(/,/g, ';');
 
     this.us.updateAddressDelivery(id, item).subscribe((res:any) => {
+      if(res.result.disconnect == true) {
+        setTimeout(() => {
+          this.authService.logout();
+        }, 3000);
+        return;
+      }
+
       this.success=true;
       this.message='Votre adresse a été mise à jour avec succès.'
       setTimeout(() => {
@@ -126,6 +145,12 @@ export class UserAdministrationComponent implements OnInit {
   deleteUser() {
      const id = this.route.snapshot.paramMap.get('id');
     this.us.deleteUser(id).subscribe((res:any) => {
+      if(res.result.disconnect == true) {
+        setTimeout(() => {
+          this.authService.logout();
+        }, 3000);
+        return;
+      }
       if(res.result.disconnect === true) {
         localStorage.setItem('login', 'false');
         localStorage.removeItem('userID');

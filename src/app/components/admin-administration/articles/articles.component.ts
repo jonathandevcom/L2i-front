@@ -176,7 +176,6 @@ export class ArticlesComponent implements OnInit {
     this.as.getAllArticle().subscribe({
       next: (response: any) => {
         this.articlesList = response.result;
-        console.log(this.articlesList)
       },
       error: (error) => console.log(error),
     });
@@ -210,15 +209,12 @@ export class ArticlesComponent implements OnInit {
   }
 
   selectArticle(article: any) {
-    console.log(article)
     this.selectedArticle = article;
     this.selectedArticleCheck = true;
     this.submitted = false;
-
     this.authorList = article.bookAuthor;
     this.editorList = article.bookEditor;
     this.typeList = article.booktypes;
-
     this.imageBook = article.image;
 
     this.articleForm.patchValue({
@@ -258,6 +254,11 @@ export class ArticlesComponent implements OnInit {
     this.as.postArticle(JSON.stringify(articleData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+        }
         this.getArticles();
       },
       error: (error) => console.log(error),

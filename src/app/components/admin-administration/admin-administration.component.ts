@@ -18,13 +18,10 @@ export class AdminAdministrationComponent implements OnInit {
   ngOnInit(): void {
     this.os.getAllOrders().subscribe((res:any) => {
       this.orderList = res.result;
-      console.log(res)
     });
-
   }
 
   showOrderDetails(order:any ): void {
-    console.log(order);
     this.detailItems=order.lines
     this.showDetails = true;
   }

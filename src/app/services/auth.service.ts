@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class AuthService {
   isAdmin = false;
 
   constructor(
+    private router: Router
   ) { }
 
   setIsLogged(value: boolean) {
@@ -19,6 +21,15 @@ export class AuthService {
   setAdmin(value: boolean) {
     this.isAdmin = value;
   }
+
+logout() {
+  localStorage.setItem('login', 'false');
+  localStorage.removeItem('userID');
+  localStorage.removeItem('type');
+  this.setIsLogged(false);
+  this.setAdmin(false);
+  this.router.navigate(['/login']);
+}
 
   getHeaders(): HttpHeaders {
     return new HttpHeaders({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import {AuthService} from "../../../services/auth.service";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -16,7 +17,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +56,11 @@ export class UsersComponent implements OnInit {
   getUsers(): void {
     this.userService.getAllUser().subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+        }
         this.users = response.result;
       },
       error: (error) => console.log(error),
