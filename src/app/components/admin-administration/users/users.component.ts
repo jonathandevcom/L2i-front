@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import {AuthService} from "../../../services/auth.service";
+import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -18,7 +19,8 @@ export class UsersComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +56,8 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.userService.getAllUser().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.userService.getAllUser(id).subscribe({
       next: (response: any) => {
         if(response.result.disconnect == true) {
           setTimeout(() => {
@@ -173,6 +176,7 @@ export class UsersComponent implements OnInit {
   }
 
   updateUser() {
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     if (this.userForm.invalid) {
       return;
     }
@@ -194,10 +198,17 @@ export class UsersComponent implements OnInit {
       deliveryAddressComplement: formValues.deliveryAddressComplement,
       deliveryZipCode: formValues.deliveryZipCode,
       deliveryCity: formValues.deliveryCity,
-      deliveryCountry: formValues.deliveryCountry
+      deliveryCountry: formValues.deliveryCountry,
+      idAdmin: id,
     };
     this.userService.putUserByAdmin(this.selectedUser.ID, JSON.stringify(userData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.handleResponse(response);
       },
       error: (error) => console.log(error),
@@ -205,8 +216,15 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(): void {
-    this.userService.deleteUser(this.selectedUser.ID).subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.userService.deleteUserByAdmin(this.selectedUser.ID, id).subscribe({
       next:(response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.handleResponse(response);
         this.selectedUser = {};
         this.selectedUserCheck = false;

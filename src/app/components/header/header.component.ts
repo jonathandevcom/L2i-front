@@ -42,6 +42,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/user-administration', userID]);
   }
 
+  goToAdminAdministration() {
+    const userID = localStorage.getItem('userID');
+    this.router.navigate(['/admin-administration', userID]);
+  }
+
   logout() {
     localStorage.setItem('login', 'false');
     localStorage.removeItem('userID');

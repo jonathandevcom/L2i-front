@@ -5,7 +5,7 @@ import { ArticleService } from '../../../services/article.service';
 import { AuthorService } from '../../../services/author.service';
 import { EditorService } from '../../../services/editor.service';
 import { TypeService } from '../../../services/type.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -38,7 +38,8 @@ export class ArticlesComponent implements OnInit {
     private editorService: EditorService,
     private typeService: TypeService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -231,6 +232,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   postArticle() {
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     if (this.articleForm.invalid) {
       return;
     }
@@ -249,6 +251,7 @@ export class ArticlesComponent implements OnInit {
       title : formValues.title,
       unitPriceExcludingTaxes : formValues.unitPriceExcludingTaxes,
       unitPriceIncludingTaxes : formValues.unitPriceIncludingTaxes,
+      idAdmin : id
     }
 
     this.as.postArticle(JSON.stringify(articleData).replace(/,/g, ';')).subscribe({
@@ -296,7 +299,8 @@ export class ArticlesComponent implements OnInit {
   }
 
   deleteArticle() {
-    this.as.deleteArticle(this.selectedArticle.ID).subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.as.deleteArticle(this.selectedArticle.ID, id).subscribe({
       next: (response: any) => {
         this.checkCookie(response.result.disconnect)
         this.handleResponse(response);

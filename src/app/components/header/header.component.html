@@ -42,7 +42,7 @@
             </li>
             <!-- management administrator -->
             <li class="nav-item" *ngIf="authService.isLogged && authService.isAdmin">
-              <a class="btn btn-primary d-lg-inline-block" routerLink="admin-administration">Administration</a>
+              <a class="btn btn-primary d-lg-inline-block" (click)="goToAdminAdministration()">Administration</a>
             </li>
             <!-- Logout -->
             <li class="nav-item" *ngIf="authService.isLogged">

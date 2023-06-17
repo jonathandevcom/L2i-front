@@ -7,15 +7,15 @@ import {AuthService} from "./auth.service";
 })
 export class UserService {
 
-  private url: string = 'http://localhost/rest'
+  private url: string = 'http://localhost/rest';
 
   constructor(private http: HttpClient,
               private authService: AuthService
               ) {  }
 
-  getAllUser() {
+  getAllUser(id : string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/User/getAllUser`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/User/getAllUser(${id})`, null,{ headers, withCredentials: true });
   }
 
   postNewUser(user : any| null) {
@@ -56,6 +56,11 @@ export class UserService {
   deleteUser(id:string| null) {
     const headers = this.authService.getHeaders();
     return this.http.post(`${this.url}/User(${id})/deleteUser`,null,{ headers, withCredentials: true });
+  }
+
+  deleteUserByAdmin(id:string| null, idAdmin:string| null) {
+    const headers = this.authService.getHeaders();
+    return this.http.post(`${this.url}/User(${id})/deleteUserByAdmin(${idAdmin})`,null,{ headers, withCredentials: true });
   }
 
 }

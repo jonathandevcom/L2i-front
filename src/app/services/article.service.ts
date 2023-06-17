@@ -13,7 +13,7 @@ export class ArticleService {
 
   getAllArticle() {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Article/getAllArticle`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Article/getAllArticle()`, null,{ headers, withCredentials: true });
    }
 
    getArticleById(id: string| null) {
@@ -31,9 +31,9 @@ export class ArticleService {
         return this.http.post(`${this.url}/Article(${id})/putArticle(${article})`, null,{ headers, withCredentials: true });
     }
 
-    deleteArticle(id: string| null) {
+    deleteArticle(id: string| null, idAdmin: string| null) {
         const headers = this.authService.getHeaders();
-        return this.http.post(`${this.url}/Article(${id})/deleteArticle`, null,{ headers, withCredentials: true });
+        return this.http.post(`${this.url}/Article(${id})/deleteArticle(${idAdmin})`, null,{ headers, withCredentials: true });
     }
 
 
