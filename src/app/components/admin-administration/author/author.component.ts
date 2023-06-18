@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AuthorService } from '../../../services/author.service';
+import {AuthService} from "../../../services/auth.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-author',
@@ -17,7 +19,9 @@ export class AuthorComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private authorService: AuthorService
+    private authorService: AuthorService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -38,8 +42,15 @@ export class AuthorComponent implements OnInit {
     }
   }
   getAuthors(): void {
-    this.authorService.getAllAuthor().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.authorService.getAllAuthor(id).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.authors = response.result;
       },
       error: (error) => console.log(error),
@@ -78,18 +89,25 @@ export class AuthorComponent implements OnInit {
     if (this.authorForm.invalid) {
       return;
     }
-
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.authorForm.value;
     const authorData = {
       id: formValues.id,
       firstname: formValues.firstname,
       lastname: formValues.lastname,
-      language: formValues.language
+      language: formValues.language,
+      idAdmin: id
     };
 
     this.authorService.postAuthor(JSON.stringify(authorData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.submitted = false;
         this.authorForm.patchValue({
           id: "",
@@ -106,27 +124,41 @@ export class AuthorComponent implements OnInit {
     if (this.authorForm.invalid) {
       return;
     }
-
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.authorForm.value;
     const authorData = {
       id: formValues.id,
       firstname: formValues.firstname,
       lastname: formValues.lastname,
-      language: formValues.language
+      language: formValues.language,
+      idAdmin: id
     };
 
     this.authorService.putAuthor(this.selectedAuthor.ID, JSON.stringify(authorData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
       },
       error: (error) => console.log(error),
     });
   }
 
   deleteAuthor(): void {
-    this.authorService.deleteAuthor(this.selectedAuthor.ID).subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.authorService.deleteAuthor(this.selectedAuthor.ID,id).subscribe({
       next:(response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.selectedAuthor = {};
         this.selectedAuthorCheck = false;
         this.submitted = false;
@@ -146,7 +178,6 @@ export class AuthorComponent implements OnInit {
     this.selectedAuthorCheck = true;
     this.submitted = false;
 
-    // Mettre à jour les valeurs du formulaire
     this.authorForm.patchValue({
       id: author.id,
       firstname: author.firstname,
@@ -159,7 +190,7 @@ export class AuthorComponent implements OnInit {
     this.selectedAuthor = {};
     this.selectedAuthorCheck = false;
     this.submitted = false;
-    // Mettre à jour les valeurs du formulaire
+
     this.authorForm.patchValue({
       id: "",
       firstname: "",

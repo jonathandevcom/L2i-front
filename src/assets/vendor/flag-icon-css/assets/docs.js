@@ -53,7 +53,6 @@ window.onload = function () {
   loadJSON('country.json', response => {
     const countries = JSON.parse(response);
     for (country of countries) {
-      console.log(country);
       if (country.iso) {
         addFlag(country, isoFlagsRow);
       } else {

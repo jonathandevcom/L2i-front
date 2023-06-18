@@ -11,9 +11,9 @@ export class TypeService {
   constructor(private http: HttpClient,
               private authService : AuthService) { }
 
-  getAllType() {
+  getAllType(id : string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Type/getAllType`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Type/getAllType(${id})`, null,{ headers, withCredentials: true });
   }
 
   postType(type: any| null) {
@@ -26,9 +26,9 @@ export class TypeService {
     return this.http.post(`${this.url}/Type(${id})/putType(${type})`, null,{ headers, withCredentials: true });
   }
 
-  deleteType(id: string| null) {
+  deleteType(id: string| null, idAdmin:string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Type(${id})/deleteType`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Type(${id})/deleteType(${idAdmin})`, null,{ headers, withCredentials: true });
   }
 
 }

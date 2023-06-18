@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { TypeService } from '../../../services/type.service';
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-type',
@@ -16,7 +18,9 @@ export class TypeComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private typeService: TypeService
+    private typeService: TypeService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -29,16 +33,24 @@ export class TypeComponent implements OnInit {
   }
 
   onSubmit() {
-    let message: string = '';
     this.submitted = true;
     if (this.typeForm.invalid) {
       return;
     }
   }
+
   getTypes(): void {
-    this.typeService.getAllType().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.typeService.getAllType(id).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.types = response.result;
+
       },
       error: (error) => console.log(error),
     });
@@ -76,13 +88,21 @@ export class TypeComponent implements OnInit {
     if (this.typeForm.invalid) {
       return;
     }
-
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.typeForm.value;
+
     const typeData = {
-      typeName: formValues.typeName
-    };
+      typeName: formValues.typeName,
+      idAdmin: id
+    }
     this.typeService.postType(JSON.stringify(typeData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.handleResponse(response);
         this.submitted = false;
         this.typeForm.patchValue({
@@ -99,25 +119,39 @@ export class TypeComponent implements OnInit {
     if (this.typeForm.invalid) {
       return;
     }
-
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.typeForm.value;
     const typeData = {
       id: formValues.id,
-      typeName: formValues.typeName
+      typeName: formValues.typeName,
+      idAdmin: id
     };
 
     this.typeService.putType(this.selectedType.ID, JSON.stringify(typeData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
       },
       error: (error) => console.log(error),
     });
   }
 
   deleteType(): void {
-    this.typeService.deleteType(this.selectedType.ID).subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.typeService.deleteType(this.selectedType.ID, id).subscribe({
       next:(response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.selectedType = {};
         this.selectedTypeCheck = false;
         this.submitted = false;
@@ -135,7 +169,6 @@ export class TypeComponent implements OnInit {
     this.selectedTypeCheck = true;
     this.submitted = false;
 
-    // Mettre à jour les valeurs du formulaire
     this.typeForm.patchValue({
       id: type.id,
       typeName: type.typeName
@@ -147,7 +180,7 @@ export class TypeComponent implements OnInit {
     this.selectedType = {};
     this.selectedTypeCheck = false;
     this.submitted = false;
-    // Mettre à jour les valeurs du formulaire
+
     this.typeForm.patchValue({
       id: "",
       typeName: ""

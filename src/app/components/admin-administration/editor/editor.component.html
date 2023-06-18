@@ -18,8 +18,8 @@
       <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="editor-form" [formGroup]="editorForm">
         <div class="form-group mt-4">
           <label for="name">Nom</label>
-          <input [ngClass]="{'is-invalid':submitted && editorForm.controls['name'].errors}" type="text" class="form-control" id="name" name="name" formControlName="name" required>
-          <div *ngIf="submitted && editorForm.controls['name'].errors" class="text-danger">
+          <input [ngClass]="{'is-invalid':submitted && editorForm.get('name')?.invalid}" type="text" class="form-control" id="name" name="name" formControlName="name" required>
+          <div *ngIf="submitted && editorForm.get('name')?.errors?.['required']" class="text-danger">
             Le nom de l'éditeur est obligatoire.
           </div>
         </div>

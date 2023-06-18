@@ -11,13 +11,12 @@ export class EditorService {
   constructor(private http: HttpClient,
               private authService : AuthService) { }
 
-  getAllEditor() {
+  getAllEditor(id : string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Editor/getAllEditor`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Editor/getAllEditor(${id})`, null,{ headers, withCredentials: true });
   }
 
   postEditor(editor: any| null) {
-    console.log(editor)
     const headers = this.authService.getHeaders();
     return this.http.post(`${this.url}/Editor/postEditor(${editor})`, null,{ headers, withCredentials: true });
   }
@@ -27,9 +26,9 @@ export class EditorService {
     return this.http.post(`${this.url}/Editor(${id})/putEditor(${editor})`, null,{ headers, withCredentials: true });
   }
 
-  deleteEditor(id: string| null) {
+  deleteEditor(id: string| null, idAdmin:string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Editor(${id})/deleteEditor`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Editor(${id})/deleteEditor(${idAdmin})`, null,{ headers, withCredentials: true });
   }
 
 }

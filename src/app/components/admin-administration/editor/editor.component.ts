@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { EditorService } from '../../../services/editor.service';
+import {AuthService} from "../../../services/auth.service";
+import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -16,7 +18,9 @@ export class EditorComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private editorService: EditorService
+    private editorService: EditorService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -29,15 +33,21 @@ export class EditorComponent implements OnInit {
   }
 
   onSubmit() {
-    let message: string = '';
     this.submitted = true;
     if (this.editorForm.invalid) {
       return;
     }
   }
   getEditors(): void {
-    this.editorService.getAllEditor().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.editorService.getAllEditor(id).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.editors = response.result;
       },
       error: (error) => console.log(error),
@@ -76,14 +86,21 @@ export class EditorComponent implements OnInit {
     if (this.editorForm.invalid) {
       return;
     }
-
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.editorForm.value;
     const editorData = {
-      name: formValues.name
+      name: formValues.name,
+      idAdmin: id
     };
     this.editorService.postEditor(JSON.stringify(editorData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.submitted = false;
         this.editorForm.patchValue({
           id: "",
@@ -99,25 +116,39 @@ export class EditorComponent implements OnInit {
     if (this.editorForm.invalid) {
       return;
     }
-
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.editorForm.value;
     const editorData = {
       id: formValues.id,
-      name: formValues.name
+      name: formValues.name,
+      idAdmin: id
     };
 
     this.editorService.putEditor(this.selectedEditor.ID, JSON.stringify(editorData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
       },
       error: (error) => console.log(error),
     });
   }
 
   deleteEditor(): void {
-    this.editorService.deleteEditor(this.selectedEditor.ID).subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.editorService.deleteEditor(this.selectedEditor.ID, id).subscribe({
       next:(response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.selectedEditor = {};
         this.selectedEditorCheck = false;
         this.submitted = false;
@@ -135,7 +166,6 @@ export class EditorComponent implements OnInit {
     this.selectedEditorCheck = true;
     this.submitted = false;
 
-    // Mettre à jour les valeurs du formulaire
     this.editorForm.patchValue({
       id: editor.id,
       name: editor.name
@@ -147,7 +177,7 @@ export class EditorComponent implements OnInit {
     this.selectedEditor = {};
     this.selectedEditorCheck = false;
     this.submitted = false;
-    // Mettre à jour les valeurs du formulaire
+
     this.editorForm.patchValue({
       id: "",
       name: ""

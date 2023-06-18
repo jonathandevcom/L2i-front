@@ -203,13 +203,13 @@ export class UsersComponent implements OnInit {
     };
     this.userService.putUserByAdmin(this.selectedUser.ID, JSON.stringify(userData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
+        this.handleResponse(response);
         if(response.result.disconnect == true) {
           setTimeout(() => {
             this.authService.logout();
           }, 3000);
           return;
         }
-        this.handleResponse(response);
       },
       error: (error) => console.log(error),
     });
@@ -219,13 +219,13 @@ export class UsersComponent implements OnInit {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
     this.userService.deleteUserByAdmin(this.selectedUser.ID, id).subscribe({
       next:(response: any) => {
+        this.handleResponse(response);
         if(response.result.disconnect == true) {
           setTimeout(() => {
             this.authService.logout();
           }, 3000);
           return;
         }
-        this.handleResponse(response);
         this.selectedUser = {};
         this.selectedUserCheck = false;
         this.submitted = false;

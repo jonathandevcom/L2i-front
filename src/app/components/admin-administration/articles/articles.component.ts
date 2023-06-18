@@ -61,7 +61,6 @@ export class ArticlesComponent implements OnInit {
   }
 
   onSubmit() {
-    let message: string = '';
     this.submitted = true;
     if (this.articleForm.invalid) {
       return;
@@ -183,7 +182,8 @@ export class ArticlesComponent implements OnInit {
     }
 
   getAuthors(): void {
-    this.authorService.getAllAuthor().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.authorService.getAllAuthor(id).subscribe({
       next: (response: any) => {
         this.authors = response.result;
       },
@@ -192,8 +192,15 @@ export class ArticlesComponent implements OnInit {
   }
 
   getEditors(): void {
-    this.editorService.getAllEditor().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.editorService.getAllEditor(id).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.editors = response.result;
       },
       error: (error) => console.log(error),
@@ -201,9 +208,17 @@ export class ArticlesComponent implements OnInit {
   }
 
   getTypes(): void {
-    this.typeService.getAllType().subscribe({
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
+    this.typeService.getAllType(id).subscribe({
       next: (response: any) => {
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.types = response.result;
+
       },
       error: (error) => console.log(error),
     });
@@ -272,6 +287,7 @@ export class ArticlesComponent implements OnInit {
     if (this.articleForm.invalid) {
       return;
     }
+    const id: string| null  = this.route.snapshot.paramMap.get('id');
     const formValues = this.articleForm.value;
 
     const articleData = {
@@ -287,11 +303,18 @@ export class ArticlesComponent implements OnInit {
       title : formValues.title,
       unitPriceExcludingTaxes : formValues.unitPriceExcludingTaxes,
       unitPriceIncludingTaxes : formValues.unitPriceIncludingTaxes,
+      idAdmin : id
     }
 
     this.as.putArticle(this.selectedArticle.ID, JSON.stringify(articleData).replace(/,/g, ';')).subscribe({
       next: (response: any) => {
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.getArticles();
       },
       error: (error) => console.log(error),
@@ -302,8 +325,13 @@ export class ArticlesComponent implements OnInit {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
     this.as.deleteArticle(this.selectedArticle.ID, id).subscribe({
       next: (response: any) => {
-        this.checkCookie(response.result.disconnect)
         this.handleResponse(response);
+        if(response.result.disconnect == true) {
+          setTimeout(() => {
+            this.authService.logout();
+          }, 3000);
+          return;
+        }
         this.getArticles();
         this.addArticle();
       },
@@ -329,17 +357,6 @@ export class ArticlesComponent implements OnInit {
       unitPriceExcludingTaxes: '',
       unitPriceIncludingTaxes: '',
     })
-  }
-
-  checkCookie(check:boolean) {
-    if (check) {
-      setTimeout(() => {
-        localStorage.setItem('login', 'false');
-        localStorage.removeItem('userID');
-        this.authService.setIsLogged(false);
-        this.router.navigate(['/login']);
-      }, 2000);
-    }
   }
 
 }

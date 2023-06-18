@@ -144,7 +144,6 @@ export class ShoppingCartComponent implements OnInit {
       if(userId){
         this.us.getUserById(userId).subscribe((res:any) => {
           this.user = res.result;
-          console.log(this.user);
         });
       }
 

@@ -11,9 +11,9 @@ export class AuthorService {
   constructor(private http: HttpClient,
               private authService : AuthService) { }
 
-  getAllAuthor() {
+  getAllAuthor(id : string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Author/getAllAuthor`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Author/getAllAuthor(${id})`, null,{ headers, withCredentials: true });
   }
 
   postAuthor(author: any| null) {
@@ -26,9 +26,9 @@ export class AuthorService {
     return this.http.post(`${this.url}/Author(${id})/putAuthor(${author})`, null,{ headers, withCredentials: true });
   }
 
-  deleteAuthor(id: string| null) {
+  deleteAuthor(id: string| null, idAdmin:string| null) {
     const headers = this.authService.getHeaders();
-    return this.http.post(`${this.url}/Author(${id})/deleteAuthor`, null,{ headers, withCredentials: true });
+    return this.http.post(`${this.url}/Author(${id})/deleteAuthor(${idAdmin})`, null,{ headers, withCredentials: true });
   }
 
 }

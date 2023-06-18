@@ -18,8 +18,8 @@
       <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="type-form" [formGroup]="typeForm">
         <div class="form-group mt-4">
           <label for="typeName">Genre</label>
-          <input [ngClass]="{'is-invalid':submitted && typeForm.controls['typeName'].errors}" type="text" class="form-control" id="typeName" name="typeName" formControlName="typeName" required>
-          <div *ngIf="submitted && typeForm.controls['typeName'].errors" class="text-danger">
+          <input [ngClass]="{'is-invalid':submitted && typeForm.get('typeName')?.invalid}" type="text" class="form-control" id="typeName" name="typeName" formControlName="typeName" required>
+          <div *ngIf="submitted && typeForm.get('typeName')?.errors?.['required']" class="text-danger">
             La saisie du genre est obligatoire.
           </div>
         </div>
