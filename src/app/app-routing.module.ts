@@ -19,10 +19,10 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'article-detail/:id', component: ArticleDetailComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
-  { path: 'user-administration/:id', component: UserAdministrationComponent },
-  { path: 'admin-administration/:id', component: AdminAdministrationComponent, canActivate: [AuthGuard] },
+  { path: 'user-administration/:id', component: UserAdministrationComponent,  canActivate: [AuthGuard], data: { roles: ['admin', 'user'] } },
+  { path: 'admin-administration/:id', component: AdminAdministrationComponent, canActivate: [AuthGuard], data: {role: 'admin'} },
   { path: 'legal-mention', component: LegalMentionComponent },
-  { path: 'payment-page', component: PaymentPageComponent },
+  { path: 'payment-page', component: PaymentPageComponent, canActivate: [AuthGuard], data: { roles: ['admin', 'user'] }  },
   { path: '**', component: PageNotFoundComponent }
 ];
 

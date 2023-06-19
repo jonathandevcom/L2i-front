@@ -17,12 +17,12 @@
                 </p>
                 <p class="card-text mb-2 fs-2">{{ article.unitPriceIncludingTaxes }} €</p>
             </a>
-        <div class="wrapper product-{{article.ID}}">
-            <span class="minus" (click)="deducQuantity(article)">-</span>
-            <span class="num">1</span>
-            <span class="plus" (click)="addQuantity(article)">+</span>
-        </div>
-        <a (click)="addToCart(article)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
+          <div class="wrapper product-{{article.ID}}">
+              <span class="minus" (click)="deducQuantity(article)">-</span>
+              <span class="num">1</span>
+              <span class="plus" (click)="addQuantity(article)">+</span>
+          </div>
+          <a (click)="addToCart(article)" class="btn btn-primary">Ajouter au panier <i class="bi-basket ms-1"></i></a>
         </div>
     </div>
 </div>

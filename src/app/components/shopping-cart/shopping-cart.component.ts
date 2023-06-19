@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
-import { HttpClient } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-shopping-cart',
@@ -25,16 +23,12 @@ export class ShoppingCartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    // Récupérer les éléments stockés dans le localStorage
     const storedItems = localStorage.getItem('cartItems');
 
     if (storedItems) {
-      // Convertir la chaîne JSON en tableau d'objets
       this.cartItems = JSON.parse(storedItems);
     }
     this.calculateTotal()
-
   }
 
   goToArticleDetail(item: any) {
@@ -51,16 +45,12 @@ export class ShoppingCartComponent implements OnInit {
       return
     }
 
-    // Recherche de l'index de l'article dans le tableau cartItems
     const index = this.cartItems.findIndex((item) => item.id === article.id);
 
-    // Décrémente la quantité de l'article
     this.cartItems[index].quantity--;
 
-    // Mise à jour du localStorage
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 
-    // Mise à jour de l'affichage HTML
     const productClass = `.product-${article.ID}`;
     const quantityElement = document.querySelector(`${productClass} .num`);
     if (quantityElement) {
@@ -82,13 +72,10 @@ export class ShoppingCartComponent implements OnInit {
       return;
     }
     const index = this.cartItems.findIndex((item) => item.id === article.id);
-    // Incrémente la quantité de l'article
     this.cartItems[index].quantity++;
 
-    // Mise à jour du localStorage
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 
-    // Mise à jour de l'affichage HTML
     const productClass = `.product-${article.ID}`;
     const quantityElement = document.querySelector(`${productClass} .num`);
     if (quantityElement) {
@@ -109,7 +96,6 @@ export class ShoppingCartComponent implements OnInit {
         cartItems.splice(index, 1);
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-        // Supprime la ligne correspondant à l'article supprimé de la table
         const cartTable = document.querySelector('.table-responsive table');
         const cartTableRows = cartTable?.querySelectorAll('tr');
         cartTableRows?.forEach((row, rowIndex) => {
@@ -126,30 +112,30 @@ export class ShoppingCartComponent implements OnInit {
             const totalItems = cartItems.reduce((total : number, item : any) => total + parseInt(item.quantity || '0', 10), 0);
             articleCardElement.innerText = totalItems.toString();
         }
-
         this.cartItems = cartItems;
     }
     this.calculateTotal()
   }
 
   validateOrder() {
-    // Ouvrez la modale uniquement si l'utilisateur est connecté
     if (!this.authService.isLogged) {
-      // Erreur : l'utilisateur n'est pas connecté
-
+      const alertElement = document.getElementById('cart-error');
+      if (alertElement) {
+        alertElement.innerHTML = 'Vous devez être connecté pour valider votre commande';
+        alertElement.style.display = 'block';
+        setTimeout(() => {
+          alertElement.style.display = 'none';
+          this.router.navigate(['/login']);
+        }, 3000);
+      }
     } else {
-      // récuperer l'id dans le local storage
       const userId = localStorage.getItem('userID');
-
       if(userId){
         this.us.getUserById(userId).subscribe((res:any) => {
           this.user = res.result;
         });
       }
-
     }
-
-
   }
 
   calculateTotal() {
