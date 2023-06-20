@@ -19,7 +19,7 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group mt-4">
-                  <label for="title">Titre</label>
+                  <label for="title">Titre<span class="text-danger">*</span></label>
                   <input [ngClass]="{'is-invalid': submitted && articleForm.get('title')?.invalid}" type="text" class="form-control" id="title" name="title" formControlName="title" required>
                   <div *ngIf="submitted && articleForm.get('title')?.errors?.['required']" class="text-danger">
                     Le titre est obligatoire.
@@ -29,7 +29,7 @@
 
               <div class="col-sm-3">
                 <div class="form-group mt-4">
-                  <label for="stock">Stock</label>
+                  <label for="stock">Stock<span class="text-danger">*</span></label>
                   <input [ngClass]="{'is-invalid': submitted && articleForm.get('stock')?.invalid}" type="number" class="form-control text-right-css" id="stock" name="stock" formControlName="stock" required>
                   <div *ngIf="submitted && articleForm.get('stock')?.errors?.['required']" class="text-danger">
                     Le stock est obligatoire.
@@ -39,7 +39,7 @@
 
               <div class="col-sm-3">
                 <div class="form-group mt-4">
-                  <label for="sold">Vendu</label>
+                  <label for="sold">Vendu<span class="text-danger">*</span></label>
                   <input [ngClass]="{'is-invalid': submitted && articleForm.get('sold')?.invalid}" type="number" class="form-control text-right-css" id="sold" name="sold" formControlName="sold" required>
                   <div *ngIf="submitted && articleForm.get('sold')?.errors?.['required']" class="text-danger">
                     La quantité vendue est obligatoire.
@@ -51,7 +51,7 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group mt-4">
-                <label for="ISBN">ISBN</label>
+                <label for="ISBN">ISBN<span class="text-danger">*</span></label>
                 <input [ngClass]="{'is-invalid': submitted && articleForm.controls['ISBN'].errors}" type="text" class="form-control" id="ISBN" name="ISBN" formControlName="ISBN" required pattern="[0-9]*">
                 <div *ngIf="submitted && articleForm.controls['ISBN'].errors" class="text-danger">
                   <div *ngIf="articleForm.get('ISBN')?.errors?.['required']">L'ISBN est obligatoire.</div>
@@ -65,7 +65,7 @@
 
             <div class="col-sm-6">
               <div class="form-group mt-4">
-                <label for="format">Format</label>
+                <label for="format">Format<span class="text-danger">*</span></label>
                 <input [ngClass]="{'is-invalid': submitted && articleForm.get('format')?.invalid}" type="text" class="form-control" id="format" name="format" formControlName="format" required>
                 <div *ngIf="submitted && articleForm.get('format')?.errors?.['required']" class="text-danger">
                   Le format est obligatoire.
@@ -75,7 +75,7 @@
           </div>
 
           <div class="form-group mt-4">
-            <label for="summary">Résumé</label>
+            <label for="summary">Résumé<span class="text-danger">*</span></label>
             <textarea [ngClass]="{'is-invalid': submitted && articleForm.get('summary')?.invalid}" class="form-control textarea-resize" id="summary" name="summary" formControlName="summary" required></textarea>
             <div *ngIf="submitted && articleForm.get('summary')?.errors?.['required']" class="text-danger">
               Le résumé est obligatoire.
@@ -86,7 +86,7 @@
           <div class="row">
               <div class="col-sm-4">
                 <div class="form-group mt-4">
-                  <label>Auteur</label>
+                  <label>Auteur<span class="text-danger">*</span></label>
                   <select class="form-select mb-2" #authorSelect (change)="addAuthor(authorSelect.selectedIndex)">
                     <option selected disabled>Choisir un auteur</option>
                     <option *ngFor="let author of authors" [value]="author.id">{{ author.firstname }} {{ author.lastname }}</option>
@@ -104,7 +104,7 @@
 
             <div class="col-sm-4">
               <div class="form-group mt-4">
-                <label>Éditeur <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#editor"></i></label>
+                <label>Éditeur<span class="text-danger">* </span> <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#editor"></i></label>
                 <select class="form-select mb-2" #editorSelect (change)="addEditor(editorSelect.selectedIndex)">
                   <option selected disabled>Choisir un éditeur</option>
                   <option *ngFor="let editor of editors" [value]="editor.id">{{ editor.name }}</option>
@@ -117,7 +117,7 @@
 
             <div class="col-sm-4">
               <div class="form-group mt-4">
-                <label>Type de livre</label>
+                <label>Type de livre<span class="text-danger">*</span></label>
                 <select class="form-select mb-2" #typeSelect (change)="addType(typeSelect.selectedIndex)">
                   <option selected disabled>Choisir un type</option>
                   <option *ngFor="let type of types" [value]="type.id">{{ type.typeName }}</option>
@@ -150,7 +150,7 @@
             </div>
             <div class="col-sm-3">
               <div class="form-group mt-4">
-                <label for="unitPriceExcludingTaxes">Prix unitaire HT</label>
+                <label for="unitPriceExcludingTaxes">Prix unitaire HT<span class="text-danger">*</span></label>
                 <div class="input-group">
                   <input [ngClass]="{'is-invalid': submitted && articleForm.get('unitPriceExcludingTaxes')?.invalid}" type="number" class="form-control text-right-css" id="unitPriceExcludingTaxes" name="unitPriceExcludingTaxes" formControlName="unitPriceExcludingTaxes" required>
                   <div class="input-group-append">
@@ -165,7 +165,7 @@
 
             <div class="col-sm-3">
               <div class="form-group mt-4">
-                <label for="unitPriceIncludingTaxes">Prix unitaire TTC</label>
+                <label for="unitPriceIncludingTaxes">Prix unitaire TTC<span class="text-danger">*</span></label>
                 <div class="input-group">
                   <input [ngClass]="{'is-invalid': submitted && articleForm.get('unitPriceIncludingTaxes')?.invalid}" type="number" class="form-control text-right-css" id="unitPriceIncludingTaxes" name="unitPriceIncludingTaxes" formControlName="unitPriceIncludingTaxes" required>
                   <div class="input-group-append">

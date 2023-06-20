@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from "../../services/auth.service";
+import { jsPDF } from 'jspdf'
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-user-administration',
@@ -85,6 +87,7 @@ export class UserAdministrationComponent implements OnInit {
   }
 
   showOrderDetails(order:any ): void {
+    console.log(order)
     this.detailItems=order.lines
     this.showDetails = true;
   }
@@ -170,6 +173,76 @@ export class UserAdministrationComponent implements OnInit {
       this.authService.setIsLogged(false);
       this.router.navigate(['/login']);
     });
+  }
+
+  async orderPdf(order: any) {
+    const doc = new jsPDF();
+
+    // Fetch logo from assets
+    const logoUrl = 'assets/img/LogoV2.jpg';
+    const response = await fetch(logoUrl);
+    const blob = await response.blob();
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = function() {
+      const base64data = reader.result;
+      doc.addImage(base64data as string, 'JPEG', 10, 10, 50, 50);
+
+    // Add Company Details
+    doc.setFontSize(20);
+    doc.text('Entreprise L2I', 70, 30); // position adjusted for logo
+    doc.setFontSize(12);
+    doc.text('146-148 Rue de Picpus', 70, 40); // position adjusted for logo
+    doc.text('75012 Paris', 70, 50); // position adjusted for logo
+
+    // Add Billing Address
+    doc.setFontSize(12);
+    doc.text(order.fullname, 130, 70, { align: "left" });
+    if (order.addressComplement) {
+      doc.text(order.addressComplement, 130, 80, { align: "left" });
+    }
+    doc.text(order.street , 130, 90, { align: "left" });
+    doc.text(`${order.zipCode} ${order.city}`, 130, 100, { align: "left" });
+    doc.text(order.country, 130, 110, { align: "left" });
+
+    // Add Invoice Details
+    doc.setFontSize(14);
+    doc.text(`Facture numéro : ${order.numberFact}`, 10, 120);
+
+    const dateWithoutExclamationMarks = order.date.replace(/!!/g, '');
+    const dateParts = dateWithoutExclamationMarks.split('-');
+    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+    doc.text(`Date : ${formattedDate}`, 10, 130);
+
+    // Add Table
+    autoTable(doc,{
+      head: [['Article', 'Quantité', 'Prix unitaire', 'Total']],
+      body: order.lines.map((line: any) => [
+        line.title,
+        line.quantityOrder,
+        `${line.priceIncludingTaxes.toFixed(2)} €`,
+        `${(line.priceIncludingTaxes * line.quantityOrder).toFixed(2)} €`
+      ]),
+      startY: 140
+    });
+
+    const totalTVA = order.totalIncludingTaxes - order.totalExcludingTaxes;
+    const finalY = (doc as any).lastAutoTable.finalY;
+
+    // Add Total
+    doc.setFontSize(16);
+    doc.text('Total HT :', 10, finalY + 20);
+    doc.text(`${order.totalExcludingTaxes.toFixed(2)} €`, 50, finalY + 20);
+
+    doc.text('TVA :', 10, finalY + 30);  // Reduced from 40 to 30
+    doc.text(`  ${totalTVA.toFixed(2)} €`, 50, finalY + 30);
+
+    doc.text('Total TTC :', 10, finalY + 40);  // Reduced from 60 to 40
+    doc.text(`${order.totalIncludingTaxes.toFixed(2)} €`, 50, finalY + 40);
+
+    // Save the PDF
+    doc.save(`Facture L2I n°${order.numberFact}.pdf`);
+  }
   }
 
 }

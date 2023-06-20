@@ -19,7 +19,7 @@
 
                      <!-- email -->
                      <div class="mb-4 form-group">
-                      <label class="form-label" for="email">Email</label>
+                      <label class="form-label" for="email">Email<span class="text-danger">*</span></label>
                       <input formControlName="email" [ngClass]="{'is-invalid':submitted && loginForm.get('email')?.invalid}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
                       <div *ngIf="submitted && loginForm.get('email')?.errors?.['required']">
                         Merci de saisir votre email.
@@ -32,7 +32,7 @@
 
                       <!-- mot de passe -->
                       <div class="mb-4 form-group">
-                        <label class="form-label" for="password">Mot de passe</label>
+                        <label class="form-label" for="password">Mot de passe<span class="text-danger">*</span></label>
                         <div class="input-group-merge">
                           <input formControlName="password" [ngClass]="{'is-invalid':submitted && loginForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
                                  data-hs-toggle-password-options='{
@@ -47,7 +47,7 @@
                           <div *ngIf="submitted && loginForm.get('password')?.invalid" class="text-danger">
                             <ng-container *ngIf="submitted && loginForm.get('password')?.errors?.['required']; then errorsRequired; else errorsPassword"></ng-container>
                               <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                              <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.</ng-template>
+                              <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?</ng-template>
                             </div>
                           </div>
                         </div>

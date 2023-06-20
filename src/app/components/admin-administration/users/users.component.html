@@ -21,18 +21,22 @@
         <div class="row">
           <div class="col-sm-2">
             <div class="form-group mt-4">
-              <label for="civility">Civilité</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('civility')?.invalid}" type="text" class="form-control" id="civility" name="civility" formControlName="civility" required>
+              <label class="form-label" for="civility">Civilité<span class="text-danger">*</span></label>
+              <select [ngClass]="{'is-invalid':submitted && userForm.get('civility')?.invalid}" class="form-control form-control-lg mt-n2" name="civility" id="civility" formControlName="civility"  required>
+                <option value="M." selected>M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+              </select>
               <div *ngIf="submitted && userForm.get('civility')?.errors?.['required']" class="text-danger">
-                La civilité est obligatoire.
+                Merci de sélectionner votre civilité.
               </div>
             </div>
           </div>
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
-              <label for="userFirstname">Prénom</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('firstName')?.invalid}" type="text" class="form-control" id="userFirstname" name="userFirstname" formControlName="userFirstname" required>
+              <label for="userFirstname">Prénom<span class="text-danger">*</span></label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.get('firstName')?.invalid}" type="text" class="form-control form-control-lg" id="userFirstname" name="userFirstname" formControlName="userFirstname" required>
               <div *ngIf="submitted && userForm.get('firstName')?.errors?.['required']" class="text-danger">
                 Le prénom est obligatoire.
               </div>
@@ -41,8 +45,8 @@
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
-              <label for="userLastname">Nom</label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('lastName')?.invalid}" type="text" class="form-control" id="userLastname" name="userLastname" formControlName="userLastname" required>
+              <label for="userLastname">Nom<span class="text-danger">*</span></label>
+              <input [ngClass]="{'is-invalid':submitted && userForm.get('lastName')?.invalid}" type="text" class="form-control form-control-lg" id="userLastname" name="userLastname" formControlName="userLastname" required>
               <div *ngIf="submitted && userForm.get('lastName')?.errors?.['required']" class="text-danger">
                 Le nom est obligatoire.
               </div>
@@ -53,7 +57,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group mt-4">
-              <label for="email">Email</label>
+              <label for="email">Email<span class="text-danger">*</span></label>
               <input [ngClass]="{'is-invalid':submitted && userForm.get('email')?.invalid}" type="email" class="form-control" id="email" name="email" formControlName="email" required>
               <div *ngIf="submitted && userForm.get('email')?.errors?.['required']" class="text-danger">
                 L'email est obligatoire.
@@ -63,7 +67,7 @@
 
           <div class="col-sm-6">
             <div class="form-group mt-4">
-              <label for="type">Type d'utilisateur <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userType"></i>
+              <label for="type">Type d'utilisateur<span class="text-danger">* </span> <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userType"></i>
               </label>
               <!-- End Button trigger modal -->
               <input [ngClass]="{'is-invalid':submitted && userForm.get('type')?.invalid}" type="text" class="form-control" id="type" name="type" formControlName="type" required>
@@ -77,7 +81,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group mt-4">
-              <label for="password">Mot de passe <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userPassword"></i></label>
+              <label for="password">Mot de passe<span class="text-danger">* </span> <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userPassword"></i></label>
               <div class="input-group-merge">
                 <input [ngClass]="{'is-invalid':submitted && userForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control" id="password" name="password" formControlName="password"
                        data-hs-toggle-password-options='{
@@ -90,7 +94,7 @@
                   <i class="js-toggle-password-show-icon-1 bi-eye"></i>
                 </a>
                 <div *ngIf="submitted && userForm.get('password')?.errors?.['passwordValidator']" class="text-danger">
-                    Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?.
+                    Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?
                 </div>
               </div>
             </div>
@@ -114,7 +118,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group mt-4">
-              <label for="deliveryStreet">Numéro et nom de la rue</label>
+              <label for="deliveryStreet">Numéro et nom de la rue<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="deliveryStreet" name="deliveryStreet" formControlName="deliveryStreet">
             </div>
           </div>
@@ -131,21 +135,21 @@
         <div class="row">
           <div class="col-sm-2">
             <div class="form-group mt-4">
-              <label for="deliveryZipCode">Code Postal</label>
+              <label for="deliveryZipCode">Code Postal<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="deliveryZipCode" name="deliveryZipCode" formControlName="deliveryZipCode">
             </div>
           </div>
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
-              <label for="deliveryCity">Ville</label>
+              <label for="deliveryCity">Ville<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="deliveryCity" name="deliveryCity" formControlName="deliveryCity">
             </div>
           </div>
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
-              <label for="deliveryCountry">Pays</label>
+              <label for="deliveryCountry">Pays<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="deliveryCountry" name="deliveryCountry" formControlName="deliveryCountry" >
             </div>
           </div>
@@ -155,7 +159,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group mt-4">
-              <label for="invoiceStreet">Numéro et nom de la rue</label>
+              <label for="invoiceStreet">Numéro et nom de la rue<span class="text-danger">*</span></label>
               <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceStreet')?.invalid}" type="text" class="form-control" id="invoiceStreet" name="invoiceStreet" formControlName="invoiceStreet">
               <div *ngIf="submitted && userForm.get('invoiceStreet')?.errors?.['required']" class="text-danger">
                 Le numéro et nom de la rue sont obligatoire.
@@ -175,7 +179,7 @@
         <div class="row">
           <div class="col-sm-2">
             <div class="form-group mt-4">
-              <label for="invoiceZipCode">Code postal</label>
+              <label for="invoiceZipCode">Code postal<span class="text-danger">*</span></label>
               <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceZipCode')?.invalid}" type="text" class="form-control" id="invoiceZipCode" name="invoiceZipCode" formControlName="invoiceZipCode">
               <div *ngIf="submitted && userForm.get('invoiceZipCode')?.errors?.['required']" class="text-danger">
                 Le code postal est obligatoire.
@@ -185,7 +189,7 @@
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
-              <label for="invoiceCity">Ville</label>
+              <label for="invoiceCity">Ville<span class="text-danger">*</span></label>
               <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceCity')?.invalid}" type="text" class="form-control" id="invoiceCity" name="invoiceCity" formControlName="invoiceCity">
               <div *ngIf="submitted && userForm.get('invoiceCity')?.errors?.['required']" class="text-danger">
                 La ville est obligatoire.
@@ -195,7 +199,7 @@
 
           <div class="col-sm-5">
             <div class="form-group mt-4">
-              <label for="invoiceCountry">Pays</label>
+              <label for="invoiceCountry">Pays<span class="text-danger">*</span></label>
               <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceCountry')?.invalid}" type="text" class="form-control" id="invoiceCountry" name="invoiceCountry" formControlName="invoiceCountry">
               <div *ngIf="submitted && userForm.get('invoiceCountry')?.errors?.['required']" class="text-danger">
                 Le pays est obligatoire.

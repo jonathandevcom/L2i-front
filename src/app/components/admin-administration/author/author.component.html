@@ -16,21 +16,21 @@
       <!-- Formulaire pour ajouter/modifier un auteur -->
       <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="author-form" [formGroup]="authorForm">
        <div class="form-group mt-4">
-          <label for="firstname">Prénom</label>
+          <label for="firstname">Prénom<span class="text-danger">*</span></label>
           <input [ngClass]="{'is-invalid':submitted && authorForm.get('firstname')?.invalid}" type="text" class="form-control" id="firstname" name="firstname" formControlName="firstname" required>
           <div *ngIf="submitted && authorForm.get('firstname')?.errors?.['required']" class="text-danger">
             Le prénom de l'auteur est obligatoire.
           </div>
         </div>
         <div class="form-group">
-          <label for="lastname">Nom</label>
+          <label for="lastname">Nom<span class="text-danger">*</span></label>
           <input [ngClass]="{'is-invalid':submitted && authorForm.get('lastname')?.invalid}" type="text" class="form-control" id="lastname" name="lastname" formControlName="lastname" required>
           <div *ngIf="submitted && authorForm.get('lastname')?.errors?.['required']" class="text-danger">
             Le nom de l'auteur est obligatoire.
           </div>
         </div>
         <div class="form-group">
-          <label for="language">Langue</label>
+          <label for="language">Langue<span class="text-danger">*</span></label>
           <input [ngClass]="{'is-invalid':submitted && authorForm.get('language')?.invalid}" type="text" class="form-control" id="language" name="language" formControlName="language" required>
           <div *ngIf="submitted && authorForm.get('language')?.errors?.['required']" class="text-danger">
             La langue de l'auteur est obligatoire.

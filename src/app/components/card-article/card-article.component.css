@@ -11,6 +11,12 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 1200px) {
+    .wrapper{
+        margin-bottom: 65px;
+    }
+}
+
 .wrapper span{
     width: 100%;
     text-align: center;
