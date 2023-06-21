@@ -6,3 +6,6 @@
   cursor: pointer;
 }
 
+.accordion-body {
+  padding-left: 1rem;
+}
