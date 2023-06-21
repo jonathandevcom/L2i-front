@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,11 +16,12 @@ export class SignupComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private formBuilder:FormBuilder,
-    private us:UserService,
+    private formBuilder: FormBuilder,
+    private us: UserService,
     private authService: AuthService,
     private router: Router,
-    ) { }
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -61,17 +63,7 @@ export class SignupComponent implements OnInit {
         message = res.result.message;
         this.router.navigate(['/home']);
       }
-
-      const alertElement = document.getElementById('cart-alert');
-
-      if (alertElement) {
-        alertElement.innerHTML = message;
-        alertElement.style.display = 'block';
-
-        setTimeout(function() {
-          alertElement.style.display = 'none';
-        }, 3000);
-      }
+      this.alertService.showAlert(message);
     });
   }
 

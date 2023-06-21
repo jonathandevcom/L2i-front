@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private formBuilder:FormBuilder,
     private us:UserService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService
     ) { }
 
   ngOnInit(): void {
@@ -58,18 +60,7 @@ export class LoginComponent implements OnInit {
         message = res.result.message;
         this.router.navigate(['/home']);
       }
-
-    const alertElement = document.getElementById('cart-alert');
-
-    if (alertElement) {
-      alertElement.innerHTML = message;
-      alertElement.style.display = 'block';
-
-      // masquer le message après 3 secondes
-      setTimeout(function() {
-        alertElement.style.display = 'none';
-      }, 3000);
-    }
+      this.alertService.showAlert(message);
     });
   }
 
