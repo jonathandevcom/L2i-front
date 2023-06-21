@@ -308,7 +308,7 @@ export class UsersComponent implements OnInit {
   }
 
   passwordValidator(): ValidatorFn {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\-\+\_\!\?]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\-+_!?]{8,}$/;
     return (control: AbstractControl): { [key: string]: any } | null => {
       const password = control.value;
       if(password === undefined){
