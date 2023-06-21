@@ -53,88 +53,46 @@
       <div class="tab-content">
         <div class="tab-pane fade show active" id="nav-one-eg2" role="tabpanel" aria-labelledby="nav-one-eg2-tab">
 
-              <!-- Card -->
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-header-title">Commandes</h4>
-                </div>
-
-                <!-- Table -->
-                <div class="table-responsive">
-                  <table class="table table-nowrap table-align-middle ">
-                    <thead class="thead-light">
-                    <tr class="text-center">
-                      <th>Date</th>
-                      <th>Numéro</th>
-                      <th>Total TTC</th>
-                      <th>Statut</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr *ngFor="let order of orderList" (click)="showOrderDetails(order)" class="cursor">
-                      <td>
-                        <span class="d-block h5 text-inherit mb-0 text-center">{{ order.date | date: 'dd/MM/yyyy' }}</span>
-                      <td>
-                        <span class="d-block h5 text-inherit mb-0 text-center">{{ order.number }}</span>
-                      </td>
-                      <td>
-                        <span class="d-block h5 mb-0 text-align-right">{{ order.totalExcludingTaxes | number:'.2' }} €</span>
-                      </td>
-                      <td class="text-center">
-                        <span class="legend-indicator bg-success"></span>En cours
-                      </td>
-                    </tr>
-
-                    </tbody>
-                  </table>
-                </div>
-                <!-- End Table -->
+          <!-- Accordion -->
+          <div class="accordion" id="accordionOrder">
+            <div *ngFor="let order of orderList; let i = index"  class="accordion-item">
+              <div class="accordion-header" [id]="'heading' + i">
+                <a class="accordion-button collapsed" role="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i" >
+                  Commande n°{{ order.number }} du {{ order.date | date: 'dd/MM/yyyy' }}
+                </a>
               </div>
-              <!-- End Card -->
-
-              <!-- Après la boucle *ngFor -->
-              <div *ngIf="showDetails" class="card mt-5">
-                <div class="card-header">
-                  <h4 class="card-header-title">Détail</h4>
-                </div>
-                <div class="table-responsive">
-                  <table class="table table-nowrap table-align-middle">
-                    <thead class="thead-light">
-                    <tr>
-                      <th>Image</th>
-                      <th>Titre</th>
-                      <th>Prix</th>
-                      <th>Quantité</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr *ngFor="let item of detailItems">
-                      <td>
-                        <a class="d-flex cursor">
-                          <div class="flex-shrink-0">
-                            <div class="avatar">
-                              <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+              <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#accordionOrder">
+                <div class="accordion-body">
+                  <div *ngFor="let item of order.lines" class="card mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-2 col-md-1">
+                          <div class="avatar">
+                            <img class="avatar-img" [src]="'data:image/png;base64,' + item.image" alt="Image Description">
+                          </div>
+                        </div>
+                        <div class="col-10 col-md-11">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h5 class="card-title">{{ item.title }}</h5>
+                            </div>
+                            <div class="col-md-3">
+                              <p class="card-text"><strong>Prix :</strong> {{ item.priceIncludingTaxes | number:'.2' }} €</p>
+                            </div>
+                            <div class="col-md-3">
+                              <p class="card-text"><strong>Quantité :</strong> {{ item.quantityOrder }}</p>
                             </div>
                           </div>
-
-                        </a>
-                      </td>
-                      <td>
-                        <span class="d-block h5 text-inherit mb-0">{{ item.title }}</span>
-                      </td>
-                      <td class="text-align-right">
-                        <span class="d-block h5 text-inherit mb-0"> {{ item.priceIncludingTaxes | number:'.2' }} €</span>
-                      </td>
-                      <td class="text-center">
-                        <span class="d-block h5 text-inherit mb-0">{{ item.quantityOrder }}</span>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-2">Montant : {{ order.totalExcludingTaxes | number:'.2' }} €</p>
                 </div>
               </div>
+            </div>
+          </div>
+          <!-- End Accordion -->
 
         </div>
 

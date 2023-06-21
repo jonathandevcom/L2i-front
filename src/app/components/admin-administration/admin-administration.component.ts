@@ -8,9 +8,6 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class AdminAdministrationComponent implements OnInit {
   orderList: any[] = [];
-  showDetails: boolean = false;
-  detailItems: any[] = [];
-
   constructor(
     private os: OrderService
   ) { }
@@ -19,11 +16,6 @@ export class AdminAdministrationComponent implements OnInit {
     this.os.getAllOrders().subscribe((res:any) => {
       this.orderList = res.result;
     });
-  }
-
-  showOrderDetails(order:any ): void {
-    this.detailItems=order.lines
-    this.showDetails = true;
   }
 
 }

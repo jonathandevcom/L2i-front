@@ -1,3 +1,7 @@
 .text-align-right {
   text-align: right !important;
 }
+
+.accordion-body {
+  padding-left: 1rem;
+}
