@@ -3,16 +3,28 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthorComponent } from './author.component';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ActivatedRoute } from '@angular/router';
 
 describe('AuthorComponent', () => {
   let component: AuthorComponent;
   let fixture: ComponentFixture<AuthorComponent>;
 
+  const mockActivatedRoute = {
+    snapshot: {
+      paramMap: {
+        get: (key: string) => 'Mock value'
+      }
+    }
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AuthorComponent ],
       imports: [ ReactiveFormsModule, HttpClientModule ],
-      providers: [ FormBuilder ]
+      providers: [
+        FormBuilder,
+        { provide: ActivatedRoute, useValue: mockActivatedRoute }
+      ]
     })
     .compileComponents();
 

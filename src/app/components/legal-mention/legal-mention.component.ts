@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-legal-mention',
-  templateUrl: './legal-mention.component.html',
-  styleUrls: ['./legal-mention.component.css']
+  templateUrl: './legal-mention.component.html'
 })
 export class LegalMentionComponent implements OnInit {
 

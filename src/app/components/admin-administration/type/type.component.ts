@@ -6,8 +6,7 @@ import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-type',
-  templateUrl: './type.component.html',
-  styleUrls: ['./type.component.css']
+  templateUrl: './type.component.html'
 })
 export class TypeComponent implements OnInit {
   types!: any[]; // Tableau d'auteurs

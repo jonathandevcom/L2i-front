@@ -6,13 +6,12 @@ import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-author',
-  templateUrl: './author.component.html',
-  styleUrls: ['./author.component.css']
+  templateUrl: './author.component.html'
 })
 export class AuthorComponent implements OnInit {
 
-  authors!: any[]; // Tableau d'auteurs
-  selectedAuthor: any = {}; // Auteur sélectionné initialisé avec un objet vide
+  authors!: any[];
+  selectedAuthor: any = {};
   selectedAuthorCheck: boolean = false;
   authorForm!: FormGroup;
   submitted = false;
@@ -28,7 +27,7 @@ export class AuthorComponent implements OnInit {
     this.getAuthors();
 
     this.authorForm = this.formBuilder.group({
-      id: [''], // Ajouter les autres champs ici avec leurs validations
+      id: [''],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       language: ['', Validators.required]

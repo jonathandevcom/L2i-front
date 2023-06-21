@@ -5,8 +5,7 @@ import {AuthService} from "../../../services/auth.service";
 import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  templateUrl: './editor.component.html'
 })
 export class EditorComponent implements OnInit {
 
