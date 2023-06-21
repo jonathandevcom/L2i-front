@@ -24,27 +24,22 @@ export class ArticleDetailComponent implements OnInit {
     });
   }
 
-  deducQuantity(){
-    const num = document.getElementById('num');
-    if (num) {
-      if(num.innerHTML == '1'){
-        return;
+  updateQuantity(func: (num: number) => number, condition: (num: number) => boolean) {
+    const numElement = document.getElementById('num');
+    if (numElement) {
+      const num = parseInt(numElement.innerHTML);
+      if (condition(num)) {
+        numElement.innerHTML = func(num).toString();
       }
-      num.innerHTML = (parseInt(num.innerHTML) - 1).toString();
     }
   }
 
+  deducQuantity(){
+    this.updateQuantity(num => num - 1, num => num !== 1);
+  }
+
   addQuantity(article:any){
-    const num = document.getElementById('num');
-    if (num) {
-      if(num.innerHTML == "5"){
-        return;
-      }
-      if(num.innerHTML == article.stock){
-        return;
-      }
-      num.innerHTML = (parseInt(num.innerHTML) + 1).toString();
-    }
+    this.updateQuantity(num => num + 1, num => num !== 5 && num !== article.stock);
   }
 
   addToCart(article: any) {
