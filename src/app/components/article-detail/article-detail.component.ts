@@ -94,7 +94,7 @@ export class ArticleDetailComponent implements OnInit {
      }
 
     // Affichage du message d'alerte Bootstrap
-    const alertElement = document.getElementById('cart-alert');
+    const alertElement = document.getElementById('cart-success');
 
     if (alertElement) {
       //afficher le message d'alerte pendant 5 secondes

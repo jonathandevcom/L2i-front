@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
         message = res.result.message;
         this.router.navigate(['/home']);
       }
-      this.alertService.showAlert(message);
+      this.alertService.showAlert(message, 'cart-error');
     });
   }
 

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class AlertService {
   constructor() { }
 
-  showAlert(message: string, id: string = 'cart-alert') {
+  showAlert(message: string, id: string = 'cart-error') {
     const alertElement = document.getElementById(id);
     if (alertElement) {
       alertElement.innerHTML = message;

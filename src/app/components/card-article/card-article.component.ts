@@ -54,8 +54,6 @@ addToCart(article: any) {
   let message: string = '';
 
   if (existingItemIndex !== -1 && num) {
-    // Si l'article existe déjà, incrémenter la quantité
-
     if(parseInt(cartItems[existingItemIndex].quantity) +parseInt(num.innerHTML)> article.stock){
       cartItems[existingItemIndex].quantity = article.stock
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -66,7 +64,6 @@ addToCart(article: any) {
       message = 'La quantité de l\'article a été augmentée.';
     }
   } else {
-    // Ajout de l'article dans le local storage
     const cartItem = {
       id: article.ID,
       title: article.title,
@@ -86,7 +83,6 @@ addToCart(article: any) {
     message = 'L\'article a été ajouté au panier.';
   }
 
-  // Mise à jour du nombre d'articles dans le panier
   const articleCardElement = document.getElementById('articleCard');
 
   if (articleCardElement) {
@@ -95,16 +91,12 @@ addToCart(article: any) {
     articleCardElement.innerText = totalItems.toString();
     }
 
-  // Affichage du message d'alerte Bootstrap
-  const alertElement = document.getElementById('cart-alert');
+  const alertElement = document.getElementById('cart-success');
 
   if (alertElement) {
-    //afficher le message d'alerte pendant 3 secondes
-
     alertElement.innerHTML = message;
     alertElement.style.display = 'block';
 
-      // masquer le message après 3 secondes
     setTimeout(function() {
       alertElement.style.display = 'none';
     }, 3000);
