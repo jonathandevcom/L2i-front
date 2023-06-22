@@ -1,100 +1,48 @@
-<header id="header" class="navbar navbar-expand-lg navbar-end navbar-light navbar-absolute-top navbar-show-hide"
-        data-hs-header-options='{
-    "fixMoment": 100,
-    "fixEffect": "slide"
-  }'>
+<header id="header" class="navbar navbar-expand-lg fixed-top navbar-light">
   <div class="container">
-    <nav class="js-mega-menu navbar-nav-wrap">
-      <a class="navbar-brand" routerLink="home" aria-label="logo">
-        <img class="navbar-brand-logo" src="../../../assets/img/LogoV2.svg" alt="Logo L2i">
-      </a>
+    <a class="navbar-brand" routerLink="home" aria-label="logo">
+      <img class="navbar-brand-logo" src="../../../assets/img/LogoV2.svg" alt="Logo L2i">
+    </a>
 
-      <!-- Toggle -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-default">
-          <i class="bi-list"></i>
-        </span>
-        <span class="navbar-toggler-toggled">
-          <i class="bi-x"></i>
-        </span>
-      </button>
-      <!-- End Toggle -->
+    <!-- Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- End Toggle -->
 
-      <!-- Collapse -->
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <div class="navbar-absolute-top-scroller">
-          <ul class="navbar-nav nav-pills">
-            <!-- Shopping cart -->
-            <li class="nav-item position-relative">
-              <a class="btn btn-primary" routerLink="shopping-cart">Panier <span id="articleCard" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary "></span></a>
-            </li>
-             <!-- Log in -->
-            <li class="nav-item" *ngIf="!authService.isLogged">
-              <a class="btn btn-ghost-dark me-2 me-lg-0" routerLink="login">Connexion</a>
-            </li>
-            <!-- Sign up -->
-            <li class="nav-item" *ngIf="!authService.isLogged">
-              <a class="btn btn-dark d-lg-inline-block" routerLink="signup">S'enregistrer</a>
-            </li>
-            <!-- my account -->
-            <li class="nav-item" *ngIf="authService.isLogged">
-              <a class="btn btn-ghost-dark me-2 me-lg-0" (click)="goToUserAdministration()">Mon compte</a>
-            </li>
-            <!-- management administrator -->
-            <li class="nav-item" *ngIf="authService.isLogged && authService.isAdmin">
-              <a class="btn btn-primary d-lg-inline-block" (click)="goToAdminAdministration()">Administration</a>
-            </li>
-            <!-- Logout -->
-            <li class="nav-item" *ngIf="authService.isLogged">
-              <a class="btn btn-dark d-none d-lg-inline-block" (click)="logout()">Se déconnecter</a>
-            </li>
-          </ul>
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <!-- Shopping cart -->
+        <li class="nav-item">
+          <a class="btn btn-primary position-relative" routerLink="shopping-cart">
+            Panier
+            <span id="articleCard" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">1</span>
+          </a>
 
-        </div>
-      </div>
-      <!-- End Collapse -->
-    </nav>
+        </li>
+        <!-- Log in -->
+        <li class="nav-item" *ngIf="!authService.isLogged">
+          <a class="btn btn-outline-dark no-border" routerLink="login">Connexion</a>
+        </li>
+        <!-- Sign up -->
+        <li class="nav-item" *ngIf="!authService.isLogged">
+          <a class="btn btn-dark" routerLink="signup">S'enregistrer</a>
+        </li>
+        <!-- my account -->
+        <li class="nav-item" *ngIf="authService.isLogged">
+          <a class="btn btn-outline-dark no-border" (click)="goToUserAdministration()">Mon compte</a>
+        </li>
+        <!-- management administrator -->
+        <li class="nav-item" *ngIf="authService.isLogged && authService.isAdmin">
+          <a class="btn btn-primary" (click)="goToAdminAdministration()">Administration</a>
+        </li>
+        <!-- Logout -->
+        <li class="nav-item" *ngIf="authService.isLogged">
+          <a class="btn btn-dark" (click)="logout()">Se déconnecter</a>
+        </li>
+      </ul>
+    </div>
+    <!-- End Collapse -->
   </div>
 </header>
-
-<!-- JS Plugins Init. template -->
-<script>
-  (function() {
-    // INITIALIZATION OF NAVBAR
-    // =======================================================
-    new HSHeader('#header').init()
-
-
-    // INITIALIZATION OF MEGA MENU
-    // =======================================================
-    const megaMenu = new HSMegaMenu('.js-mega-menu', {
-      desktop: {
-        position: 'left'
-      }
-    })
-
-
-    // INITIALIZATION OF SWIPER
-    // =======================================================
-    var swiper = new Swiper('.js-swiper-clients',{
-      slidesPerView: 2,
-      breakpoints: {
-        380: {
-          slidesPerView: 3,
-          spaceBetween: 15,
-        },
-        768: {
-          slidesPerView: 4,
-          spaceBetween: 15,
-        },
-        1024: {
-          slidesPerView: 5,
-          spaceBetween: 15,
-        },
-      },
-    });
-  })()
-</script>
-
-
-

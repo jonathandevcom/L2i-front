@@ -18,10 +18,8 @@ export class HomeComponent implements OnInit {
 
   article: Article[]= [];
   articleBySold: Article[]= [];
-  searchText: string = '';
   filteredArticle: Article[] = [];
   filteredArticleByAuthor: Article[] = [];
-  searchAuthorValue: Article[] = [];
   authorList: { firstname?: string, lastname?: string, language?: string }[] = [];
 
   ngOnInit(): void {
