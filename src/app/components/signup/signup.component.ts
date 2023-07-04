@@ -49,6 +49,7 @@ export class SignupComponent implements OnInit {
     const user = JSON.stringify(this.registerForm.value).replace(/,/g, ';');
 
     this.us.postNewUser(user).subscribe((res:any) => {
+      console.log(res)
       if (!res.result.login) {
         localStorage.setItem('login', 'false');
         this.authService.setIsLogged(false);

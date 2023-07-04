@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import {AuthService} from "../../services/auth.service";
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const url = 'http://localhost/rest/$directory/login';
+    const url = `${environment.apiUrl}/$directory/login`;
     const headers = this.authService.getHeaders();
     this._httpClient.post(url, null, { headers, withCredentials: true }).subscribe(res => {});
 
