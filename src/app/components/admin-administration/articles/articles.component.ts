@@ -201,7 +201,7 @@ export class ArticlesComponent implements OnInit {
           }, 3000);
           return;
         }
-        this.editors = response.result;
+        this.editors = response.result.result;
       },
       error: (error) => console.log(error),
     });
@@ -217,7 +217,7 @@ export class ArticlesComponent implements OnInit {
           }, 3000);
           return;
         }
-        this.types = response.result;
+        this.types = response.result.result;
 
       },
       error: (error) => console.log(error),

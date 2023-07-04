@@ -65,7 +65,7 @@ export class UsersComponent implements OnInit {
           }, 3000);
           return;
         }
-        this.users = response.result;
+        this.users = response.result.result;
       },
       error: (error) => console.log(error),
     });

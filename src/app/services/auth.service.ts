@@ -33,8 +33,8 @@ logout() {
 
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'username-4D': environment.username4D,
-      'password-4D': environment.password4D,
+      'username': environment.username4D,
+      'password': environment.password4D,
       'Content-Type': 'application/json'
     });
   }

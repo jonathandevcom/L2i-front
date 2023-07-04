@@ -47,7 +47,7 @@ export class EditorComponent implements OnInit {
           }, 3000);
           return;
         }
-        this.editors = response.result;
+        this.editors = response.result.result;
       },
       error: (error) => console.log(error),
     });

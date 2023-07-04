@@ -48,7 +48,7 @@ export class TypeComponent implements OnInit {
           }, 3000);
           return;
         }
-        this.types = response.result;
+        this.types = response.result.result;
 
       },
       error: (error) => console.log(error),
