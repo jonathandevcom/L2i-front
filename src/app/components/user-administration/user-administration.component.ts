@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from "../../services/auth.service";
 import { jsPDF } from 'jspdf'
@@ -65,7 +65,7 @@ export class UserAdministrationComponent implements OnInit {
     });
 
     this.updateUserForm = this.formBuilder.group({
-      civility: ['', Validators.required],
+      civility: new FormControl(null, Validators.required),
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       invoiceStreet: ['', [Validators.required, Validators.minLength(3)]],
@@ -235,6 +235,10 @@ export class UserAdministrationComponent implements OnInit {
     // Save the PDF
     doc.save(`Facture L2I n°${order.numberFact}.pdf`);
   }
+  }
+
+  getCivilityControl(): FormControl {
+    return this.updateUserForm.get('civility') as FormControl;
   }
 
 }

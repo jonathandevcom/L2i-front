@@ -1,0 +1,11 @@
+<div class="mb-4 form-group">
+  <label class="form-label" for="civility">Civilité<span class="text-danger">*</span></label>
+  <select [formControl]="civilityControl" [ngClass]="{'is-invalid':submitted && civilityControl?.invalid}" class="form-control form-control-lg" name="civility" id="civility" required>
+    <option value="M." selected>M.</option>
+    <option value="Mme">Mme</option>
+    <option value="Mlle">Mlle</option>
+  </select>
+  <div *ngIf="submitted && civilityControl?.errors?.['required']" class="text-danger">
+    Merci de sélectionner votre civilité.
+  </div>
+</div>

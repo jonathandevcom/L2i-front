@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import {AuthService} from "../../../services/auth.service";
 import {ActivatedRoute} from "@angular/router";
@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
     this.getUsers();
 
     this.userForm = this.formBuilder.group({
-      civility: ['', Validators.required],
+      civility: new FormControl(null, Validators.required),
       userFirstname: ['', Validators.required],
       userLastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -328,6 +328,10 @@ export class UsersComponent implements OnInit {
     } else {
       x?.setAttribute("type", "password");
     }
+  }
+
+  getCivilityControl(): FormControl {
+    return this.userForm.get('civility') as FormControl;
   }
 
 }

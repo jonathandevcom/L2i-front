@@ -25,6 +25,7 @@ import { AuthorComponent } from './components/admin-administration/author/author
 import { TypeComponent } from './components/admin-administration/type/type.component';
 import { UsersComponent } from './components/admin-administration/users/users.component';
 import {AuthGuard} from "./guards/auth.guard";
+import { SelectCivilityComponent } from './form/select-civility/select-civility.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {AuthGuard} from "./guards/auth.guard";
     EditorComponent,
     AuthorComponent,
     TypeComponent,
-    UsersComponent
+    UsersComponent,
+    SelectCivilityComponent
   ],
   imports: [
     BrowserModule,

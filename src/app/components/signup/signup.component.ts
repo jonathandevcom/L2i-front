@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      civility: ['', Validators.required],
+      civility: new FormControl(null, Validators.required),
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       street: ['', [Validators.required, Validators.minLength(3)]],
@@ -106,6 +106,10 @@ export class SignupComponent implements OnInit {
     } else {
       x?.setAttribute("type", "password");
     }
+  }
+
+  getCivilityControl(): FormControl {
+    return this.registerForm.get('civility') as FormControl;
   }
 
 }
