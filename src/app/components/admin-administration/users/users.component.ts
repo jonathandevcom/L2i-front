@@ -3,6 +3,8 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Valid
 import { UserService } from '../../../services/user.service';
 import {AuthService} from "../../../services/auth.service";
 import {ActivatedRoute} from "@angular/router";
+import { passwordValidator } from '../../../form/validators';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -32,7 +34,7 @@ export class UsersComponent implements OnInit {
       userLastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       type: ['', Validators.required],
-      password: ['', this.passwordValidator()],
+      password: ['', passwordValidator()],
       isAccess: [true],
       deliveryStreet: [''],
       deliveryAddressComplement: [''],
@@ -48,7 +50,6 @@ export class UsersComponent implements OnInit {
   }
 
   onSubmit() {
-    let message: string = '';
     this.submitted = true;
     if (this.userForm.invalid) {
       return;
@@ -257,7 +258,7 @@ export class UsersComponent implements OnInit {
     this.selectedUser = user;
     this.selectedUserCheck = true;
     this.submitted = false;
-
+    console.log(user)
     this.userForm.patchValue({
       idUser: user.id,
       civility: user.civility,
@@ -307,31 +308,16 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  passwordValidator(): ValidatorFn {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\-+_!?]{8,}$/;
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const password = control.value;
-      if(password === undefined){
-        return null;
-      }
-      if (!passwordRegex.test(password)) {
-        return { passwordInvalid: true };
-      }
-      return null;
-    };
-  }
-
-  diplayPassword() {
-    const x = document.getElementById("password");
-    if (x?.getAttribute("type") === "password") {
-      x.setAttribute("type", "text");
-    } else {
-      x?.setAttribute("type", "password");
-    }
-  }
-
   getCivilityControl(): FormControl {
     return this.userForm.get('civility') as FormControl;
+  }
+
+  getFirstNameControl(): FormControl {
+    return this.userForm.get('userFirstname') as FormControl;
+  }
+
+  getPasswordControl(): FormControl {
+    return this.userForm.get('password') as FormControl;
   }
 
 }

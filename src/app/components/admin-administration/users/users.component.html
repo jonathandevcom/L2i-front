@@ -23,14 +23,8 @@
             <app-select-civility [civilityControl]="getCivilityControl()" [submitted]="submitted"></app-select-civility>
           </div>
 
-          <div class="col-sm-5">
-            <div class="form-group mt-4">
-              <label for="userFirstname">Prénom<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('firstName')?.invalid}" type="text" class="form-control form-control-lg" id="userFirstname" name="userFirstname" formControlName="userFirstname" required>
-              <div *ngIf="submitted && userForm.get('firstName')?.errors?.['required']" class="text-danger">
-                Le prénom est obligatoire.
-              </div>
-            </div>
+          <div class="col-sm-5 mt-3">
+            <app-firstname-field [firstNameControl]="getFirstNameControl()" [submitted]="submitted"></app-firstname-field>
           </div>
 
           <div class="col-sm-5">
@@ -70,24 +64,7 @@
 
         <div class="row">
           <div class="col-sm-6">
-            <div class="form-group mt-4">
-              <label for="password">Mot de passe<span class="text-danger">* </span> <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userPassword"></i></label>
-              <div class="input-group-merge">
-                <input [ngClass]="{'is-invalid':submitted && userForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control" id="password" name="password" formControlName="password"
-                       data-hs-toggle-password-options='{
-                                     "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                                     "defaultClass": "bi-eye-slash",
-                                     "showClass": "bi-eye",
-                                     "classChangeTarget": ".js-toggle-password-show-icon-1"
-                                   }'>
-                <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:" (click)="diplayPassword()">
-                  <i class="js-toggle-password-show-icon-1 bi-eye"></i>
-                </a>
-                <div *ngIf="submitted && userForm.get('password')?.errors?.['passwordValidator']" class="text-danger">
-                    Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?
-                </div>
-              </div>
-            </div>
+            <app-password-field [passwordControl]="getPasswordControl()" [submitted]="submitted"></app-password-field>
           </div>
 
           <div class="col-sm-6">

@@ -36,16 +36,7 @@
                           </div>
 
                           <div class="col-sm-5">
-                            <div class="mb-4 form-group">
-                              <label class="form-label" for="firstName">Prénom<span class="text-danger">*</span></label>
-                              <input formControlName="firstName" [ngClass]="{'is-invalid': submittedUpdateUserForm && updateUserForm.get('firstName')?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" required>
-                              <div *ngIf="updateUserForm.get('firstName')?.errors?.['required']" class="text-danger">
-                                Merci de saisir votre prénom.
-                              </div>
-                              <div *ngIf="updateUserForm.get('firstName')?.errors?.['minlength']" class="text-danger">
-                                Votre prénom doit comporter au moins 3 lettres.
-                              </div>
-                            </div>
+                            <app-firstname-field [firstNameControl]="getFirstNameControl()" [submitted]="submittedUpdateUserForm"></app-firstname-field>
                           </div>
 
                           <div class="col-sm-5">

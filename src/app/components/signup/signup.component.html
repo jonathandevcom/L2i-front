@@ -25,27 +25,11 @@
                       <!-- full name -->
                       <div class="row">
                         <div class="col-sm-2">
-                          <!-- Form -->
                           <app-select-civility [civilityControl]="getCivilityControl()" [submitted]="submitted"></app-select-civility>
-
-
-                          <!-- End Form -->
-
                         </div>
 
                         <div class="col-sm-5">
-                          <!-- Form -->
-                          <div class="mb-4 form-group">
-                            <label class="form-label" for="firstName">Prénom<span class="text-danger">*</span></label>
-                            <input formControlName="firstName" [ngClass]="{'is-invalid':submitted && registerForm.get('firstName')?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" required>
-                            <div *ngIf="submitted && registerForm.get('firstName')?.errors?.['required']" class="text-danger">
-                              Merci de saisir votre prénom.
-                            </div>
-                            <div *ngIf="submitted && registerForm.get('firstName')?.errors?.['minlength']" class="text-danger">
-                              Votre prénom doit comporter au moins 3 lettres.
-                            </div>
-                          </div>
-                          <!-- End Form -->
+                          <app-firstname-field [firstNameControl]="getFirstNameControl()" [submitted]="submitted"></app-firstname-field>
                         </div>
 
                         <div class="col-sm-5">
@@ -144,28 +128,7 @@
                       </div>
                       <!-- end email -->
 
-                      <!-- mot de passe -->
-                      <div class="mb-4 form-group">
-                        <label class="form-label" for="password">Mot de passe<span class="text-danger">* </span> <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userPassword"></i></label>
-                        <div class="input-group-merge">
-                          <input formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.get('password')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="Mot de passe fort" aria-label="Mot de passe fort." required minlength="8"
-                                 data-hs-toggle-password-options='{
-                                   "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                                   "defaultClass": "bi-eye-slash",
-                                   "showClass": "bi-eye",
-                                   "classChangeTarget": ".js-toggle-password-show-icon-1"
-                                 }'>
-                          <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:" (click)="displayPassword()">
-                            <i class="js-toggle-password-show-icon-1 bi-eye"></i>
-                          </a>
-                          <div *ngIf="submitted && registerForm.get('password')?.invalid" class="text-danger">
-                            <ng-container *ngIf="submitted && registerForm.get('password')?.errors?.['required']; then errorsRequired; else errorsPassword"></ng-container>
-                            <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                            <ng-template #errorsPassword>Le mot de passe doit comporter au moins une lettre majuscule, une lettre minuscule, un chiffre et qui comporte au moins 8 caractères composés de lettres, de chiffres et des caractères spéciaux autorisés - + _ ! ?</ng-template>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- mot de passe -->
+                      <app-password-field [passwordControl]="getPasswordControl()" [submitted]="submitted"></app-password-field>
 
                       <!-- confirm mot de passe -->
                       <div class="mb-4 form-group">

@@ -241,4 +241,8 @@ export class UserAdministrationComponent implements OnInit {
     return this.updateUserForm.get('civility') as FormControl;
   }
 
+  getFirstNameControl(): FormControl {
+    return this.updateUserForm.get('firstName') as FormControl;
+  }
+
 }

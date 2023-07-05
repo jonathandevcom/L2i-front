@@ -26,6 +26,8 @@ import { TypeComponent } from './components/admin-administration/type/type.compo
 import { UsersComponent } from './components/admin-administration/users/users.component';
 import {AuthGuard} from "./guards/auth.guard";
 import { SelectCivilityComponent } from './form/select-civility/select-civility.component';
+import { PasswordFieldComponent } from './form/password-field/password-field.component';
+import { FirstnameFieldComponent } from './form/firstname-field/firstname-field.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { SelectCivilityComponent } from './form/select-civility/select-civility.
     AuthorComponent,
     TypeComponent,
     UsersComponent,
-    SelectCivilityComponent
+    SelectCivilityComponent,
+    PasswordFieldComponent,
+    FirstnameFieldComponent
   ],
   imports: [
     BrowserModule,
