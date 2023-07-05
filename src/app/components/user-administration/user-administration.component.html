@@ -32,24 +32,15 @@
                         <!-- full name -->
                         <div class="row">
                           <div class="col-sm-2">
-                            <app-select-civility [civilityControl]="getCivilityControl()" [submitted]="submittedUpdateUserForm"></app-select-civility>
+                            <app-select-civility [civilityControl]="getFormControl('civility')"  [submitted]="submittedUpdateUserForm"></app-select-civility>
                           </div>
 
                           <div class="col-sm-5">
-                            <app-firstname-field [firstNameControl]="getFirstNameControl()" [submitted]="submittedUpdateUserForm"></app-firstname-field>
+                            <app-firstname-field [firstNameControl]="getFormControl('firstName')"  [submitted]="submittedUpdateUserForm"></app-firstname-field>
                           </div>
 
                           <div class="col-sm-5">
-                            <div class="mb-4 form-group">
-                              <label class="form-label" for="lastName">Nom<span class="text-danger">*</span></label>
-                              <input formControlName="lastName" [ngClass]="{'is-invalid': submittedUpdateUserForm && updateUserForm.get('lastName')?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="lastName" placeholder="Martin" aria-label="Martin" required>
-                              <div *ngIf="updateUserForm.get('lastName')?.errors?.['required']" class="text-danger">
-                                Merci de saisir votre nom.
-                              </div>
-                              <div *ngIf="updateUserForm.get('lastName')?.errors?.['minlength']" class="text-danger">
-                                Votre nom doit comporter au moins 3 lettres.
-                              </div>
-                            </div>
+                            <app-lastname-field [lastNameControl]="getFormControl('lastName')" [submitted]="submittedUpdateUserForm"></app-lastname-field>
                           </div>
                         </div>
 

@@ -28,6 +28,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import { SelectCivilityComponent } from './form/select-civility/select-civility.component';
 import { PasswordFieldComponent } from './form/password-field/password-field.component';
 import { FirstnameFieldComponent } from './form/firstname-field/firstname-field.component';
+import { LastnameFieldComponent } from './form/lastname-field/lastname-field.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { FirstnameFieldComponent } from './form/firstname-field/firstname-field.
     UsersComponent,
     SelectCivilityComponent,
     PasswordFieldComponent,
-    FirstnameFieldComponent
+    FirstnameFieldComponent,
+    LastnameFieldComponent
   ],
   imports: [
     BrowserModule,

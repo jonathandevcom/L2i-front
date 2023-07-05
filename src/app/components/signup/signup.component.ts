@@ -89,16 +89,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  getCivilityControl(): FormControl {
-    return this.registerForm.get('civility') as FormControl;
+  getFormControl(name: string): FormControl {
+    return this.registerForm.get(name) as FormControl;
   }
-  getPasswordControl(): FormControl {
-    return this.registerForm.get('password') as FormControl;
-  }
-  getFirstNameControl(): FormControl {
-    return this.registerForm.get('firstName') as FormControl;
-  }
-
-
-
 }

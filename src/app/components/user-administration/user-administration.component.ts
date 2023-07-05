@@ -237,12 +237,8 @@ export class UserAdministrationComponent implements OnInit {
   }
   }
 
-  getCivilityControl(): FormControl {
-    return this.updateUserForm.get('civility') as FormControl;
-  }
-
-  getFirstNameControl(): FormControl {
-    return this.updateUserForm.get('firstName') as FormControl;
+  getFormControl(name: string): FormControl {
+    return this.updateUserForm.get(name) as FormControl;
   }
 
 }

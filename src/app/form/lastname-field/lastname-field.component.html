@@ -1,0 +1,10 @@
+<div class="mb-4 form-group">
+  <label class="form-label" for="lastName">Nom<span class="text-danger">*</span></label>
+  <input [formControl]="lastNameControl" [ngClass]="{'is-invalid':submitted && lastNameControl.invalid}" type="text" class="form-control form-control-lg" placeholder="Mark" aria-label="Mark" name="lastName" id="lastName" required>
+  <div *ngIf="submitted && lastNameControl?.errors?.['required']" class="text-danger">
+    Merci de saisir votre nom.
+  </div>
+  <div *ngIf="submitted && lastNameControl?.errors?.['minlength']" class="text-danger">
+    Votre nom doit comporter au moins 3 lettres.
+  </div>
+</div>

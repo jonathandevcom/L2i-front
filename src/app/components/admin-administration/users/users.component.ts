@@ -308,16 +308,8 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  getCivilityControl(): FormControl {
-    return this.userForm.get('civility') as FormControl;
-  }
-
-  getFirstNameControl(): FormControl {
-    return this.userForm.get('userFirstname') as FormControl;
-  }
-
-  getPasswordControl(): FormControl {
-    return this.userForm.get('password') as FormControl;
+  getFormControl(name: string): FormControl {
+    return this.userForm.get(name) as FormControl;
   }
 
 }

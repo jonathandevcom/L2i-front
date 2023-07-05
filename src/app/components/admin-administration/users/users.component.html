@@ -18,29 +18,24 @@
       <!-- Formulaire pour ajouter/modifier un utilisateur -->
       <form (ngSubmit)="onSubmit()" class="js-validate needs-validation" novalidate id="user-form" [formGroup]="userForm">
         <!-- full name -->
-        <div class="row">
-          <div class="col-sm-2 mt-3">
-            <app-select-civility [civilityControl]="getCivilityControl()" [submitted]="submitted"></app-select-civility>
-          </div>
-
-          <div class="col-sm-5 mt-3">
-            <app-firstname-field [firstNameControl]="getFirstNameControl()" [submitted]="submitted"></app-firstname-field>
+        <div class="row mt-3">
+          <div class="col-sm-2">
+            <app-select-civility [civilityControl]="getFormControl('civility')" [submitted]="submitted"></app-select-civility>
           </div>
 
           <div class="col-sm-5">
-            <div class="form-group mt-4">
-              <label for="userLastname">Nom<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('lastName')?.invalid}" type="text" class="form-control form-control-lg" id="userLastname" name="userLastname" formControlName="userLastname" required>
-              <div *ngIf="submitted && userForm.get('lastName')?.errors?.['required']" class="text-danger">
-                Le nom est obligatoire.
-              </div>
-            </div>
+            <app-firstname-field [firstNameControl]="getFormControl('userFirstname')" [submitted]="submitted"></app-firstname-field>
+          </div>
+
+          <div class="col-sm-5">
+            <app-lastname-field [lastNameControl]="getFormControl('userLastname')" [submitted]="submitted"></app-lastname-field>
           </div>
         </div>
 
+
         <div class="row">
           <div class="col-sm-6">
-            <div class="form-group mt-4">
+            <div class="form-group mt-1">
               <label for="email">Email<span class="text-danger">*</span></label>
               <input [ngClass]="{'is-invalid':submitted && userForm.get('email')?.invalid}" type="email" class="form-control" id="email" name="email" formControlName="email" required>
               <div *ngIf="submitted && userForm.get('email')?.errors?.['required']" class="text-danger">
@@ -64,7 +59,7 @@
 
         <div class="row">
           <div class="col-sm-6">
-            <app-password-field [passwordControl]="getPasswordControl()" [submitted]="submitted"></app-password-field>
+            <app-password-field [passwordControl]="getFormControl('password')" [submitted]="submitted"></app-password-field>
           </div>
 
           <div class="col-sm-6">
