@@ -1,4 +1,4 @@
-<main id="content" role="main">
+<main id="content" role="main" class="overflow-hidden">
   <div id="cart-success" class="alert alert-primary" role="alert" style="display:none;"></div>
   <!-- Search by title -->
   <div class="overflow-hidden content-space-t-2 ">
@@ -34,7 +34,7 @@
             <!-- End SVG Shape -->
 
             <!-- SVG Shape -->
-            <figure class="position-absolute bottom-0 start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
+            <figure class="position-absolute bottom-0 d-none d-sm-block start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
               <img class="img-fluid" src="../../../assets/img/curved-shape.svg" alt="Image Description">
             </figure>
             <!-- End SVG Shape -->
@@ -84,7 +84,7 @@
             <!-- Input Card -->
             <div class="input-card input-card-sm">
               <div class="input-card-form">
-                <label for="searchAuthorValue" class="form-label visually-hidden">Vous chercher un autheur ?</label>
+                <label for="searchAuthorValue" class="form-label visually-hidden">Vous chercher un auteur ?</label>
                 <input type="text" class="form-control form-control-lg" list="datalistOptions1" id="searchAuthorValue" placeholder="Vous chercher un autheur ?" aria-label="Vous chercher un autheur ?">
                 <datalist id="datalistOptions1">
                   <option *ngFor="let author of authorList" [value]="author.firstname + ' ' + author.lastname"></option>
@@ -101,7 +101,7 @@
             <!-- End SVG Shape -->
 
             <!-- SVG Shape -->
-            <figure class="position-absolute bottom-0 start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
+            <figure class="position-absolute bottom-0 d-none d-sm-block start-0 zi-n1 mb-n7" style="width: 12rem; margin-left: -10rem;">
               <img class="img-fluid" src="../../../assets/img/curved-shape.svg" alt="Image Description">
             </figure>
             <!-- End SVG Shape -->

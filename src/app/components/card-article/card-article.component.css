@@ -43,3 +43,21 @@
   position: absolute;
   bottom: 0;
 }
+
+/* Style par défaut pour les écrans plus grands */
+.card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Lorsque l'écran est de 600px ou moins, redimensionnez l'image */
+@media screen and (max-width: 600px) {
+  .card-img {
+    width: 70%;
+    height: auto;
+  }
+}
+
