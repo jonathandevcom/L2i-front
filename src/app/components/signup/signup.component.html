@@ -25,123 +25,49 @@
                       <!-- full name -->
                       <div class="row">
                         <div class="col-sm-2">
-                          <app-select-civility [civilityControl]="getFormControl('civility')" [submitted]="submitted"></app-select-civility>
+                          <app-select-civility [id]="'civility'" [civilityControl]="getFormControl('civility')" [submitted]="submitted"></app-select-civility>
                         </div>
 
                         <div class="col-sm-5">
-                          <app-firstname-field [firstNameControl]="getFormControl('firstName')" [submitted]="submitted"></app-firstname-field>
+                          <app-firstname-field [id]="'firstName'" [firstNameControl]="getFormControl('firstName')" [submitted]="submitted"></app-firstname-field>
                         </div>
 
                         <div class="col-sm-5">
-                          <app-lastname-field [lastNameControl]="getFormControl('lastName')" [submitted]="submitted"></app-lastname-field>
+                          <app-lastname-field [id]="'lastName'" [lastNameControl]="getFormControl('lastName')" [submitted]="submitted"></app-lastname-field>
                         </div>
                       </div>
 
                       <!-- Address -->
                       <div class="row">
                         <div class="col-sm-6">
-                          <!-- Form -->
-                          <div class="mb-4 form-group">
-                            <label class="form-label" for="street">Numéro et nom de la rue<span class="text-danger">*</span></label>
-                            <input formControlName="street" [ngClass]="{'is-invalid':submitted && registerForm.get('street')?.invalid}" type="text" class="form-control form-control-lg" name="street" id="street" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
-                            <div *ngIf="submitted && registerForm.get('street')?.errors?.['required']" class="text-danger">
-                              Merci le numéro et le nom de votre rue.
-                            </div>
-                          </div>
-                          <!-- End Form -->
+                          <app-street-field [id]="'street'" [streetControl]="getFormControl('street')" [submitted]="submitted"></app-street-field>
                         </div>
 
                         <div class="col-sm-6">
-                          <!-- Form -->
-                          <div class="mb-4 form-group">
-                            <label class="form-label" for="addressComplement">Complément d'adresse</label>
-                            <input formControlName="addressComplement" type="text" class="form-control form-control-lg" placeholder="Entrée B1" aria-label="Entrée B1" name="addressComplement" id="addressComplement">
-                          </div>
-                          <!-- End Form -->
+                          <app-address-complement-field [id]="'addressComplement'" [addressComplementControl]="getFormControl('addressComplement')"></app-address-complement-field>
                         </div>
                       </div>
 
                       <!-- address more -->
                       <div class="row">
                         <div class="col-sm-2">
-                          <div class="mb-4 form-group">
-                            <label class="form-label" for="zipCode">Code Postal<span class="text-danger">*</span></label>
-                            <input formControlName="zipCode" [ngClass]="{'is-invalid':submitted && registerForm.get('zipCode')?.invalid}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="zipCode" id="zipCode" required>
-                            <div *ngIf="submitted && registerForm.get('zipCode')?.errors?.['required']" class="text-danger">
-                              Merci de saisir votre code postal.
-                            </div>
-                            <div *ngIf="submitted && registerForm.get('zipCode')?.errors?.['minlength']" class="text-danger">
-                              Votre code postal doit comporter au moins 5 chiffres.
-                            </div>
-                          </div>
+                          <app-zip-code-field [id]="'zipCode'" [zipCodeControl]="getFormControl('zipCode')" [submitted]="submitted"></app-zip-code-field>
                         </div>
 
                         <div class="col-sm-5">
-                          <div class="mb-4 form-group">
-                            <label class="form-label" for="city">Ville<span class="text-danger">*</span></label>
-                            <input formControlName="city" [ngClass]="{'is-invalid':submitted && registerForm.get('city')?.invalid}" type="text" class="form-control form-control-lg" name="city" id="city" placeholder="Marseille" aria-label="Marseille" required>
-                            <div *ngIf="submitted && registerForm.get('city')?.errors?.['required']" class="text-danger">
-                              Merci de saisir votre ville.
-                            </div>
-                            <div *ngIf="submitted && registerForm.get('city')?.errors?.['minlength']" class="text-danger">
-                              Votre ville doit comporter au moins 3 lettres.
-                            </div>
-                          </div>
-                          <!-- End Form -->
+                          <app-city-field [id]="'city'" [cityControl]="getFormControl('city')" [submitted]="submitted"></app-city-field>
                         </div>
 
                         <div class="col-sm-5">
-                          <div class="mb-4 form-group">
-                            <label class="form-label" for="country">Pays<span class="text-danger">*</span></label>
-                            <input formControlName="country" [ngClass]="{'is-invalid':submitted && registerForm.get('country')?.invalid}" type="text" class="form-control form-control-lg" name="country" id="country" placeholder="France" aria-label="France" required>
-                            <div *ngIf="submitted && registerForm.get('country')?.errors?.['required']" class="text-danger">
-                              Merci de saisir votre pays.
-                            </div>
-                            <div *ngIf="submitted && registerForm.get('country')?.errors?.['minlength']" class="text-danger">
-                              Le pays doit comporter au moins 3 lettres.
-                            </div>
-                          </div>
+                          <app-country-field [id]="'country'" [countryControl]="getFormControl('country')" [submitted]="submitted"></app-country-field>
                         </div>
                       </div>
 
-                      <!-- email -->
-                      <div class="mb-4 form-group">
-                        <label class="form-label" for="email">Email<span class="text-danger">*</span></label>
-                        <input formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.get('email')?.invalid}" type="email" class="form-control form-control-lg" name="email" id="email" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com" required>
-                        <div *ngIf="submitted && registerForm.get('email')?.errors?.['required']" class="text-danger">
-                          Merci de saisir votre email.
-                        </div>
-                        <div *ngIf="submitted && registerForm.get('email')?.errors?.['email']" class="text-danger">
-                          Votre email n'est pas valide.
-                        </div>
-                      </div>
-                      <!-- end email -->
+                      <app-email-field [id]="'email'" [emailControl]="getFormControl('email')" [submitted]="submitted"></app-email-field>
 
-                      <app-password-field [passwordControl]="getFormControl('password')" [submitted]="submitted"></app-password-field>
+                      <app-password-field [id]="'password'" [passwordControl]="getFormControl('password')" [submitted]="submitted"></app-password-field>
 
-                      <!-- confirm mot de passe -->
-                      <div class="mb-4 form-group">
-                        <label class="form-label" for="confirmPassword">Confirmer le mot de passe<span class="text-danger">*</span></label>
-
-                        <div class="input-group-merge">
-                          <input formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.get('confirmPassword')?.invalid}" type="password" class="js-toggle-password form-control form-control-lg" name="confirmPassword" id="confirmPassword" placeholder="Mot de passe fort" aria-label="Mot de passe fort" required minlength="8"
-                                 data-hs-toggle-password-options='{
-                                   "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                                   "defaultClass": "bi-eye-slash",
-                                   "showClass": "bi-eye",
-                                   "classChangeTarget": ".js-toggle-password-show-icon-2"
-                                 }'>
-                          <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:" (click)="displayConfirmPassword()">
-                            <i class="js-toggle-password-show-icon-2 bi-eye"></i>
-                          </a>
-                          <div *ngIf="submitted && registerForm.get('confirmPassword')?.invalid" class="text-danger">
-                            <ng-container *ngIf="submitted && registerForm.get('confirmPassword')?.errors?.['required']; then errorsRequired; else errorsConfirmPassword"></ng-container>
-                            <ng-template #errorsRequired>Merci de saisir votre mot de passe.</ng-template>
-                            <ng-template #errorsConfirmPassword>La confirmation du mot de passe doit être identique au mot de passe.</ng-template>
-                            </div>
-                        </div>
-                      </div>
-                      <!-- end confirm mot de passe -->
+                      <app-confirm-password-field [id]="'confirmPassword'" [confirmPasswordControl]="getFormControl('confirmPassword')" [submitted]="submitted"></app-confirm-password-field>
 
                       <div class="d-grid gap-4">
                         <button type="submit" class="btn btn-primary btn-lg">Créer mon compte</button>
@@ -176,31 +102,4 @@
     <!-- End Content -->
   </main>
 
-  <!-- Modal user password-->
-  <div class="modal fade" id="userPassword" tabindex="-1" role="dialog" aria-labelledby="userPassword" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="userPasswordLabel">Information</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Le mot de passe est obligatoire uniquement lors de la création ou de la modification du mot de passe d'un compte existant.</p>
-          <div>
-            <p>Le mot de passe doit respecter les critères suivants :</p>
-            <ul>
-              <li>Contenir au moins une lettre majuscule</li>
-              <li>Contenir au moins une lettre minuscule</li>
-              <li>Contenir au moins un chiffre</li>
-              <li>Avoir une longueur minimale de 8 caractères</li>
-              <li>Autoriser les caractères spéciaux suivants : - + _ ! ?</li>
-            </ul>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-white" data-bs-dismiss="modal">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Modal -->
+

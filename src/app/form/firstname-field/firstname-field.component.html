@@ -1,6 +1,6 @@
 <div class="mb-4 form-group">
-  <label class="form-label" for="firstName">Prénom<span class="text-danger">*</span></label>
-  <input [formControl]="firstNameControl" [ngClass]="{'is-invalid':submitted && firstNameControl?.invalid}" type="text" class="form-control form-control-lg" name="firstName" id="firstName" placeholder="Williams" aria-label="Williams" required>
+  <label class="form-label" [for]="id">Prénom<span class="text-danger">*</span></label>
+  <input [formControl]="firstNameControl" [ngClass]="{'is-invalid':submitted && firstNameControl.invalid}" type="text" class="form-control form-control-lg" name="firstName" [id]="id" placeholder="Williams" aria-label="Williams" required>
   <div *ngIf="submitted && firstNameControl?.errors?.['required']" class="text-danger">
     Merci de saisir votre prénom.
   </div>

@@ -1,0 +1,10 @@
+<div class="mb-4 form-group">
+  <label class="form-label" [for]="id">Code Postal<span class="text-danger">*</span></label>
+  <input [formControl]="zipCodeControl" [ngClass]="{'is-invalid':submitted && zipCodeControl.invalid}" type="text" class="form-control form-control-lg" placeholder="13210" aria-label="13210" name="zipCode" [id]="id">
+  <div *ngIf="submitted && zipCodeControl.errors?.['required']" class="text-danger">
+    Merci de saisir votre code postal.
+  </div>
+  <div *ngIf="submitted && zipCodeControl.errors?.['minlength']" class="text-danger">
+    Votre code postal doit comporter au moins 5 chiffres.
+  </div>
+</div>

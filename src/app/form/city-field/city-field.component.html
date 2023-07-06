@@ -1,0 +1,10 @@
+<div class="mb-4 form-group">
+  <label class="form-label" [for]="id">Ville<span class="text-danger">*</span></label>
+  <input [formControl]="cityControl" [ngClass]="{'is-invalid':submitted && cityControl.invalid}" type="text" class="form-control form-control-lg" name="city" [id]="id" placeholder="Marseille" aria-label="Marseille">
+  <div *ngIf="submitted && cityControl.errors?.['required']" class="text-danger">
+    Merci de saisir votre ville.
+  </div>
+  <div *ngIf="submitted && cityControl.errors?.['minlength']" class="text-danger">
+    Votre ville doit comporter au moins 3 lettres.
+  </div>
+</div>

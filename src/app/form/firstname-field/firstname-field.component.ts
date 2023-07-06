@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 export class FirstnameFieldComponent {
   @Input() firstNameControl!: FormControl;
   @Input() submitted!: boolean;
+  @Input() id!: string;
 
   constructor() { }
 }

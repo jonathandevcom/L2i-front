@@ -10,3 +10,14 @@ export function passwordValidator(): ValidatorFn {
     return null;
   };
 }
+
+export function matchPasswordValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const password = control.parent?.get('password')?.value;
+    const confirmPassword = control.value;
+    if (password !== confirmPassword) {
+      return { passwordNotMatch: true };
+    }
+    return null;
+  };
+}

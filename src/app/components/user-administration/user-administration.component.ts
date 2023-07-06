@@ -241,4 +241,8 @@ export class UserAdministrationComponent implements OnInit {
     return this.updateUserForm.get(name) as FormControl;
   }
 
+  getFormControlDeliveryForm(name: string): FormControl {
+    return this.updateDeliveryForm.get(name) as FormControl;
+  }
+
 }

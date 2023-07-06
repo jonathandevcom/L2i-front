@@ -1,0 +1,7 @@
+<div class="mb-4 form-group">
+  <label class="form-label" [for]="id">Numéro et nom de la rue<span class="text-danger">*</span></label>
+  <input [formControl]="streetControl" [ngClass]="{'is-invalid':submitted && streetControl.invalid}" type="text" class="form-control form-control-lg" name="street" [id]="id" placeholder="7 rue du Paradis" aria-label="7 rue du Paradis" required>
+  <div *ngIf="submitted && streetControl?.errors?.['required']" class="text-danger">
+    Merci de renseigner le numéro et le nom de votre rue.
+  </div>
+</div>

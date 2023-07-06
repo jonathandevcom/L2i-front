@@ -1,0 +1,10 @@
+<div class="mb-4 form-group">
+  <label class="form-label" [for]="id">Email<span class="text-danger">*</span></label>
+  <input [formControl]="emailControl" [ngClass]="{'is-invalid':submitted && emailControl.invalid}" type="email" class="form-control form-control-lg" name="email" [id]="id" placeholder="markwilliams@gmail.com" aria-label="markwilliams@gmail.com">
+  <div *ngIf="submitted && emailControl.errors?.['required']" class="text-danger">
+    Merci de saisir votre email.
+  </div>
+  <div *ngIf="submitted && emailControl.errors?.['email']" class="text-danger">
+    Votre email n'est pas valide.
+  </div>
+</div>

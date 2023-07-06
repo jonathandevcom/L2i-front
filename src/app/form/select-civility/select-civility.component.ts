@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 export class SelectCivilityComponent {
   @Input() civilityControl!: FormControl;
   @Input() submitted!: boolean;
+  @Input() id!: string;
 
   constructor() { }
 }

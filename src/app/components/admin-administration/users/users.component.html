@@ -20,32 +20,25 @@
         <!-- full name -->
         <div class="row mt-3">
           <div class="col-sm-2">
-            <app-select-civility [civilityControl]="getFormControl('civility')" [submitted]="submitted"></app-select-civility>
+            <app-select-civility [id]="'civility'" [civilityControl]="getFormControl('civility')" [submitted]="submitted"></app-select-civility>
           </div>
 
           <div class="col-sm-5">
-            <app-firstname-field [firstNameControl]="getFormControl('userFirstname')" [submitted]="submitted"></app-firstname-field>
+            <app-firstname-field [id]="'userFirstname'" [firstNameControl]="getFormControl('userFirstname')" [submitted]="submitted"></app-firstname-field>
           </div>
 
           <div class="col-sm-5">
-            <app-lastname-field [lastNameControl]="getFormControl('userLastname')" [submitted]="submitted"></app-lastname-field>
+            <app-lastname-field [id]="'userLastname'" [lastNameControl]="getFormControl('userLastname')" [submitted]="submitted"></app-lastname-field>
           </div>
         </div>
 
-
         <div class="row">
           <div class="col-sm-6">
-            <div class="form-group mt-1">
-              <label for="email">Email<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('email')?.invalid}" type="email" class="form-control" id="email" name="email" formControlName="email" required>
-              <div *ngIf="submitted && userForm.get('email')?.errors?.['required']" class="text-danger">
-                L'email est obligatoire.
-              </div>
-            </div>
+            <app-email-field [id]="'email'" [emailControl]="getFormControl('email')" [submitted]="submitted"></app-email-field>
           </div>
 
           <div class="col-sm-6">
-            <div class="form-group mt-4">
+            <div class="form-group mt-2">
               <label for="type">Type d'utilisateur<span class="text-danger">* </span> <i class="bi-info-circle text-primary size-bi" data-bs-toggle="modal" data-bs-target="#userType"></i>
               </label>
               <!-- End Button trigger modal -->
@@ -59,7 +52,7 @@
 
         <div class="row">
           <div class="col-sm-6">
-            <app-password-field [passwordControl]="getFormControl('password')" [submitted]="submitted"></app-password-field>
+            <app-password-field [id]="'password'" [passwordControl]="getFormControl('password')" [submitted]="submitted"></app-password-field>
           </div>
 
           <div class="col-sm-6">
@@ -74,99 +67,56 @@
           </div>
         </div>
 
-
-        <span class="divider-center text-muted mt-4">Adresse de livraison</span>
+        <span class="divider-center text-muted mt-2">Adresse de livraison</span>
         <!-- address -->
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-sm-6">
-            <div class="form-group mt-4">
-              <label for="deliveryStreet">Numéro et nom de la rue<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="deliveryStreet" name="deliveryStreet" formControlName="deliveryStreet">
-            </div>
+            <app-street-field [id]="'deliveryStreet'" [streetControl]="getFormControl('deliveryStreet')" [submitted]="submitted"></app-street-field>
           </div>
 
           <div class="col-sm-6">
-            <div class="form-group mt-4">
-              <label for="deliveryAddressComplement">Complément d'adresse</label>
-              <input type="text" class="form-control" id="deliveryAddressComplement" name="deliveryAddressComplement" formControlName="deliveryAddressComplement">
-            </div>
+            <app-address-complement-field [id]="'deliveryAddressComplement'" [addressComplementControl]="getFormControl('deliveryAddressComplement')"></app-address-complement-field>
           </div>
         </div>
 
         <!-- address end-->
         <div class="row">
           <div class="col-sm-2">
-            <div class="form-group mt-4">
-              <label for="deliveryZipCode">Code Postal<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="deliveryZipCode" name="deliveryZipCode" formControlName="deliveryZipCode">
-            </div>
+            <app-zip-code-field [id]="'deliveryZipCode'" [zipCodeControl]="getFormControl('deliveryZipCode')" [submitted]="submitted"></app-zip-code-field>
           </div>
 
           <div class="col-sm-5">
-            <div class="form-group mt-4">
-              <label for="deliveryCity">Ville<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="deliveryCity" name="deliveryCity" formControlName="deliveryCity">
-            </div>
+            <app-city-field [id]="'deliveryCity'" [cityControl]="getFormControl('deliveryCity')" [submitted]="submitted"></app-city-field>
           </div>
 
           <div class="col-sm-5">
-            <div class="form-group mt-4">
-              <label for="deliveryCountry">Pays<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="deliveryCountry" name="deliveryCountry" formControlName="deliveryCountry" >
-            </div>
+            <app-country-field [id]="'deliveryCountry'" [countryControl]="getFormControl('deliveryCountry')" [submitted]="submitted"></app-country-field>
           </div>
         </div>
 
         <span class="divider-center text-muted mt-4">Adresse de facturation</span>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-sm-6">
-            <div class="form-group mt-4">
-              <label for="invoiceStreet">Numéro et nom de la rue<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceStreet')?.invalid}" type="text" class="form-control" id="invoiceStreet" name="invoiceStreet" formControlName="invoiceStreet">
-              <div *ngIf="submitted && userForm.get('invoiceStreet')?.errors?.['required']" class="text-danger">
-                Le numéro et nom de la rue sont obligatoire.
-              </div>
-            </div>
+            <app-street-field [id]="'invoiceStreet'" [streetControl]="getFormControl('invoiceStreet')" [submitted]="submitted"></app-street-field>
           </div>
 
           <div class="col-sm-6">
-            <div class="form-group mt-4">
-              <label for="invoiceAddressComplement">Complément d'adresse</label>
-              <input type="text" class="form-control" id="invoiceAddressComplement" name="invoiceAddressComplement" formControlName="invoiceAddressComplement">
-            </div>
+            <app-address-complement-field [id]="'invoiceAddressComplement'" [addressComplementControl]="getFormControl('invoiceAddressComplement')"></app-address-complement-field>
           </div>
         </div>
 
         <!-- address end-->
         <div class="row">
           <div class="col-sm-2">
-            <div class="form-group mt-4">
-              <label for="invoiceZipCode">Code postal<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceZipCode')?.invalid}" type="text" class="form-control" id="invoiceZipCode" name="invoiceZipCode" formControlName="invoiceZipCode">
-              <div *ngIf="submitted && userForm.get('invoiceZipCode')?.errors?.['required']" class="text-danger">
-                Le code postal est obligatoire.
-              </div>
-            </div>
+            <app-zip-code-field [id]="'invoiceZipCode'" [zipCodeControl]="getFormControl('invoiceZipCode')" [submitted]="submitted"></app-zip-code-field>
           </div>
 
           <div class="col-sm-5">
-            <div class="form-group mt-4">
-              <label for="invoiceCity">Ville<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceCity')?.invalid}" type="text" class="form-control" id="invoiceCity" name="invoiceCity" formControlName="invoiceCity">
-              <div *ngIf="submitted && userForm.get('invoiceCity')?.errors?.['required']" class="text-danger">
-                La ville est obligatoire.
-              </div>
-            </div>
+            <app-city-field [id]="'invoiceCity'" [cityControl]="getFormControl('invoiceCity')" [submitted]="submitted"></app-city-field>
           </div>
 
           <div class="col-sm-5">
-            <div class="form-group mt-4">
-              <label for="invoiceCountry">Pays<span class="text-danger">*</span></label>
-              <input [ngClass]="{'is-invalid':submitted && userForm.get('invoiceCountry')?.invalid}" type="text" class="form-control" id="invoiceCountry" name="invoiceCountry" formControlName="invoiceCountry">
-              <div *ngIf="submitted && userForm.get('invoiceCountry')?.errors?.['required']" class="text-danger">
-                Le pays est obligatoire.
-              </div>
-            </div>
+            <app-country-field [id]="'invoiceCountry'" [countryControl]="getFormControl('invoiceCountry')" [submitted]="submitted"></app-country-field>
           </div>
         </div>
 
@@ -201,31 +151,3 @@
 </div>
 <!-- End Modal -->
 
-<!-- Modal user password-->
-<div class="modal fade" id="userPassword" tabindex="-1" role="dialog" aria-labelledby="userPassword" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="userPasswordLabel">Information</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Le mot de passe est obligatoire uniquement lors de la création ou de la modification du mot de passe d'un compte existant.</p>
-        <div>
-          <p>Le mot de passe doit respecter les critères suivants :</p>
-          <ul>
-            <li>Contenir au moins une lettre majuscule</li>
-            <li>Contenir au moins une lettre minuscule</li>
-            <li>Contenir au moins un chiffre</li>
-            <li>Avoir une longueur minimale de 8 caractères</li>
-            <li>Autoriser les caractères spéciaux suivants : - + _ ! ?</li>
-          </ul>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Modal -->

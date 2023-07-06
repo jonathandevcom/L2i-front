@@ -4,7 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
-import { passwordValidator } from '../../form/validators';
+import { passwordValidator, matchPasswordValidator } from '../../form/validators';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      civility: new FormControl(null, Validators.required),
+      civility: ['', Validators.required],
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       street: ['', [Validators.required, Validators.minLength(3)]],
@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
       country: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, passwordValidator()]],
-      confirmPassword: ['', [Validators.required, this.matchPasswordValidator()]],
+      confirmPassword: ['', [Validators.required, matchPasswordValidator()]],
     });
   }
 
@@ -67,26 +67,6 @@ export class SignupComponent implements OnInit {
       }
       this.alertService.showAlert(message, 'cart-error');
     });
-  }
-
-  matchPasswordValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const password = control.parent?.get('password')?.value;
-      const confirmPassword = control.value;
-      if (password !== confirmPassword) {
-        return { passwordNotMatch: true };
-      }
-      return null;
-    };
-  }
-
-  displayConfirmPassword() {
-    const x = document.getElementById("confirmPassword");
-    if (x?.getAttribute("type") === "password") {
-      x.setAttribute("type", "text");
-    } else {
-      x?.setAttribute("type", "password");
-    }
   }
 
   getFormControl(name: string): FormControl {

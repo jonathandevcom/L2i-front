@@ -2,12 +2,13 @@ import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-lastname-field',
-  templateUrl: './lastname-field.component.html',
+  selector: 'app-email-field',
+  templateUrl: './email-field.component.html',
 })
-export class LastnameFieldComponent {
-  @Input() lastNameControl!: FormControl;
+export class EmailFieldComponent {
+
+  @Input() emailControl!: FormControl;
   @Input() submitted!: boolean;
   @Input() id!: string;
-}
 
+}

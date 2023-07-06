@@ -29,6 +29,13 @@ import { SelectCivilityComponent } from './form/select-civility/select-civility.
 import { PasswordFieldComponent } from './form/password-field/password-field.component';
 import { FirstnameFieldComponent } from './form/firstname-field/firstname-field.component';
 import { LastnameFieldComponent } from './form/lastname-field/lastname-field.component';
+import { StreetFieldComponent } from './form/street-field/street-field.component';
+import { AddressComplementFieldComponent } from './form/address-complement-field/address-complement-field.component';
+import { ZipCodeFieldComponent } from './form/zip-code-field/zip-code-field.component';
+import { CityFieldComponent } from './form/city-field/city-field.component';
+import { EmailFieldComponent } from './form/email-field/email-field.component';
+import { CountryFieldComponent } from './form/country-field/country-field.component';
+import { ConfirmPasswordFieldComponent } from './form/confirm-password-field/confirm-password-field.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +62,14 @@ import { LastnameFieldComponent } from './form/lastname-field/lastname-field.com
     SelectCivilityComponent,
     PasswordFieldComponent,
     FirstnameFieldComponent,
-    LastnameFieldComponent
+    LastnameFieldComponent,
+    StreetFieldComponent,
+    AddressComplementFieldComponent,
+    ZipCodeFieldComponent,
+    CityFieldComponent,
+    EmailFieldComponent,
+    CountryFieldComponent,
+    ConfirmPasswordFieldComponent
   ],
   imports: [
     BrowserModule,

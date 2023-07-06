@@ -1,0 +1,10 @@
+<div class="mb-4 form-group">
+  <label class="form-label" [for]="id">Pays<span class="text-danger">*</span></label>
+  <input [formControl]="countryControl" [ngClass]="{'is-invalid':submitted && countryControl.invalid}" type="text" class="form-control form-control-lg" name="country" [id]="id" placeholder="France" aria-label="France">
+  <div *ngIf="submitted && countryControl.errors?.['required']" class="text-danger">
+    Merci de saisir votre pays.
+  </div>
+  <div *ngIf="submitted && countryControl.errors?.['minlength']" class="text-danger">
+    Le pays doit comporter au moins 3 lettres.
+  </div>
+</div>
