@@ -29,12 +29,12 @@ export class UsersComponent implements OnInit {
     this.getUsers();
 
     this.userForm = this.formBuilder.group({
-      civility: new FormControl(null, Validators.required),
+      civility: ['', Validators.required],
       userFirstname: ['', Validators.required],
       userLastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       type: ['', Validators.required],
-      password: ['', passwordValidator()],
+      password: [''],
       isAccess: [true],
       deliveryStreet: [''],
       deliveryAddressComplement: [''],
@@ -178,9 +178,18 @@ export class UsersComponent implements OnInit {
 
   updateUser() {
     const id: string| null  = this.route.snapshot.paramMap.get('id');
+    Object.keys(this.userForm.controls).forEach(key => {
+      const control = this.userForm.get(key);
+      console.log(key, control!.value);
+      console.log(key, control!.valid);
+    });
+
+
+
     if (this.userForm.invalid) {
       return;
     }
+    alert("update");
     const formValues = this.userForm.value;
     const userData = {
       civility: formValues.civility,
