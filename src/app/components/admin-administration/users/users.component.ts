@@ -189,7 +189,6 @@ export class UsersComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-    alert("update");
     const formValues = this.userForm.value;
     const userData = {
       civility: formValues.civility,
