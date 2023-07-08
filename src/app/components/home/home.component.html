@@ -7,7 +7,7 @@
         <!-- Heading -->
         <div class="mb-5">
           <h1 class="display-4">Livre de formation</h1>
-          <p>Le numérique vous interesse ? Ici vous trouverez tous nos livres.</p>
+          <p>Le numérique vous intéresse ? Ici vous trouverez tous nos livres.</p>
         </div>
         <!-- End Heading -->
         <form (submit)="searchArticle($event)">
@@ -85,7 +85,7 @@
             <div class="input-card input-card-sm">
               <div class="input-card-form">
                 <label for="searchAuthorValue" class="form-label visually-hidden">Vous chercher un auteur ?</label>
-                <input type="text" class="form-control form-control-lg" list="datalistOptions1" id="searchAuthorValue" placeholder="Vous chercher un autheur ?" aria-label="Vous chercher un autheur ?">
+                <input type="text" class="form-control form-control-lg" list="datalistOptions1" id="searchAuthorValue" placeholder="Vous chercher un auteur ?" aria-label="Vous chercher un auteur ?">
                 <datalist id="datalistOptions1">
                   <option *ngFor="let author of authorList" [value]="author.firstname + ' ' + author.lastname"></option>
                 </datalist>
